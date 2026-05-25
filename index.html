@@ -670,9 +670,9 @@
     ───────────────────────────────────────────────── -->
     <div class="hero-bio anim d3">
       <p>
-        <strong>Mechatronics &amp; Embedded engineer</strong> based in Brooklyn, NY.
-        I build robotic hardware that moves, the firmware that drives it,
-        and the systems holding them together.
+        <strong>Mechatronics &amp; Embedded Engineer</strong> based in Brooklyn, NY.
+        I build the robotic hardware that moves, the firmware that drives it,
+        and the systems that hold it all together.
       </p>
       <a href="#about" class="hero-cta">Read full bio <span class="arrow">→</span></a>
     </div>
@@ -694,7 +694,26 @@
       <div class="project-image">
         <!-- TO USE A REAL PHOTO: replace the <svg>…</svg> below with:
              <img src="images/sisyphus-table.jpg" alt="Sisyphus Table" />  -->
-        <img src="images/imagine rit.jpg"/>
+        <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+          <rect width="400" height="300" fill="#F0EFEB" />
+          <g transform="translate(200 150)" fill="none" stroke="#9A9A9A" stroke-width="0.6">
+            <circle r="110" />
+            <circle r="92" />
+            <circle r="74" />
+            <circle r="56" />
+            <circle r="38" />
+            <circle r="20" />
+            <path d="M 0 -110 A 110 110 0 1 1 -0.1 -110" stroke="#1A1A1A" stroke-width="0.8" stroke-dasharray="600" stroke-dashoffset="0">
+              <animate attributeName="stroke-dashoffset" from="600" to="0" dur="6s" repeatCount="indefinite" />
+            </path>
+          </g>
+          <g transform="translate(200 150)" fill="none" stroke="#1A1A1A" stroke-width="0.7">
+            <path d="M -100 0 C -60 -80, 60 80, 100 0 C 60 -80, -60 80, -100 0 Z" opacity="0.7" />
+            <path d="M -70 0 C -42 -56, 42 56, 70 0 C 42 -56, -42 56, -70 0 Z" opacity="0.5" />
+            <path d="M -40 0 C -24 -32, 24 32, 40 0 C 24 -32, -24 32, -40 0 Z" opacity="0.35" />
+          </g>
+          <circle cx="200" cy="150" r="3" fill="#1A1A1A" />
+        </svg>
       </div>
       <div class="project-stats">
         <div class="stat-row"><span class="label">FIRMWARE</span><span class="value">ESP32 / C++</span></div>
@@ -891,7 +910,7 @@
             <path d="M 322 200 L 478 200" />
           </g>
           <g font-family="JetBrains Mono" font-size="8" fill="#9A9A9A">
-            <text x="30" y="370">UART BROADCAST · 9600 8N1</text>
+            <text x="30" y="370">UART BROADCAST · 115200 8N1</text>
             <text x="430" y="370">FLOW BALANCE · LOCAL</text>
           </g>
         </svg>
@@ -1098,7 +1117,7 @@
       <div class="about-body">
         <p>I'm a dual-degree engineering student at RIT, splitting my time between Mechatronics and Computer Engineering Technology. Most of my work lives in the seam between physical hardware and the firmware that keeps it honest — motor control, sensor fusion, embedded ML, and the protocols holding them all together.</p>
         <p>I've shipped projects in three countries — automated parcel sortation at USPS Atlanta, NOX module testing with Toyota in Tokyo, and a few hundred Wood Shop students in Rochester. I like systems that are clean enough to explain in one sentence, and stubborn enough to survive the real world.</p>
-        <p>Outside of school I run the SHED makerspace as a mentor, tutor multivariable calc &amp; physics, and tinker on whatever robot I can fit in a carry-on.</p>
+        <p>Outside of school, I work at the SHED makerspace as a mentor, tutor multivariable calc &amp; physics, and tinker on whatever robot I can fit in a carry-on.</p>
       </div>
     </div>
 
