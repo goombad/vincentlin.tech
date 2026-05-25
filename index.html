@@ -289,39 +289,149 @@
     text-align: right;
   }
 
-  /* SKILLS */
-  .skills {
+  /* ABOUT / PROFILE */
+  .about {
     border-top: 1px solid var(--line);
     padding-top: 100px;
   }
 
-  .skills-grid {
+  .about-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 48px;
+    grid-template-columns: 1.6fr 1fr;
+    gap: 80px;
+    align-items: start;
   }
 
-  .skill-col h4 {
+  .about-meta {
+    padding-top: 60px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .meta-row {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 24px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    align-items: baseline;
+  }
+  .meta-row:first-child { border-top: 1px solid var(--line); }
+
+  .meta-row .k { color: var(--mid); letter-spacing: 1.5px; font-size: 10px; }
+  .meta-row .v { color: var(--ink); }
+
+  .about-left {
+    padding: 16px 8px 0 0;
+  }
+
+  .about-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--mid);
+    margin-bottom: 28px;
+  }
+
+  .about-headline {
+    font-size: clamp(28px, 3vw, 38px);
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    line-height: 1.15;
+    color: var(--ink);
+    margin-bottom: 32px;
+  }
+
+  .about-headline em {
+    font-family: 'Hanken Grotesk', serif;
+    font-style: italic;
+    font-weight: 400;
+    color: var(--mid);
+  }
+
+  .about-body p {
+    font-size: 15.5px;
+    line-height: 1.65;
+    color: var(--ink-soft);
+    margin-bottom: 18px;
+    max-width: 520px;
+  }
+
+  .about-body p:last-child { margin-bottom: 0; }
+
+  .about-panel {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    padding: 32px 36px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 24px;
+  }
+
+  .panel-title {
     font-family: 'JetBrains Mono', monospace;
     font-size: 11px;
     letter-spacing: 2px;
     color: var(--ink);
-    margin-bottom: 24px;
-    padding-bottom: 16px;
-    border-bottom: 1px solid var(--line);
   }
 
-  .skill-list {
+  .panel-status {
     display: flex;
-    flex-direction: column;
-    gap: 12px;
+    align-items: center;
+    gap: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    color: var(--mid);
   }
 
-  .skill-list li {
-    list-style: none;
-    font-size: 14px;
-    color: var(--ink-soft);
-    letter-spacing: -0.005em;
+  .panel-status .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.18);
+    animation: pulse 2.4s ease-in-out infinite;
+  }
+
+  .panel-row {
+    display: grid;
+    grid-template-columns: 110px 1fr;
+    gap: 24px;
+    padding: 12px 0;
+    border-bottom: 1px dashed var(--line);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11.5px;
+    letter-spacing: 0.5px;
+    align-items: baseline;
+  }
+  .panel-row:last-of-type { border-bottom: none; }
+
+  .panel-row .k { color: var(--mid); letter-spacing: 1.5px; font-size: 10px; }
+  .panel-row .v { color: var(--ink); line-height: 1.55; }
+  .panel-row .v small { color: var(--mid); font-size: 10px; display: block; margin-top: 3px; }
+
+  .panel-footer {
+    margin-top: 24px;
+    padding-top: 18px;
+    border-top: 1px solid var(--line);
+    display: flex;
+    justify-content: space-between;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    color: var(--mid-2);
   }
 
   /* EDUCATION + CERTS strip */
@@ -484,7 +594,9 @@
     .project-card.full-width .project-image { min-height: 240px; }
     .exp-item { grid-template-columns: 1fr; gap: 8px; padding: 24px 0; }
     .exp-tag { text-align: left; }
-    .skills-grid { grid-template-columns: 1fr; gap: 32px; }
+    .about-grid { grid-template-columns: 1fr; gap: 40px; }
+    .about-meta { padding-top: 0; }
+    .meta-row { grid-template-columns: 100px 1fr; gap: 16px; }
     .edu-grid { grid-template-columns: 1fr; gap: 48px; }
     footer { padding: 56px 24px 32px; }
     .footer-bottom { flex-direction: column; align-items: flex-start; gap: 24px; }
@@ -499,8 +611,7 @@
   <div class="nav-links">
     <a href="#projects">PROJECTS</a>
     <a href="#experience">EXPERIENCE</a>
-    <a href="#skills">SKILLS</a>
-    <a href="#contact">CONTACT</a>
+    <a href="#about">ABOUT</a>
   </div>
 </nav>
 
@@ -727,97 +838,32 @@
   </div>
 </section>
 
-<!-- SKILLS -->
-<section id="skills" class="skills">
-  <p class="section-label">CAPABILITIES</p>
-  <div class="skills-grid">
-    <div class="skill-col">
-      <h4>SOFTWARE</h4>
-      <ul class="skill-list">
-        <li>C / C++</li>
-        <li>Python</li>
-        <li>OpenCV</li>
-        <li>PyTorch</li>
-        <li>MATLAB</li>
-        <li>Git</li>
-        <li>Linux</li>
-        <li>Minitab</li>
-      </ul>
-    </div>
-    <div class="skill-col">
-      <h4>ROBOTICS &amp; EMBEDDED</h4>
-      <ul class="skill-list">
-        <li>ROS2 / micro-ROS</li>
-        <li>ARM / AVR microcontrollers</li>
-        <li>Arduino · PlatformIO</li>
-        <li>UART · I²C · SPI</li>
-        <li>Wi-Fi / Bluetooth modules</li>
-        <li>ABB RobotStudio · Robotic Arms</li>
-        <li>Allen Bradley PLC · Studio 5000</li>
-        <li>TinyML · Edge Impulse · NI Multisim</li>
-      </ul>
-    </div>
-    <div class="skill-col">
-      <h4>MECHANICAL</h4>
-      <ul class="skill-list">
-        <li>Autodesk Inventor</li>
-        <li>SolidWorks · Fusion 360</li>
-        <li>AutoCAD</li>
-        <li>GD&amp;T</li>
-        <li>CNC Mill · Machine Shop</li>
-        <li>Laser Cutting · 3D Printing</li>
-        <li>Lean Six Sigma</li>
-        <li>Statistical Design of Experiments</li>
-      </ul>
-    </div>
-  </div>
-</section>
+<!-- ABOUT / PROFILE -->
+<section id="about" class="about">
+  <p class="section-label">ABOUT / PROFILE</p>
+  <div class="about-grid">
 
-<!-- EDUCATION & CERTS -->
-<section id="education" class="education">
-  <p class="section-label">EDUCATION / CERTIFICATIONS</p>
-  <div class="edu-grid">
-    <div class="edu-block">
-      <h3 class="edu-title">Rochester Institute of Technology</h3>
-      <p class="edu-sub">Rochester, NY · GPA 3.41 · Aug 2022 — May 2027</p>
-      <div class="edu-line"><span class="name">B.S. Mechatronics Engineering Technology</span><span class="date">MAY 2026</span></div>
-      <div class="edu-line"><span class="name">B.S. Computer Engineering Technology</span><span class="date">MAY 2027</span></div>
-      <div style="margin-top: 28px;">
-        <span class="award-tag">DEAN'S LIST</span>
-        <span class="award-tag">UNCOMMON HACKS '26 · 1ST</span>
-        <span class="award-tag">AP SCHOLAR</span>
+    <div class="about-left">
+      <p class="about-eyebrow">[ 003 / FROM THE ENGINEER ]</p>
+      <h3 class="about-headline">I build things that <em>move, sense,</em> and <em>think</em> for themselves.</h3>
+      <div class="about-body">
+        <p>I'm a dual-degree engineering student at RIT, splitting my time between Mechatronics and Computer Engineering Technology. Most of my work lives in the seam between physical hardware and the firmware that keeps it honest — motor control, sensor fusion, embedded ML, and the protocols holding them all together.</p>
+        <p>I've shipped projects in three countries — automated parcel sortation at USPS Atlanta, NOX module testing with Toyota in Tokyo, and a few hundred Wood Shop students in Rochester. I like systems that are clean enough to explain in one sentence, and stubborn enough to survive the real world.</p>
+        <p>Outside of school I run the SHED makerspace as a mentor, tutor multivariable calc &amp; physics, and tinker on whatever robot I can fit in a carry-on.</p>
       </div>
     </div>
-    <div class="edu-block">
-      <h3 class="edu-title">Certifications</h3>
-      <p class="edu-sub">Industry credentials and methodology</p>
-      <div class="edu-line"><span class="name">Lean Six Sigma — Yellow Belt</span><span class="date">MAY 2025</span></div>
-      <div class="edu-line"><span class="name">SolidWorks Associate — Mechanical Design</span><span class="date">JUN 2023</span></div>
-      <div class="edu-line"><span class="name">Autodesk Inventor Certified User</span><span class="date">MAY 2022</span></div>
+
+    <div class="about-meta">
+      <div class="meta-row"><span class="k">BASED</span><span class="v">Rochester, NY</span></div>
+      <div class="meta-row"><span class="k">FOCUS</span><span class="v">Mechatronics · Embedded</span></div>
+      <div class="meta-row"><span class="k">STACK</span><span class="v">C++ · Python · ESP32 · ROS2</span></div>
+      <div class="meta-row"><span class="k">CURRENTLY</span><span class="v">Polar CNC sand table</span></div>
     </div>
+
   </div>
 </section>
 
-<!-- FOOTER -->
-<footer id="contact">
-  <p class="footer-label">CONTACT / AVAILABILITY</p>
-  <div class="footer-avail">
-    <span class="dot"></span>
-    Available for full-time roles · Class of 2027
-  </div>
-  <a href="mailto:vcl3345@rit.edu" class="footer-email">vcl3345@rit.edu</a>
-  <div class="footer-bottom">
-    <div class="footer-links">
-      <a href="https://github.com/goombad" target="_blank" rel="noopener">GITHUB</a>
-      <a href="https://linkedin.com/in/vincent-lin-513ba4197" target="_blank" rel="noopener">LINKEDIN</a>
-      <a href="tel:+19292905235">+1 (929) 290-5235</a>
-    </div>
-    <div class="footer-build">
-      <div class="top">SYSTEM BUILD</div>
-      <div>v1.0.0-STABLE // 2026.05.25</div>
-    </div>
-  </div>
-</footer>
+<div style="height: 120px;"></div>
 
 </body>
 </html>
