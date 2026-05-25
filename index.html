@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Vincent Lin — Mechatronics / Computer Engineering</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #FAFAF8;
+    --panel: #FFFFFF;
+    --ink: #0A0A0A;
+    --ink-soft: #1A1A1A;
+    --mid: #8C8C8C;
+    --mid-2: #B8B8B8;
+    --line: #E6E4DF;
+    --line-strong: #D4D2CC;
+    --accent: #22C55E;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Hanken Grotesk', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    font-weight: 400;
+    letter-spacing: -0.005em;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .mono {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 400;
+    letter-spacing: 0;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 50;
+    background: rgba(250, 250, 248, 0.78);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+    padding: 18px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .logo {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .nav-links { display: flex; gap: 56px; }
+  .nav-links a {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--ink);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--mid); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 120px 48px 120px;
+    text-align: center;
+    position: relative;
+  }
+
+  .hero-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--mid);
+    margin-bottom: 56px;
+  }
+
+  h1 {
+    font-size: clamp(48px, 7vw, 96px);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 1.02;
+    color: var(--ink);
+    margin-bottom: 40px;
+    max-width: 1100px;
+  }
+
+  .hero-sub {
+    font-size: 17px;
+    line-height: 1.55;
+    color: var(--mid);
+    max-width: 540px;
+    font-weight: 400;
+  }
+
+  .hero-corner {
+    position: absolute;
+    bottom: 56px;
+    left: 48px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    color: var(--mid-2);
+    line-height: 1.7;
+  }
+
+  .hero-corner-r {
+    left: auto;
+    right: 48px;
+    text-align: right;
+  }
+
+  /* SECTION SHELL */
+  section {
+    padding: 100px 48px;
+    max-width: 1440px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--ink);
+    margin-bottom: 56px;
+  }
+
+  /* PROJECTS */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  .project-card {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    padding: 48px 48px 40px;
+    display: flex;
+    flex-direction: column;
+    transition: border-color 0.3s, transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .project-card:hover { border-color: var(--line-strong); transform: translateY(-2px); }
+
+  .project-card.full-width {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 56px;
+    padding: 48px;
+  }
+
+  .project-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--mid);
+    margin-bottom: 28px;
+  }
+
+  .project-title {
+    font-size: 26px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    margin-bottom: 16px;
+  }
+
+  .project-desc {
+    font-size: 14.5px;
+    color: var(--mid);
+    line-height: 1.55;
+    margin-bottom: 32px;
+    max-width: 460px;
+  }
+
+  .project-card.full-width .project-desc { margin-bottom: 36px; }
+
+  .project-image {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    background: #F0EFEB;
+    margin-bottom: 32px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .project-card.full-width .project-image {
+    margin-bottom: 0;
+    aspect-ratio: auto;
+    height: 100%;
+    min-height: 320px;
+  }
+
+  .project-image svg { width: 100%; height: 100%; display: block; }
+
+  .project-stats {
+    margin-top: auto;
+    padding-top: 24px;
+    border-top: 1px solid var(--line);
+  }
+
+  .stat-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+  }
+
+  .stat-row .label { color: var(--mid); }
+  .stat-row .value { color: var(--ink); }
+
+  /* EXPERIENCE */
+  .experience {
+    border-top: 1px solid var(--line);
+    padding-top: 100px;
+  }
+
+  .exp-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .exp-item {
+    display: grid;
+    grid-template-columns: 140px 1fr 1fr 180px;
+    gap: 40px;
+    padding: 36px 0;
+    border-bottom: 1px solid var(--line);
+    align-items: baseline;
+    transition: padding-left 0.3s;
+  }
+  .exp-item:first-child { border-top: 1px solid var(--line); }
+  .exp-item:hover { padding-left: 16px; }
+
+  .exp-date {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 1px;
+    color: var(--mid);
+  }
+
+  .exp-role {
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+
+  .exp-company {
+    font-size: 14.5px;
+    color: var(--mid);
+    font-style: italic;
+  }
+
+  .exp-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    color: var(--mid);
+    text-align: right;
+  }
+
+  /* SKILLS */
+  .skills {
+    border-top: 1px solid var(--line);
+    padding-top: 100px;
+  }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 48px;
+  }
+
+  .skill-col h4 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--ink);
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .skill-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .skill-list li {
+    list-style: none;
+    font-size: 14px;
+    color: var(--ink-soft);
+    letter-spacing: -0.005em;
+  }
+
+  /* EDUCATION + CERTS strip */
+  .education {
+    border-top: 1px solid var(--line);
+    padding-top: 100px;
+  }
+
+  .edu-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+  }
+
+  .edu-block .edu-title {
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin-bottom: 6px;
+  }
+
+  .edu-block .edu-sub {
+    font-size: 14.5px;
+    color: var(--mid);
+    margin-bottom: 28px;
+  }
+
+  .edu-line {
+    display: flex;
+    justify-content: space-between;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 14.5px;
+  }
+  .edu-line:first-of-type { border-top: 1px solid var(--line); }
+  .edu-line .name { color: var(--ink); }
+  .edu-line .date { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--mid); letter-spacing: 1px; }
+
+  .award-tag {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    color: var(--mid);
+    padding: 6px 10px;
+    border: 1px solid var(--line);
+    margin-right: 6px;
+    margin-bottom: 6px;
+  }
+
+  /* FOOTER */
+  footer {
+    margin-top: 80px;
+    border-top: 1px solid var(--line);
+    padding: 80px 48px 48px;
+    max-width: 1440px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .footer-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--mid);
+    margin-bottom: 28px;
+  }
+
+  .footer-avail {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 40px;
+    font-size: 14px;
+    color: var(--ink-soft);
+  }
+
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.18);
+    animation: pulse 2.4s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.18); }
+    50% { box-shadow: 0 0 0 8px rgba(34, 197, 94, 0.05); }
+  }
+
+  .footer-email {
+    font-size: clamp(32px, 4vw, 52px);
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    color: var(--ink);
+    text-decoration: none;
+    display: inline-block;
+    margin-bottom: 56px;
+    transition: color 0.2s;
+  }
+  .footer-email:hover { color: var(--mid); }
+
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding-top: 40px;
+    border-top: 1px solid var(--line);
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 36px;
+  }
+
+  .footer-links a {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    color: var(--ink);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer-links a:hover { color: var(--mid); }
+
+  .footer-build {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    color: var(--mid-2);
+    text-align: right;
+    line-height: 1.7;
+  }
+  .footer-build .top { color: var(--mid); }
+
+  /* ANIM */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .anim { animation: fadeUp 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+  .d1 { animation-delay: 0.1s; }
+  .d2 { animation-delay: 0.25s; }
+  .d3 { animation-delay: 0.4s; }
+  .d4 { animation-delay: 0.55s; }
+
+  @media (max-width: 1000px) {
+    nav { padding: 16px 24px; }
+    .nav-links { gap: 24px; }
+    .nav-links a:nth-child(n+4) { display: none; }
+    .hero { padding: 100px 24px; }
+    .hero-corner { left: 24px; bottom: 24px; }
+    .hero-corner-r { right: 24px; }
+    section { padding: 64px 24px; }
+    .projects-grid { grid-template-columns: 1fr; }
+    .project-card.full-width { grid-template-columns: 1fr; gap: 32px; padding: 32px; }
+    .project-card { padding: 32px; }
+    .project-card.full-width .project-image { min-height: 240px; }
+    .exp-item { grid-template-columns: 1fr; gap: 8px; padding: 24px 0; }
+    .exp-tag { text-align: left; }
+    .skills-grid { grid-template-columns: 1fr; gap: 32px; }
+    .edu-grid { grid-template-columns: 1fr; gap: 48px; }
+    footer { padding: 56px 24px 32px; }
+    .footer-bottom { flex-direction: column; align-items: flex-start; gap: 24px; }
+    .footer-build { text-align: left; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="logo">V. LIN</a>
+  <div class="nav-links">
+    <a href="#projects">PROJECTS</a>
+    <a href="#experience">EXPERIENCE</a>
+    <a href="#skills">SKILLS</a>
+    <a href="#contact">CONTACT</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-corner">
+    NY → ATL → TYO<br />
+    LAT 43.0848°N<br />
+    LON 77.6743°W
+  </div>
+  <div class="hero-corner hero-corner-r">
+    PORTFOLIO / 2026<br />
+    INDEX 001 / 004<br />
+    STATUS: ACTIVE
+  </div>
+
+  <p class="hero-tag anim d1">[ MECHATRONICS / COMPUTER ENGINEERING ]</p>
+  <h1 class="anim d2">Engineering<br />systems that move.</h1>
+  <p class="hero-sub anim d3">
+    Designing the intersection of robotic hardware, embedded firmware,
+    and the data systems that hold them together.
+  </p>
+</div>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <p class="section-label">SELECTED PROJECTS</p>
+  <div class="projects-grid">
+
+    <!-- 01 -->
+    <div class="project-card">
+      <p class="project-num">PROJECT 01</p>
+      <h3 class="project-title">Automated SVG Sisyphus Table</h3>
+      <p class="project-desc">A polar CNC sand table driven by a custom SVG-to-G-code converter, ESP32 firmware, and Python serial bridge for live pattern streaming.</p>
+      <div class="project-image">
+        <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+          <rect width="400" height="300" fill="#F0EFEB" />
+          <g transform="translate(200 150)" fill="none" stroke="#9A9A9A" stroke-width="0.6">
+            <circle r="110" />
+            <circle r="92" />
+            <circle r="74" />
+            <circle r="56" />
+            <circle r="38" />
+            <circle r="20" />
+            <path d="M 0 -110 A 110 110 0 1 1 -0.1 -110" stroke="#1A1A1A" stroke-width="0.8" stroke-dasharray="600" stroke-dashoffset="0">
+              <animate attributeName="stroke-dashoffset" from="600" to="0" dur="6s" repeatCount="indefinite" />
+            </path>
+          </g>
+          <g transform="translate(200 150)" fill="none" stroke="#1A1A1A" stroke-width="0.7">
+            <path d="M -100 0 C -60 -80, 60 80, 100 0 C 60 -80, -60 80, -100 0 Z" opacity="0.7" />
+            <path d="M -70 0 C -42 -56, 42 56, 70 0 C 42 -56, -42 56, -70 0 Z" opacity="0.5" />
+            <path d="M -40 0 C -24 -32, 24 32, 40 0 C 24 -32, -24 32, -40 0 Z" opacity="0.35" />
+          </g>
+          <circle cx="200" cy="150" r="3" fill="#1A1A1A" />
+        </svg>
+      </div>
+      <div class="project-stats">
+        <div class="stat-row"><span class="label">FIRMWARE</span><span class="value">ESP32 / C++</span></div>
+        <div class="stat-row"><span class="label">DRIVER</span><span class="value">NEMA17</span></div>
+        <div class="stat-row"><span class="label">PIPELINE</span><span class="value">SVG → G-CODE</span></div>
+      </div>
+    </div>
+
+    <!-- 02 -->
+    <div class="project-card">
+      <p class="project-num">PROJECT 02</p>
+      <h3 class="project-title">PACK-E Autonomous Retrieval</h3>
+      <p class="project-desc">A real-time object detection and retrieval robot running a fine-tuned FOMO model on ESP32-S3, with ultrasonic sensing and UART inference feedback.</p>
+      <div class="project-image">
+        <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+          <rect width="400" height="300" fill="#F0EFEB" />
+          <g transform="translate(0 50)" stroke="#9A9A9A" stroke-width="0.5" fill="none">
+            <path d="M 40 200 L 360 200" />
+            <path d="M 40 200 L 40 40 L 360 40 L 360 200" />
+            <path d="M 40 80 L 360 80" stroke-dasharray="3 3" />
+            <path d="M 40 120 L 360 120" stroke-dasharray="3 3" />
+            <path d="M 40 160 L 360 160" stroke-dasharray="3 3" />
+          </g>
+          <rect x="120" y="180" width="40" height="35" fill="none" stroke="#1A1A1A" stroke-width="1.2" />
+          <text x="123" y="175" font-family="JetBrains Mono" font-size="8" fill="#1A1A1A">cube · 0.94</text>
+          <rect x="220" y="195" width="55" height="40" fill="none" stroke="#1A1A1A" stroke-width="1.2" />
+          <text x="223" y="190" font-family="JetBrains Mono" font-size="8" fill="#1A1A1A">cube · 0.88</text>
+          <rect x="65" y="200" width="30" height="25" fill="none" stroke="#9A9A9A" stroke-width="1" stroke-dasharray="2 2" />
+          <g transform="translate(180 100)">
+            <rect x="-30" y="-15" width="60" height="30" rx="3" fill="#1A1A1A" />
+            <circle cx="-20" cy="20" r="6" fill="#1A1A1A" />
+            <circle cx="20" cy="20" r="6" fill="#1A1A1A" />
+            <rect x="-3" y="-22" width="6" height="10" fill="#1A1A1A" />
+            <circle cx="0" cy="-22" r="3" fill="#9A9A9A" />
+          </g>
+          <text x="20" y="280" font-family="JetBrains Mono" font-size="9" fill="#9A9A9A">FRAME · 1242 / FPS 14</text>
+        </svg>
+      </div>
+      <div class="project-stats">
+        <div class="stat-row"><span class="label">PLATFORM</span><span class="value">ESP32-S3</span></div>
+        <div class="stat-row"><span class="label">MODEL</span><span class="value">FOMO / TFLITE</span></div>
+        <div class="stat-row"><span class="label">STATUS</span><span class="value">PAUSED</span></div>
+      </div>
+    </div>
+
+    <!-- 03 - full width -->
+    <div class="project-card full-width">
+      <div>
+        <p class="project-num">PROJECT 03</p>
+        <h3 class="project-title">Automated Blast Gate Network</h3>
+        <p class="project-desc">Electrical/Embedded systems lead on a fleet of "smart" blast gates for the SHED Wood Shop. Closed-loop positioning, broadcast UART protocol, and locally-computed flow balancing across nodes — no central controller.</p>
+        <div class="project-stats">
+          <div class="stat-row"><span class="label">DRIVER</span><span class="value">L298N</span></div>
+          <div class="stat-row"><span class="label">PROTOCOL</span><span class="value">8N1 UART · BROADCAST</span></div>
+          <div class="stat-row"><span class="label">CONTROL</span><span class="value">CLOSED-LOOP</span></div>
+          <div class="stat-row"><span class="label">SCOPE</span><span class="value">JAN — MAY 2026</span></div>
+        </div>
+      </div>
+      <div class="project-image">
+        <svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+          <rect width="600" height="400" fill="#F0EFEB" />
+          <!-- network diagram -->
+          <g stroke="#9A9A9A" stroke-width="0.5" fill="none">
+            <path d="M 0 200 L 600 200" />
+            <path d="M 100 100 L 100 300" />
+            <path d="M 300 100 L 300 300" />
+            <path d="M 500 100 L 500 300" />
+          </g>
+          <g stroke="#1A1A1A" stroke-width="1.2" fill="#F0EFEB">
+            <circle cx="100" cy="200" r="22" />
+            <circle cx="300" cy="200" r="22" />
+            <circle cx="500" cy="200" r="22" />
+            <circle cx="200" cy="100" r="14" />
+            <circle cx="400" cy="100" r="14" />
+            <circle cx="200" cy="300" r="14" />
+            <circle cx="400" cy="300" r="14" />
+          </g>
+          <g font-family="JetBrains Mono" font-size="9" fill="#1A1A1A" text-anchor="middle">
+            <text x="100" y="203">N1</text>
+            <text x="300" y="203">N2</text>
+            <text x="500" y="203">N3</text>
+          </g>
+          <g stroke="#1A1A1A" stroke-width="0.8" stroke-dasharray="4 3" fill="none">
+            <path d="M 122 200 L 278 200" />
+            <path d="M 322 200 L 478 200" />
+          </g>
+          <g font-family="JetBrains Mono" font-size="8" fill="#9A9A9A">
+            <text x="30" y="370">UART BROADCAST · 9600 8N1</text>
+            <text x="430" y="370">FLOW BALANCE · LOCAL</text>
+          </g>
+        </svg>
+      </div>
+    </div>
+
+    <!-- 04 -->
+    <div class="project-card">
+      <p class="project-num">PROJECT 04</p>
+      <h3 class="project-title">RC Tank &amp; Bluetooth Bridge</h3>
+      <p class="project-desc">Fully CADed, 3D-printed analog joystick tank platform. Custom H-bridge driver built from P-MOS / N-MOS for all four motion states, with HC-05 Bluetooth and I²C telemetry.</p>
+      <div class="project-image">
+        <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+          <rect width="400" height="300" fill="#F0EFEB" />
+          <g stroke="#1A1A1A" stroke-width="1.3" fill="none" transform="translate(120 110)">
+            <!-- tank chassis -->
+            <rect x="0" y="0" width="160" height="60" />
+            <rect x="20" y="-18" width="120" height="22" />
+            <circle cx="80" cy="-8" r="3" fill="#1A1A1A"/>
+            <!-- treads -->
+            <ellipse cx="20" cy="68" rx="22" ry="11" />
+            <ellipse cx="80" cy="68" rx="22" ry="11" />
+            <ellipse cx="140" cy="68" rx="22" ry="11" />
+            <ellipse cx="50" cy="68" rx="22" ry="11" />
+            <ellipse cx="110" cy="68" rx="22" ry="11" />
+          </g>
+          <g stroke="#9A9A9A" stroke-width="0.5" fill="none" stroke-dasharray="2 3">
+            <path d="M 50 250 Q 200 280 350 250" />
+          </g>
+          <g font-family="JetBrains Mono" font-size="8" fill="#9A9A9A">
+            <text x="30" y="40">HC-05</text>
+            <text x="320" y="40">H-BRIDGE</text>
+            <text x="320" y="280" text-anchor="end">I²C TELEMETRY</text>
+          </g>
+        </svg>
+      </div>
+      <div class="project-stats">
+        <div class="stat-row"><span class="label">CONTROLLER</span><span class="value">ARDUINO MEGA</span></div>
+        <div class="stat-row"><span class="label">DRIVER</span><span class="value">P-MOS / N-MOS</span></div>
+        <div class="stat-row"><span class="label">LINK</span><span class="value">HC-05 · I²C</span></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience" class="experience">
+  <p class="section-label">EXPERIENCE</p>
+  <div class="exp-list">
+    <div class="exp-item">
+      <div class="exp-date">SEP — DEC 2025</div>
+      <div class="exp-role">Robotics Automation Field Engineer</div>
+      <div class="exp-company">Retiina / USPS Atlanta RPDC</div>
+      <div class="exp-tag">[ FIELD OPS ]</div>
+    </div>
+    <div class="exp-item">
+      <div class="exp-date">MAY — AUG 2025</div>
+      <div class="exp-role">Design &amp; Manufacturing Intern</div>
+      <div class="exp-company">Electronic Hardware Corporation</div>
+      <div class="exp-tag">[ HARDWARE ]</div>
+    </div>
+    <div class="exp-item">
+      <div class="exp-date">JUN — AUG 2024</div>
+      <div class="exp-role">Development Engineer Intern</div>
+      <div class="exp-company">OPmobility · Tokyo Plastic Omnium</div>
+      <div class="exp-tag">[ TESTING ]</div>
+    </div>
+    <div class="exp-item">
+      <div class="exp-date">2024 — PRESENT</div>
+      <div class="exp-role">Makerspace Mentor</div>
+      <div class="exp-company">RIT SHED</div>
+      <div class="exp-tag">[ TEACHING ]</div>
+    </div>
+    <div class="exp-item">
+      <div class="exp-date">2023 — 2026</div>
+      <div class="exp-role">Math &amp; Physics Tutor</div>
+      <div class="exp-company">RIT Academic Success Center</div>
+      <div class="exp-tag">[ TEACHING ]</div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills" class="skills">
+  <p class="section-label">CAPABILITIES</p>
+  <div class="skills-grid">
+    <div class="skill-col">
+      <h4>SOFTWARE</h4>
+      <ul class="skill-list">
+        <li>C / C++</li>
+        <li>Python</li>
+        <li>OpenCV</li>
+        <li>PyTorch</li>
+        <li>MATLAB</li>
+        <li>Git</li>
+        <li>Linux</li>
+        <li>Minitab</li>
+      </ul>
+    </div>
+    <div class="skill-col">
+      <h4>ROBOTICS &amp; EMBEDDED</h4>
+      <ul class="skill-list">
+        <li>ROS2 / micro-ROS</li>
+        <li>ARM / AVR microcontrollers</li>
+        <li>Arduino · PlatformIO</li>
+        <li>UART · I²C · SPI</li>
+        <li>Wi-Fi / Bluetooth modules</li>
+        <li>ABB RobotStudio · Robotic Arms</li>
+        <li>Allen Bradley PLC · Studio 5000</li>
+        <li>TinyML · Edge Impulse · NI Multisim</li>
+      </ul>
+    </div>
+    <div class="skill-col">
+      <h4>MECHANICAL</h4>
+      <ul class="skill-list">
+        <li>Autodesk Inventor</li>
+        <li>SolidWorks · Fusion 360</li>
+        <li>AutoCAD</li>
+        <li>GD&amp;T</li>
+        <li>CNC Mill · Machine Shop</li>
+        <li>Laser Cutting · 3D Printing</li>
+        <li>Lean Six Sigma</li>
+        <li>Statistical Design of Experiments</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION & CERTS -->
+<section id="education" class="education">
+  <p class="section-label">EDUCATION / CERTIFICATIONS</p>
+  <div class="edu-grid">
+    <div class="edu-block">
+      <h3 class="edu-title">Rochester Institute of Technology</h3>
+      <p class="edu-sub">Rochester, NY · GPA 3.41 · Aug 2022 — May 2027</p>
+      <div class="edu-line"><span class="name">B.S. Mechatronics Engineering Technology</span><span class="date">MAY 2026</span></div>
+      <div class="edu-line"><span class="name">B.S. Computer Engineering Technology</span><span class="date">MAY 2027</span></div>
+      <div style="margin-top: 28px;">
+        <span class="award-tag">DEAN'S LIST</span>
+        <span class="award-tag">UNCOMMON HACKS '26 · 1ST</span>
+        <span class="award-tag">AP SCHOLAR</span>
+      </div>
+    </div>
+    <div class="edu-block">
+      <h3 class="edu-title">Certifications</h3>
+      <p class="edu-sub">Industry credentials and methodology</p>
+      <div class="edu-line"><span class="name">Lean Six Sigma — Yellow Belt</span><span class="date">MAY 2025</span></div>
+      <div class="edu-line"><span class="name">SolidWorks Associate — Mechanical Design</span><span class="date">JUN 2023</span></div>
+      <div class="edu-line"><span class="name">Autodesk Inventor Certified User</span><span class="date">MAY 2022</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="contact">
+  <p class="footer-label">CONTACT / AVAILABILITY</p>
+  <div class="footer-avail">
+    <span class="dot"></span>
+    Available for full-time roles · Class of 2027
+  </div>
+  <a href="mailto:vcl3345@rit.edu" class="footer-email">vcl3345@rit.edu</a>
+  <div class="footer-bottom">
+    <div class="footer-links">
+      <a href="https://github.com/goombad" target="_blank" rel="noopener">GITHUB</a>
+      <a href="https://linkedin.com/in/vincent-lin-513ba4197" target="_blank" rel="noopener">LINKEDIN</a>
+      <a href="tel:+19292905235">+1 (929) 290-5235</a>
+    </div>
+    <div class="footer-build">
+      <div class="top">SYSTEM BUILD</div>
+      <div>v1.0.0-STABLE // 2026.05.25</div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
