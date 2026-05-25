@@ -82,10 +82,9 @@
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: stretch;
     justify-content: center;
     padding: 120px 48px 120px;
-    text-align: center;
     position: relative;
   }
 
@@ -94,7 +93,19 @@
     font-size: 11px;
     letter-spacing: 3px;
     color: var(--mid);
-    margin-bottom: 56px;
+    margin: 0 auto 56px;
+    width: 100%;
+    max-width: 1300px;
+  }
+
+  .hero-main {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 80px;
+    align-items: end;
+    width: 100%;
+    max-width: 1300px;
+    margin: 0 auto;
   }
 
   h1 {
@@ -103,9 +114,49 @@
     letter-spacing: -0.03em;
     line-height: 1.02;
     color: var(--ink);
-    margin-bottom: 40px;
-    max-width: 1100px;
+    margin: 0;
   }
+
+  .hero-bio {
+    padding-bottom: 14px;
+  }
+
+  .hero-bio p {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    line-height: 1.75;
+    color: var(--ink-soft);
+    margin: 0 0 28px;
+    max-width: 380px;
+  }
+
+  .hero-bio p strong {
+    color: var(--ink);
+    font-weight: 500;
+  }
+
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--ink);
+    text-decoration: none;
+    padding: 12px 20px;
+    border: 1px solid var(--line-strong);
+    transition: background 0.2s, color 0.2s, border-color 0.2s;
+  }
+
+  .hero-cta:hover {
+    background: var(--ink);
+    color: var(--bg);
+    border-color: var(--ink);
+  }
+
+  .hero-cta .arrow { transition: transform 0.2s; }
+  .hero-cta:hover .arrow { transform: translateX(3px); }
 
   .hero-sub {
     font-size: 17px;
@@ -587,6 +638,8 @@
     .hero { padding: 100px 24px; }
     .hero-corner { left: 24px; bottom: 24px; }
     .hero-corner-r { right: 24px; }
+    .hero-main { grid-template-columns: 1fr; gap: 40px; align-items: start; }
+    .hero-bio { padding-bottom: 0; }
     section { padding: 64px 24px; }
     .projects-grid { grid-template-columns: 1fr; }
     .project-card.full-width { grid-template-columns: 1fr; gap: 32px; padding: 32px; }
@@ -607,7 +660,7 @@
 <body>
 
 <nav>
-  <a href="#" class="logo">V. LIN</a>
+  <a href="#about" class="logo">V. LIN</a>
   <div class="nav-links">
     <a href="#projects">PROJECTS</a>
     <a href="#experience">EXPERIENCE</a>
@@ -629,14 +682,28 @@
   </div>
 
   <p class="hero-tag anim d1">[ MECHATRONICS / COMPUTER ENGINEERING ]</p>
-  <h1 class="anim d2">Engineering<br />systems that move.</h1>
-  <p class="hero-sub anim d3">
-    Designing the intersection of robotic hardware, embedded firmware,
-    and the data systems that hold them together.
-  </p>
+
+  <div class="hero-main">
+    <h1 class="anim d2">Engineering<br />systems that move.</h1>
+
+    <!-- ─────────────────────────────────────────────
+         SHORT BIO — edit the text below to your liking.
+         The "Read full bio →" link scrolls to the
+         full About section further down the page.
+    ───────────────────────────────────────────────── -->
+    <div class="hero-bio anim d3">
+      <p>
+        <strong>Mechatronics &amp; embedded engineer</strong> based in Rochester, NY.
+        I build robotic hardware that moves, the firmware that drives it,
+        and the systems holding them together.
+      </p>
+      <a href="#about" class="hero-cta">Read full bio <span class="arrow">→</span></a>
+    </div>
+  </div>
 </div>
 
-<!-- PROJECTS -->
+
+
 <section id="projects">
   <p class="section-label">SELECTED PROJECTS</p>
   <div class="projects-grid">
@@ -863,7 +930,10 @@
   </div>
 </section>
 
+<!-- EDUCATION & CERTS and FOOTER removed -->
+
 <div style="height: 120px;"></div>
+
 
 </body>
 </html>
