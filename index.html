@@ -67,6 +67,7 @@
   }
 
   .nav-links { display: flex; gap: 56px; }
+
   .nav-links a {
     font-family: 'JetBrains Mono', monospace;
     font-size: 11px;
@@ -75,6 +76,7 @@
     text-decoration: none;
     transition: color 0.2s;
   }
+
   .nav-links a:hover { color: var(--mid); }
 
   /* HERO */
@@ -227,7 +229,11 @@
     flex-direction: column;
     transition: border-color 0.3s, transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
   }
-  .project-card:hover { border-color: var(--line-strong); transform: translateY(-2px); }
+
+  .project-card:hover {
+    border-color: var(--line-strong);
+    transform: translateY(-2px);
+  }
 
   .project-card.full-width {
     grid-column: 1 / -1;
@@ -282,8 +288,18 @@
     min-height: 320px;
   }
 
-  .project-image svg { width: 100%; height: 100%; display: block; }
-  .project-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .project-image svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  .project-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
 
   .project-expand {
     margin-top: 24px;
@@ -301,11 +317,13 @@
     align-self: flex-start;
     transition: background 0.2s, color 0.2s, border-color 0.2s;
   }
+
   .project-expand:hover {
     background: var(--ink);
     color: var(--bg);
     border-color: var(--ink);
   }
+
   .project-expand .arrow { transition: transform 0.2s; }
   .project-expand:hover .arrow { transform: translateX(3px); }
 
@@ -328,10 +346,12 @@
     pointer-events: none;
     transition: opacity 0.3s ease;
   }
+
   .modal-backdrop.open {
     opacity: 1;
     pointer-events: auto;
   }
+
   .modal-panel {
     background: var(--bg);
     max-width: 920px;
@@ -343,10 +363,12 @@
     opacity: 0;
     transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.3s;
   }
+
   .modal-backdrop.open .modal-panel {
     transform: translateY(0);
     opacity: 1;
   }
+
   .modal-close {
     position: absolute;
     top: 16px;
@@ -365,11 +387,13 @@
     transition: background 0.2s, color 0.2s, transform 0.25s;
     z-index: 2;
   }
+
   .modal-close:hover {
     background: var(--ink);
     color: var(--bg);
     transform: rotate(90deg);
   }
+
   .modal-hero-img {
     width: 100%;
     aspect-ratio: 16 / 9;
@@ -377,6 +401,7 @@
     overflow: hidden;
     border-bottom: 1px solid var(--line);
   }
+
   .modal-hero-img img,
   .modal-hero-img svg {
     width: 100%;
@@ -384,7 +409,9 @@
     object-fit: cover;
     display: block;
   }
+
   .modal-body { padding: 48px 56px 56px; }
+
   .modal-num {
     font-family: 'JetBrains Mono', monospace;
     font-size: 10px;
@@ -392,6 +419,7 @@
     color: var(--mid);
     margin-bottom: 14px;
   }
+
   .modal-title {
     font-size: clamp(28px, 4vw, 42px);
     font-weight: 600;
@@ -399,6 +427,7 @@
     line-height: 1.1;
     margin-bottom: 16px;
   }
+
   .modal-tagline {
     font-size: 16px;
     color: var(--mid);
@@ -406,7 +435,9 @@
     margin-bottom: 40px;
     max-width: 640px;
   }
+
   .modal-section { margin-bottom: 36px; }
+
   .modal-section h4 {
     font-family: 'JetBrains Mono', monospace;
     font-size: 10px;
@@ -416,13 +447,19 @@
     padding-bottom: 12px;
     border-bottom: 1px solid var(--line);
   }
+
   .modal-section p {
     font-size: 15px;
     line-height: 1.65;
     color: var(--ink-soft);
     margin-bottom: 12px;
   }
-  .modal-section ul { list-style: none; padding: 0; }
+
+  .modal-section ul {
+    list-style: none;
+    padding: 0;
+  }
+
   .modal-section li {
     font-size: 14.5px;
     line-height: 1.6;
@@ -431,6 +468,7 @@
     position: relative;
     margin-bottom: 10px;
   }
+
   .modal-section li::before {
     content: '→';
     position: absolute;
@@ -438,12 +476,14 @@
     color: var(--mid);
     font-family: 'JetBrains Mono', monospace;
   }
+
   .modal-actions {
     display: flex;
     gap: 12px;
     margin-top: 40px;
     flex-wrap: wrap;
   }
+
   .modal-action {
     display: inline-flex;
     align-items: center;
@@ -457,11 +497,13 @@
     text-decoration: none;
     transition: background 0.2s, color 0.2s, border-color 0.2s;
   }
+
   .modal-action:hover {
     background: var(--ink);
     color: var(--bg);
     border-color: var(--ink);
   }
+
   body.modal-open { overflow: hidden; }
 
   .project-stats {
@@ -503,6 +545,7 @@
     align-items: baseline;
     transition: padding-left 0.3s;
   }
+
   .exp-item:first-child { border-top: 1px solid var(--line); }
   .exp-item:hover { padding-left: 16px; }
 
@@ -542,32 +585,10 @@
 
   .about-grid {
     display: grid;
-    grid-template-columns: 1.6fr 1fr;
-    gap: 80px;
+    grid-template-columns: 1.35fr 1fr;
+    gap: 96px;
     align-items: start;
   }
-
-  .about-meta {
-    padding-top: 60px;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .meta-row {
-    display: grid;
-    grid-template-columns: 100px 1fr;
-    gap: 24px;
-    padding: 14px 0;
-    border-bottom: 1px solid var(--line);
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 12px;
-    letter-spacing: 0.5px;
-    align-items: baseline;
-  }
-  .meta-row:first-child { border-top: 1px solid var(--line); }
-
-  .meta-row .k { color: var(--mid); letter-spacing: 1.5px; font-size: 10px; }
-  .meta-row .v { color: var(--ink); }
 
   .about-left {
     padding: 16px 8px 0 0;
@@ -594,17 +615,17 @@
     line-height: 1.65;
     color: var(--ink-soft);
     margin-bottom: 18px;
-    max-width: 520px;
+    max-width: 560px;
   }
 
   .about-body p:last-child { margin-bottom: 0; }
 
   /* ABOUT — WORKFLOW */
   .about-workflow {
-    margin-top: 56px;
-    padding-top: 36px;
-    border-top: 1px solid var(--line);
-    max-width: 560px;
+    margin-top: 16px;
+    padding-top: 0;
+    border-top: none;
+    max-width: none;
   }
 
   .workflow-heading {
@@ -622,13 +643,20 @@
 
   .workflow-list li {
     display: grid;
-    grid-template-columns: 48px 1fr;
-    gap: 20px;
+    grid-template-columns: 42px 1fr;
+    gap: 18px;
     padding: 18px 0;
     border-bottom: 1px solid var(--line);
     align-items: baseline;
   }
-  .workflow-list li:last-child { border-bottom: none; }
+
+  .workflow-list li:first-child {
+    border-top: 1px solid var(--line);
+  }
+
+  .workflow-list li:last-child {
+    border-bottom: none;
+  }
 
   .workflow-num {
     font-family: 'JetBrains Mono', monospace;
@@ -650,16 +678,31 @@
 
   /* ANIM */
   @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
   @keyframes pulse {
-    0%, 100% { box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.18); }
-    50% { box-shadow: 0 0 0 8px rgba(34, 197, 94, 0.05); }
+    0%, 100% {
+      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.18);
+    }
+
+    50% {
+      box-shadow: 0 0 0 8px rgba(34, 197, 94, 0.05);
+    }
   }
 
-  .anim { animation: fadeUp 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+  .anim {
+    animation: fadeUp 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  }
+
   .d1 { animation-delay: 0.1s; }
   .d2 { animation-delay: 0.25s; }
   .d3 { animation-delay: 0.4s; }
@@ -667,23 +710,57 @@
 
   @media (max-width: 1000px) {
     nav { padding: 16px 24px; }
+
     .nav-links { gap: 24px; }
+
     .nav-links a:nth-child(n+4) { display: none; }
+
     .hero { padding: 100px 24px; }
-    .hero-corner { left: 24px; bottom: 24px; }
+
+    .hero-corner {
+      left: 24px;
+      bottom: 24px;
+    }
+
     .hero-corner-r { right: 24px; }
+
     .hero-main { gap: 36px; }
+
     section { padding: 64px 24px; }
+
     .projects-grid { grid-template-columns: 1fr; }
-    .project-card.full-width { grid-template-columns: 1fr; gap: 32px; padding: 32px; }
+
+    .project-card.full-width {
+      grid-template-columns: 1fr;
+      gap: 32px;
+      padding: 32px;
+    }
+
     .project-card { padding: 32px; }
+
     .project-card.full-width .project-image { min-height: 240px; }
-    .exp-item { grid-template-columns: 1fr; gap: 8px; padding: 24px 0; }
+
+    .exp-item {
+      grid-template-columns: 1fr;
+      gap: 8px;
+      padding: 24px 0;
+    }
+
     .exp-tag { text-align: left; }
-    .about-grid { grid-template-columns: 1fr; gap: 40px; }
-    .about-meta { padding-top: 0; }
-    .meta-row { grid-template-columns: 100px 1fr; gap: 16px; }
+
+    .about-grid {
+      grid-template-columns: 1fr;
+      gap: 56px;
+    }
+
+    .about-workflow {
+      margin-top: 0;
+      padding-top: 36px;
+      border-top: 1px solid var(--line);
+    }
+
     .modal-body { padding: 32px 24px 40px; }
+
     .modal-backdrop { padding: 24px 12px; }
   }
 </style>
@@ -706,6 +783,7 @@
     LAT 43.0848°N<br />
     LON 77.6743°W
   </div>
+
   <div class="hero-corner hero-corner-r">
     PORTFOLIO / 2026<br />
     INDEX 001 / 004<br />
@@ -717,26 +795,22 @@
   <div class="hero-main">
     <h1 class="anim d2">Engineering<br />systems that move.</h1>
 
-    <!-- ─────────────────────────────────────────────
-         SHORT BIO — edit the text below to your liking.
-         The "Read full bio →" link scrolls to the
-         full About section further down the page.
-    ───────────────────────────────────────────────── -->
     <div class="hero-bio anim d3">
       <p>
-        <strong>Mechatronics &amp; Embedded Systems Engineer</strong> based in Brooklyn, NY. <br/>
-        Focused on robotic systems, computer vision, and physical AI. <br/>
+        <strong>Mechatronics &amp; Embedded Systems Engineer</strong> based in Brooklyn, NY. <br />
+        Focused on robotic systems, computer vision, and physical AI. <br />
       </p>
+
       <a href="#about" class="hero-cta">Read full bio <span class="arrow">→</span></a>
     </div>
   </div>
 </div>
 
-
 <!-- PROJECTS -->
 <section id="projects">
   <p class="section-label">PROJECTS / SELECTED WORK</p>
   <p class="section-eyebrow">[ 001 / FEATURED BUILDS ]</p>
+
   <div class="projects-grid">
 
     <!-- 01 -->
@@ -744,11 +818,11 @@
       <p class="project-num">PROJECT 01</p>
       <h3 class="project-title">Automated SVG Sisyphus Table</h3>
       <p class="project-desc">A polar CNC sand table driven by a custom SVG-to-G-code converter, Nano firmware, and Python serial bridge for live pattern streaming.</p>
+
       <div class="project-image">
-        <!-- TO USE A REAL PHOTO: replace the <svg>…</svg> below with:
-             <img src="images/sisyphus-table.jpg" alt="Sisyphus Table" />  -->
         <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
           <rect width="400" height="300" fill="#F0EFEB" />
+
           <g transform="translate(200 150)" fill="none" stroke="#9A9A9A" stroke-width="0.6">
             <circle r="110" />
             <circle r="92" />
@@ -760,36 +834,44 @@
               <animate attributeName="stroke-dashoffset" from="600" to="0" dur="6s" repeatCount="indefinite" />
             </path>
           </g>
+
           <g transform="translate(200 150)" fill="none" stroke="#1A1A1A" stroke-width="0.7">
             <path d="M -100 0 C -60 -80, 60 80, 100 0 C 60 -80, -60 80, -100 0 Z" opacity="0.7" />
             <path d="M -70 0 C -42 -56, 42 56, 70 0 C 42 -56, -42 56, -70 0 Z" opacity="0.5" />
             <path d="M -40 0 C -24 -32, 24 32, 40 0 C 24 -32, -24 32, -40 0 Z" opacity="0.35" />
           </g>
+
           <circle cx="200" cy="150" r="3" fill="#1A1A1A" />
         </svg>
       </div>
+
       <div class="project-stats">
         <div class="stat-row"><span class="label">FIRMWARE</span><span class="value">ARDUINO / C++</span></div>
         <div class="stat-row"><span class="label">DRIVER</span><span class="value">NEMA17</span></div>
         <div class="stat-row"><span class="label">PIPELINE</span><span class="value">SVG → G-CODE</span></div>
       </div>
+
       <button class="project-expand">Learn more <span class="arrow">→</span></button>
 
-      <!-- EXTENDED CONTENT — opens in modal. Edit freely. -->
       <div class="project-extended">
         <div class="modal-hero-img">
-          <!-- TO USE A REAL PHOTO: replace this svg with <img src="images/sisyphus-large.jpg" alt="" /> -->
           <svg viewBox="0 0 400 225" xmlns="http://www.w3.org/2000/svg">
-            <rect width="400" height="225" fill="#F0EFEB"/>
+            <rect width="400" height="225" fill="#F0EFEB" />
+
             <g transform="translate(200 112)" fill="none" stroke="#9A9A9A" stroke-width="0.6">
-              <circle r="90"/><circle r="70"/><circle r="50"/><circle r="30"/>
+              <circle r="90" />
+              <circle r="70" />
+              <circle r="50" />
+              <circle r="30" />
             </g>
+
             <g transform="translate(200 112)" fill="none" stroke="#1A1A1A" stroke-width="0.7">
-              <path d="M -85 0 C -50 -65, 50 65, 85 0 C 50 -65, -50 65, -85 0 Z" opacity="0.7"/>
-              <path d="M -55 0 C -32 -42, 32 42, 55 0 C 32 -42, -32 42, -55 0 Z" opacity="0.45"/>
+              <path d="M -85 0 C -50 -65, 50 65, 85 0 C 50 -65, -50 65, -85 0 Z" opacity="0.7" />
+              <path d="M -55 0 C -32 -42, 32 42, 55 0 C 32 -42, -32 42, -55 0 Z" opacity="0.45" />
             </g>
           </svg>
         </div>
+
         <div class="modal-body">
           <p class="modal-num">PROJECT 01 · MAR 2026 — PRESENT</p>
           <h2 class="modal-title">Automated SVG Sisyphus Table</h2>
@@ -797,7 +879,7 @@
 
           <div class="modal-section">
             <h4>OVERVIEW</h4>
-            <p>The Sisyphus table converts vector artwork into mesmerizing sand patterns. I designed the entire system end-to-end: the math that maps an SVG into polar coordinates, the firmware that drives the steppers, and the Python bridge that streams live commands over seriall.</p>
+            <p>The Sisyphus table converts vector artwork into mesmerizing sand patterns. I designed the entire system end-to-end: the math that maps an SVG into polar coordinates, the firmware that drives the steppers, and the Python bridge that streams live commands over serial.</p>
           </div>
 
           <div class="modal-section">
@@ -832,11 +914,11 @@
       <p class="project-num">PROJECT 02</p>
       <h3 class="project-title">PACK-E</h3>
       <p class="project-desc">A real-time object detection and retrieval robot running a fine-tuned FOMO model on ESP32-S3, with ultrasonic sensing and UART inference feedback.</p>
+
       <div class="project-image">
-        <!-- TO USE A REAL PHOTO: replace the <svg>…</svg> below with:
-             <img src="images/pack-e.jpg" alt="PACK-E robot" />  -->
         <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
           <rect width="400" height="300" fill="#F0EFEB" />
+
           <g transform="translate(0 50)" stroke="#9A9A9A" stroke-width="0.5" fill="none">
             <path d="M 40 200 L 360 200" />
             <path d="M 40 200 L 40 40 L 360 40 L 360 200" />
@@ -844,11 +926,15 @@
             <path d="M 40 120 L 360 120" stroke-dasharray="3 3" />
             <path d="M 40 160 L 360 160" stroke-dasharray="3 3" />
           </g>
+
           <rect x="120" y="180" width="40" height="35" fill="none" stroke="#1A1A1A" stroke-width="1.2" />
           <text x="123" y="175" font-family="JetBrains Mono" font-size="8" fill="#1A1A1A">cube · 0.94</text>
+
           <rect x="220" y="195" width="55" height="40" fill="none" stroke="#1A1A1A" stroke-width="1.2" />
           <text x="223" y="190" font-family="JetBrains Mono" font-size="8" fill="#1A1A1A">cube · 0.88</text>
+
           <rect x="65" y="200" width="30" height="25" fill="none" stroke="#9A9A9A" stroke-width="1" stroke-dasharray="2 2" />
+
           <g transform="translate(180 100)">
             <rect x="-30" y="-15" width="60" height="30" rx="3" fill="#1A1A1A" />
             <circle cx="-20" cy="20" r="6" fill="#1A1A1A" />
@@ -856,41 +942,45 @@
             <rect x="-3" y="-22" width="6" height="10" fill="#1A1A1A" />
             <circle cx="0" cy="-22" r="3" fill="#9A9A9A" />
           </g>
+
           <text x="20" y="280" font-family="JetBrains Mono" font-size="9" fill="#9A9A9A">FRAME · 1242 / FPS 14</text>
         </svg>
       </div>
+
       <div class="project-stats">
         <div class="stat-row"><span class="label">PLATFORM</span><span class="value">ESP32-S3</span></div>
         <div class="stat-row"><span class="label">MODEL</span><span class="value">FOMO / TFLITE</span></div>
         <div class="stat-row"><span class="label">STATUS</span><span class="value">PAUSED</span></div>
       </div>
+
       <button class="project-expand">Learn more <span class="arrow">→</span></button>
 
-      <!-- EXTENDED CONTENT — opens in modal. Edit freely. -->
       <div class="project-extended">
         <div class="modal-hero-img">
-          <!-- TO USE A REAL PHOTO: replace this svg with <img src="images/pack-e-large.jpg" alt="" /> -->
           <svg viewBox="0 0 400 225" xmlns="http://www.w3.org/2000/svg">
-            <rect width="400" height="225" fill="#F0EFEB"/>
+            <rect width="400" height="225" fill="#F0EFEB" />
+
             <g transform="translate(200 112)">
-              <rect x="-40" y="-20" width="80" height="40" rx="4" fill="#1A1A1A"/>
-              <circle cx="-25" cy="25" r="8" fill="#1A1A1A"/>
-              <circle cx="25" cy="25" r="8" fill="#1A1A1A"/>
-              <rect x="-4" y="-30" width="8" height="12" fill="#1A1A1A"/>
-              <circle cx="0" cy="-30" r="4" fill="#9A9A9A"/>
+              <rect x="-40" y="-20" width="80" height="40" rx="4" fill="#1A1A1A" />
+              <circle cx="-25" cy="25" r="8" fill="#1A1A1A" />
+              <circle cx="25" cy="25" r="8" fill="#1A1A1A" />
+              <rect x="-4" y="-30" width="8" height="12" fill="#1A1A1A" />
+              <circle cx="0" cy="-30" r="4" fill="#9A9A9A" />
             </g>
-            <rect x="100" y="140" width="50" height="50" fill="none" stroke="#22C55E" stroke-width="1.5" stroke-dasharray="4 3"/>
+
+            <rect x="100" y="140" width="50" height="50" fill="none" stroke="#22C55E" stroke-width="1.5" stroke-dasharray="4 3" />
             <text x="100" y="135" font-family="JetBrains Mono" font-size="9" fill="#22C55E">cube · 0.94</text>
           </svg>
         </div>
+
         <div class="modal-body">
           <p class="modal-num">PROJECT 02 · MAR 2026 — PAUSED</p>
           <h2 class="modal-title">PACK-E</h2>
-          <p class="modal-tagline">Package Acquisition & Collection Kernel Earth-Class. Autonomous object detection and retrieval by squeezing a TinyML pipeline onto a 15$ microcontroller.</p>
+          <p class="modal-tagline">Package Acquisition & Collection Kernel Earth-Class. Autonomous object detection and retrieval by squeezing a TinyML pipeline onto a $15 microcontroller.</p>
 
           <div class="modal-section">
             <h4>OVERVIEW</h4>
-            <p>PACK-E identifies small target packages from a camera feed, navigates to them, and retrieves them - all without any external processing. The full vision and control loop runs on an ESP32-S3 CAM, while the MSP432 robot chassis handles the motor controls.</p>
+            <p>PACK-E identifies small target packages from a camera feed, navigates to them, and retrieves them — all without any external processing. The full vision and control loop runs on an ESP32-S3 CAM, while the MSP432 robot chassis handles the motor controls.</p>
           </div>
 
           <div class="modal-section">
@@ -899,7 +989,7 @@
               <li>Fine-tuned FOMO model using an optimized TensorFlow Lite Micro inference engine on ESP32-S3 CAM</li>
               <li>Bare-metal C firmware on MSP432 for motor control, ultrasonic sensing, and UART feedback</li>
               <li>ESP32 computes error from centroid location to frame center, then sends a navigation command to MSP432 via UART</li>
-              <li>HC-SR04 gauges distance to target and MSP432 adjust forward velocity accordingly</li>
+              <li>HC-SR04 gauges distance to target and MSP432 adjusts forward velocity accordingly</li>
               <li>Status: paused — physical chassis is at school</li>
             </ul>
           </div>
@@ -907,7 +997,7 @@
           <div class="modal-section">
             <h4>TOOLCHAIN</h4>
             <ul>
-              <li>Arduino IDE</li>  
+              <li>Arduino IDE</li>
               <li>Code Composer Studio</li>
               <li>Edge Impulse</li>
             </ul>
@@ -920,31 +1010,34 @@
       </div>
     </div>
 
-    <!-- 03 - full width -->
+    <!-- 03 -->
     <div class="project-card full-width" data-project="03">
       <div>
         <p class="project-num">PROJECT 03</p>
         <h3 class="project-title">Automated Blast Gate Network</h3>
         <p class="project-desc">Electrical/Embedded Systems lead on a fleet of "smart" blast gates for the SHED Wood Shop. Precise closed-loop positioning, broadcast UART protocol, and locally-computed flow balancing across nodes. Designed to be <em>minimally</em> invasive.</p>
+
         <div class="project-stats">
           <div class="stat-row"><span class="label">DRIVER</span><span class="value">L298N</span></div>
           <div class="stat-row"><span class="label">PROTOCOL</span><span class="value">8N1 UART · BROADCAST</span></div>
-          <div class="stat-row"><span class="label">CONTROL</span><span class="value">CLOSED-LOOP</span></div>  
+          <div class="stat-row"><span class="label">CONTROL</span><span class="value">CLOSED-LOOP</span></div>
           <div class="stat-row"><span class="label">SCOPE</span><span class="value">JAN — MAY 2026</span></div>
         </div>
+
         <button class="project-expand">Learn more <span class="arrow">→</span></button>
       </div>
+
       <div class="project-image">
-        <!-- TO USE A REAL PHOTO: replace the <svg>…</svg> below with:
-             <img src="images/blast-gates.jpg" alt="Blast gate network" />  -->
         <svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
           <rect width="600" height="400" fill="#F0EFEB" />
+
           <g stroke="#9A9A9A" stroke-width="0.5" fill="none">
             <path d="M 0 200 L 600 200" />
             <path d="M 100 100 L 100 300" />
             <path d="M 300 100 L 300 300" />
             <path d="M 500 100 L 500 300" />
           </g>
+
           <g stroke="#1A1A1A" stroke-width="1.2" fill="#F0EFEB">
             <circle cx="100" cy="200" r="22" />
             <circle cx="300" cy="200" r="22" />
@@ -954,15 +1047,18 @@
             <circle cx="200" cy="300" r="14" />
             <circle cx="400" cy="300" r="14" />
           </g>
+
           <g font-family="JetBrains Mono" font-size="9" fill="#1A1A1A" text-anchor="middle">
             <text x="100" y="203">N1</text>
             <text x="300" y="203">N2</text>
             <text x="500" y="203">N3</text>
           </g>
+
           <g stroke="#1A1A1A" stroke-width="0.8" stroke-dasharray="4 3" fill="none">
             <path d="M 122 200 L 278 200" />
             <path d="M 322 200 L 478 200" />
           </g>
+
           <g font-family="JetBrains Mono" font-size="8" fill="#9A9A9A">
             <text x="30" y="370">UART BROADCAST · 115200 8N1</text>
             <text x="430" y="370">FLOW BALANCE · LOCAL</text>
@@ -970,23 +1066,24 @@
         </svg>
       </div>
 
-      <!-- EXTENDED CONTENT — opens in modal. Edit freely. -->
       <div class="project-extended">
         <div class="modal-hero-img">
-          <!-- TO USE A REAL PHOTO: replace this svg with <img src="images/blast-gates-large.jpg" alt="" /> -->
           <svg viewBox="0 0 600 338" xmlns="http://www.w3.org/2000/svg">
-            <rect width="600" height="338" fill="#F0EFEB"/>
+            <rect width="600" height="338" fill="#F0EFEB" />
+
             <g stroke="#9A9A9A" stroke-width="0.5" fill="none">
-              <path d="M 0 169 L 600 169"/>
-              <path d="M 150 60 L 150 280"/>
-              <path d="M 300 60 L 300 280"/>
-              <path d="M 450 60 L 450 280"/>
+              <path d="M 0 169 L 600 169" />
+              <path d="M 150 60 L 150 280" />
+              <path d="M 300 60 L 300 280" />
+              <path d="M 450 60 L 450 280" />
             </g>
+
             <g stroke="#1A1A1A" stroke-width="1.2" fill="#F0EFEB">
-              <circle cx="150" cy="169" r="22"/>
-              <circle cx="300" cy="169" r="22"/>
-              <circle cx="450" cy="169" r="22"/>
+              <circle cx="150" cy="169" r="22" />
+              <circle cx="300" cy="169" r="22" />
+              <circle cx="450" cy="169" r="22" />
             </g>
+
             <g font-family="JetBrains Mono" font-size="9" fill="#1A1A1A" text-anchor="middle">
               <text x="150" y="172">N1</text>
               <text x="300" y="172">N2</text>
@@ -994,6 +1091,7 @@
             </g>
           </svg>
         </div>
+
         <div class="modal-body">
           <p class="modal-num">PROJECT 03 · JAN — MAY 2026</p>
           <h2 class="modal-title">Automated Blast Gate Network</h2>
@@ -1035,24 +1133,26 @@
       <p class="project-num">PROJECT 04</p>
       <h3 class="project-title">RC Tank &amp; Bluetooth Bridge</h3>
       <p class="project-desc">Fully CADed, 3D-printed analog joystick tank platform. Custom H-bridge driver built from P-MOS / N-MOS for all four motion states, with HC-05 Bluetooth and I²C telemetry.</p>
+
       <div class="project-image">
-        <!-- TO USE A REAL PHOTO: replace the <svg>…</svg> below with:
-             <img src="images/rc-tank.jpg" alt="RC Tank" />  -->
         <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
           <rect width="400" height="300" fill="#F0EFEB" />
+
           <g stroke="#1A1A1A" stroke-width="1.3" fill="none" transform="translate(120 110)">
             <rect x="0" y="0" width="160" height="60" />
             <rect x="20" y="-18" width="120" height="22" />
-            <circle cx="80" cy="-8" r="3" fill="#1A1A1A"/>
+            <circle cx="80" cy="-8" r="3" fill="#1A1A1A" />
             <ellipse cx="20" cy="68" rx="22" ry="11" />
             <ellipse cx="80" cy="68" rx="22" ry="11" />
             <ellipse cx="140" cy="68" rx="22" ry="11" />
             <ellipse cx="50" cy="68" rx="22" ry="11" />
             <ellipse cx="110" cy="68" rx="22" ry="11" />
           </g>
+
           <g stroke="#9A9A9A" stroke-width="0.5" fill="none" stroke-dasharray="2 3">
             <path d="M 50 250 Q 200 280 350 250" />
           </g>
+
           <g font-family="JetBrains Mono" font-size="8" fill="#9A9A9A">
             <text x="30" y="40">HC-05</text>
             <text x="320" y="40">H-BRIDGE</text>
@@ -1060,28 +1160,30 @@
           </g>
         </svg>
       </div>
+
       <div class="project-stats">
         <div class="stat-row"><span class="label">CONTROLLER</span><span class="value">ARDUINO MEGA</span></div>
         <div class="stat-row"><span class="label">DRIVER</span><span class="value">P-MOS / N-MOS</span></div>
         <div class="stat-row"><span class="label">LINK</span><span class="value">HC-05 · I²C</span></div>
       </div>
+
       <button class="project-expand">Learn more <span class="arrow">→</span></button>
 
-      <!-- EXTENDED CONTENT — opens in modal. Edit freely. -->
       <div class="project-extended">
         <div class="modal-hero-img">
-          <!-- TO USE A REAL PHOTO: replace this svg with <img src="images/rc-tank-large.jpg" alt="" /> -->
           <svg viewBox="0 0 600 338" xmlns="http://www.w3.org/2000/svg">
-            <rect width="600" height="338" fill="#F0EFEB"/>
+            <rect width="600" height="338" fill="#F0EFEB" />
+
             <g stroke="#1A1A1A" stroke-width="1.5" fill="none" transform="translate(220 130)">
-              <rect x="0" y="0" width="160" height="60"/>
-              <rect x="20" y="-18" width="120" height="22"/>
-              <ellipse cx="20" cy="68" rx="22" ry="11"/>
-              <ellipse cx="80" cy="68" rx="22" ry="11"/>
-              <ellipse cx="140" cy="68" rx="22" ry="11"/>
+              <rect x="0" y="0" width="160" height="60" />
+              <rect x="20" y="-18" width="120" height="22" />
+              <ellipse cx="20" cy="68" rx="22" ry="11" />
+              <ellipse cx="80" cy="68" rx="22" ry="11" />
+              <ellipse cx="140" cy="68" rx="22" ry="11" />
             </g>
           </svg>
         </div>
+
         <div class="modal-body">
           <p class="modal-num">PROJECT 04 · AUG 2021 — MAY 2022</p>
           <h2 class="modal-title">RC Tank &amp; Bluetooth Bridge</h2>
@@ -1105,7 +1207,7 @@
           <div class="modal-section">
             <h4>STACK</h4>
             <ul>
-              <li>Arduino Mega · Arduino Uno (controller / chassis)</li>
+              <li>Arduino Mega · Arduino Uno, controller / chassis</li>
               <li>Discrete P-MOS / N-MOS H-bridge</li>
               <li>HC-05 Bluetooth module · I²C telemetry</li>
             </ul>
@@ -1121,6 +1223,7 @@
 <section id="experience" class="experience">
   <p class="section-label">EXPERIENCE / TIMELINE</p>
   <p class="section-eyebrow">[ 002 / TRACK RECORD ]</p>
+
   <div class="exp-list">
     <div class="exp-item">
       <div class="exp-date">SEP — DEC 2025</div>
@@ -1128,24 +1231,28 @@
       <div class="exp-company">Retiina / USPS Atlanta RPDC</div>
       <div class="exp-tag">[ ROBOTICS ]</div>
     </div>
+
     <div class="exp-item">
       <div class="exp-date">MAY — AUG 2025</div>
       <div class="exp-role">Design &amp; Manufacturing Intern</div>
       <div class="exp-company">Electronic Hardware Corporation</div>
       <div class="exp-tag">[ MECHANICAL ]</div>
     </div>
+
     <div class="exp-item">
       <div class="exp-date">JUN — AUG 2024</div>
       <div class="exp-role">Development Engineer Intern</div>
       <div class="exp-company">OPmobility · Tokyo Plastic Omnium</div>
       <div class="exp-tag">[ VALIDATION ]</div>
     </div>
+
     <div class="exp-item">
       <div class="exp-date">2024 — PRESENT</div>
       <div class="exp-role">Makerspace Mentor</div>
       <div class="exp-company">RIT SHED</div>
       <div class="exp-tag">[ TEACHING ]</div>
     </div>
+
     <div class="exp-item">
       <div class="exp-date">2023 — 2026</div>
       <div class="exp-role">Math &amp; Physics Tutor</div>
@@ -1159,61 +1266,61 @@
 <section id="about" class="about">
   <p class="section-label">ABOUT / PROFILE</p>
   <p class="section-eyebrow">[ 003 / FROM THE ENGINEER ]</p>
+
   <div class="about-grid">
 
     <div class="about-left">
       <h3 class="about-headline">I build things that <em>move, sense,</em> and <em>think</em> for themselves.</h3>
+
       <div class="about-body">
         <p>I'm a dual-degree engineering student at RIT, splitting my time between Mechatronics and Computer Engineering Technology. Most of my work lives in the seam between physical hardware and the firmware that keeps it honest — motor control, sensor fusion, embedded ML, and the protocols holding them all together.</p>
-        <p>I've shipped projects in three countries — automated parcel sortation at USPS Atlanta, NOX module testing with Toyota in Tokyo, and a few hundred Wood Shop students in Rochester. I like systems that are clean enough to explain in one sentence, and stubborn enough to survive the real world.</p>
-        <p>Outside of school, I work at the SHED makerspace as a mentor, tutor multivariable calc &amp; physics, and tinker on whatever robot I can fit in a carry-on.</p>
-      </div>
 
-      <!-- ─────────────────────────────────────────────
-           HOW I WORK — edit the steps below to your liking.
-      ───────────────────────────────────────────────── -->
-      <div class="about-workflow">
-        <h4 class="workflow-heading">HOW I WORK</h4>
-        <ol class="workflow-list">
-          <li>
-            <span class="workflow-num">01</span>
-            <span class="workflow-step">
-              <strong>Scope.</strong> Sketch the system on paper, draft a block diagram, and define what "working" looks like before parts hit the table.
-            </span>
-          </li>
-          <li>
-            <span class="workflow-num">02</span>
-            <span class="workflow-step">
-              <strong>Design.</strong> CAD the mechanicals in SolidWorks or Inventor, draft the schematic in CirkitDesigner, and simulate critical sections in Multisim first.
-            </span>
-          </li>
-          <li>
-            <span class="workflow-num">03</span>
-            <span class="workflow-step">
-              <strong>Bench.</strong> Prototype on breadboard. Validate signal paths and motor commands in isolation before any integration.
-            </span>
-          </li>
-          <li>
-            <span class="workflow-num">04</span>
-            <span class="workflow-step">
-              <strong>Integrate.</strong> Bring up firmware on real hardware iteratively — one subsystem at a time, with a serial monitor open at all times.
-            </span>
-          </li>
-          <li>
-            <span class="workflow-num">05</span>
-            <span class="workflow-step">
-              <strong>Document.</strong> Comment the code, README the repo, draw the final block diagram. If the next person can't pick it up, it isn't done.
-            </span>
-          </li>
-        </ol>
+        <p>I've shipped projects in three countries — automated parcel sortation at USPS Atlanta, NOX module testing with Toyota in Tokyo, and a few hundred Wood Shop students in Rochester. I like systems that are clean enough to explain in one sentence, and stubborn enough to survive the real world.</p>
+
+        <p>Outside of school, I work at the SHED makerspace as a mentor, tutor multivariable calc &amp; physics, and tinker on whatever robot I can fit in a carry-on.</p>
       </div>
     </div>
 
-    <div class="about-meta">
-      <div class="meta-row"><span class="k">BASED</span><span class="v">Brooklyn, NY</span></div>
-      <div class="meta-row"><span class="k">FOCUS</span><span class="v">Mechatronics · Embedded</span></div>
-      <div class="meta-row"><span class="k">STACK</span><span class="v">C++ · Python · ESP32 · ROS2</span></div>
-      <div class="meta-row"><span class="k">CURRENTLY</span><span class="v">Polar CNC sand table</span></div>
+    <!-- HOW I WORK -->
+    <div class="about-workflow">
+      <h4 class="workflow-heading">HOW I WORK</h4>
+
+      <ol class="workflow-list">
+        <li>
+          <span class="workflow-num">01</span>
+          <span class="workflow-step">
+            <strong>Scope.</strong> Sketch the system on paper, draft a block diagram, and define what "working" looks like before parts hit the table.
+          </span>
+        </li>
+
+        <li>
+          <span class="workflow-num">02</span>
+          <span class="workflow-step">
+            <strong>Design.</strong> CAD the mechanicals in SolidWorks or Inventor, draft the schematic in CirkitDesigner, and simulate critical sections in Multisim first.
+          </span>
+        </li>
+
+        <li>
+          <span class="workflow-num">03</span>
+          <span class="workflow-step">
+            <strong>Bench.</strong> Prototype on breadboard. Validate signal paths and motor commands in isolation before any integration.
+          </span>
+        </li>
+
+        <li>
+          <span class="workflow-num">04</span>
+          <span class="workflow-step">
+            <strong>Integrate.</strong> Bring up firmware on real hardware iteratively — one subsystem at a time, with a serial monitor open at all times.
+          </span>
+        </li>
+
+        <li>
+          <span class="workflow-num">05</span>
+          <span class="workflow-step">
+            <strong>Document.</strong> Comment the code, README the repo, draw the final block diagram. If the next person can't pick it up, it isn't done.
+          </span>
+        </li>
+      </ol>
     </div>
 
   </div>
@@ -1247,7 +1354,9 @@
     modal.classList.remove('open');
     modal.setAttribute('aria-hidden', 'true');
     document.body.classList.remove('modal-open');
-    setTimeout(() => { modalContent.innerHTML = ''; }, 350);
+    setTimeout(() => {
+      modalContent.innerHTML = '';
+    }, 350);
   }
 
   document.querySelectorAll('.project-expand').forEach(btn => {
@@ -1255,16 +1364,25 @@
       e.preventDefault();
       const card = btn.closest('.project-card');
       const extended = card && card.querySelector('.project-extended');
-      if (extended) openModal(extended);
+
+      if (extended) {
+        openModal(extended);
+      }
     });
   });
 
   closeBtn.addEventListener('click', closeModal);
+
   modal.addEventListener('click', e => {
-    if (e.target === modal) closeModal();
+    if (e.target === modal) {
+      closeModal();
+    }
   });
+
   document.addEventListener('keydown', e => {
-    if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
+    if (e.key === 'Escape' && modal.classList.contains('open')) {
+      closeModal();
+    }
   });
 })();
 </script>
