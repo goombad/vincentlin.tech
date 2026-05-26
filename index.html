@@ -99,10 +99,10 @@
   }
 
   .hero-main {
-    display: grid;
-    grid-template-columns: 1.4fr 1fr;
-    gap: 80px;
-    align-items: end;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 48px;
     width: 100%;
     max-width: 1300px;
     margin: 0 auto;
@@ -115,10 +115,16 @@
     line-height: 1.02;
     color: var(--ink);
     margin: 0;
+    text-align: left;
   }
 
   .hero-bio {
-    padding-bottom: 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+    max-width: 580px;
+    text-align: left;
   }
 
   .hero-bio p {
@@ -126,8 +132,8 @@
     font-size: 14px;
     line-height: 1.75;
     color: var(--ink-soft);
-    margin: 0 0 28px;
-    max-width: 380px;
+    margin: 0;
+    text-align: left;
   }
 
   .hero-bio p strong {
@@ -593,6 +599,55 @@
 
   .about-body p:last-child { margin-bottom: 0; }
 
+  /* ABOUT — WORKFLOW */
+  .about-workflow {
+    margin-top: 56px;
+    padding-top: 36px;
+    border-top: 1px solid var(--line);
+    max-width: 560px;
+  }
+
+  .workflow-heading {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--ink);
+    margin-bottom: 28px;
+  }
+
+  .workflow-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .workflow-list li {
+    display: grid;
+    grid-template-columns: 48px 1fr;
+    gap: 20px;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--line);
+    align-items: baseline;
+  }
+  .workflow-list li:last-child { border-bottom: none; }
+
+  .workflow-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    color: var(--mid);
+  }
+
+  .workflow-step {
+    font-size: 14.5px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+  }
+
+  .workflow-step strong {
+    color: var(--ink);
+    font-weight: 500;
+  }
+
   /* ANIM */
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(20px); }
@@ -617,8 +672,7 @@
     .hero { padding: 100px 24px; }
     .hero-corner { left: 24px; bottom: 24px; }
     .hero-corner-r { right: 24px; }
-    .hero-main { grid-template-columns: 1fr; gap: 40px; align-items: start; }
-    .hero-bio { padding-bottom: 0; }
+    .hero-main { gap: 36px; }
     section { padding: 64px 24px; }
     .projects-grid { grid-template-columns: 1fr; }
     .project-card.full-width { grid-template-columns: 1fr; gap: 32px; padding: 32px; }
@@ -670,9 +724,8 @@
     ───────────────────────────────────────────────── -->
     <div class="hero-bio anim d3">
       <p>
-        <strong>Mechatronics &amp; Embedded Engineer</strong> based in Brooklyn, NY.
-        I build the robotic hardware that moves, the firmware that drives it,
-        and the systems that hold it all together.
+        <strong>Mechatronics &amp; Embedded Systems Engineer</strong> based in Brooklyn, NY. <br/>
+        Focused on robotic systems, computer vision, and physical AI. <br/>
       </p>
       <a href="#about" class="hero-cta">Read full bio <span class="arrow">→</span></a>
     </div>
@@ -690,7 +743,7 @@
     <div class="project-card" data-project="01">
       <p class="project-num">PROJECT 01</p>
       <h3 class="project-title">Automated SVG Sisyphus Table</h3>
-      <p class="project-desc">A polar CNC sand table driven by a custom SVG-to-G-code converter, ESP32 firmware, and Python serial bridge for live pattern streaming.</p>
+      <p class="project-desc">A polar CNC sand table driven by a custom SVG-to-G-code converter, Nano firmware, and Python serial bridge for live pattern streaming.</p>
       <div class="project-image">
         <!-- TO USE A REAL PHOTO: replace the <svg>…</svg> below with:
              <img src="images/sisyphus-table.jpg" alt="Sisyphus Table" />  -->
@@ -716,7 +769,7 @@
         </svg>
       </div>
       <div class="project-stats">
-        <div class="stat-row"><span class="label">FIRMWARE</span><span class="value">ESP32 / C++</span></div>
+        <div class="stat-row"><span class="label">FIRMWARE</span><span class="value">ARDUINO / C++</span></div>
         <div class="stat-row"><span class="label">DRIVER</span><span class="value">NEMA17</span></div>
         <div class="stat-row"><span class="label">PIPELINE</span><span class="value">SVG → G-CODE</span></div>
       </div>
@@ -744,31 +797,31 @@
 
           <div class="modal-section">
             <h4>OVERVIEW</h4>
-            <p>The Sisyphus table converts vector artwork into mesmerizing sand patterns. I designed the entire system end-to-end: the math that converts an SVG into polar G-code, the C++ firmware that drives the steppers, and the Python bridge that streams pattern queues over serial.</p>
+            <p>The Sisyphus table converts vector artwork into mesmerizing sand patterns. I designed the entire system end-to-end: the math that maps an SVG into polar coordinates, the firmware that drives the steppers, and the Python bridge that streams live commands over seriall.</p>
           </div>
 
           <div class="modal-section">
             <h4>HIGHLIGHTS</h4>
             <ul>
-              <li>Built a custom SVG-to-polar G-code converter using NumPy and coordinate geometry</li>
-              <li>Developed C++ firmware on ESP32 to drive NEMA17 steppers</li>
+              <li>Built a custom SVG-to-polar coordinate converter using NumPy and coordinate geometry</li>
+              <li>Developed C++ firmware on Arduino Nano to drive NEMA17 steppers</li>
               <li>Designed and verified the full motor control schematic in CirkitDesigner</li>
-              <li>Python serial bridge streams patterns live from a terminal</li>
+              <li>Python serial bridge streams motor commands live from a terminal</li>
+              <li>NEMA17 steppers move the steel ball to trace out the SVG patterns</li>
             </ul>
           </div>
 
           <div class="modal-section">
             <h4>STACK</h4>
             <ul>
-              <li>ESP32 · NEMA17 stepper motors</li>
+              <li>Arduino Nano · NEMA17 stepper motors</li>
               <li>C++ firmware · Python serial bridge</li>
               <li>CirkitDesigner IDE for schematic verification</li>
             </ul>
           </div>
 
           <div class="modal-actions">
-            <a href="https://github.com/goombad" target="_blank" class="modal-action">GitHub <span>→</span></a>
-            <a href="#" class="modal-action">Build log <span>→</span></a>
+            <a href="https://github.com/goombad/Sisyphus-Table" target="_blank" class="modal-action">GitHub <span>→</span></a>
           </div>
         </div>
       </div>
@@ -833,34 +886,35 @@
         <div class="modal-body">
           <p class="modal-num">PROJECT 02 · MAR 2026 — PAUSED</p>
           <h2 class="modal-title">PACK-E</h2>
-          <p class="modal-tagline">Autonomous object detection and retrieval, running entirely on-device. A tinyML pipeline squeezed onto an ESP32-S3 so a $6 microcontroller can see and act in real time.</p>
+          <p class="modal-tagline">Package Acquisition & Collection Kernel Earth-Class. Autonomous object detection and retrieval by squeezing a TinyML pipeline onto a 15$ microcontroller.</p>
 
           <div class="modal-section">
             <h4>OVERVIEW</h4>
-            <p>PACK-E identifies small target objects from a camera feed, navigates to them, and retrieves them — all without sending a single byte off-device. The full vision and control loop runs on a single microcontroller.</p>
+            <p>PACK-E identifies small target packages from a camera feed, navigates to them, and retrieves them - all without any external processing. The full vision and control loop runs on an ESP32-S3 CAM, while the MSP432 robot chassis handles the motor controls.</p>
           </div>
 
           <div class="modal-section">
-            <h4>HIGHLIGHTS</h4>
+            <h4>ARCHITECTURE</h4>
             <ul>
-              <li>Real-time object detection with a fine-tuned FOMO model on TensorFlow Lite Micro</li>
+              <li>Fine-tuned FOMO model using an optimized TensorFlow Lite Micro inference engine on ESP32-S3 CAM</li>
               <li>Bare-metal C firmware on MSP432 for motor control, ultrasonic sensing, and UART feedback</li>
-              <li>~14 FPS inference at 96×96 input resolution</li>
-              <li>Status: paused — chassis redesign in progress</li>
+              <li>ESP32 computes error from centroid location to frame center, then sends a navigation command to MSP432 via UART</li>
+              <li>HC-SR04 gauges distance to target and MSP432 adjust forward velocity accordingly</li>
+              <li>Status: paused — physical chassis is at school</li>
             </ul>
           </div>
 
           <div class="modal-section">
-            <h4>STACK</h4>
+            <h4>TOOLCHAIN</h4>
             <ul>
-              <li>ESP32-S3 (vision) · MSP432 (motor)</li>
-              <li>FOMO · TensorFlow Lite Micro · Edge Impulse</li>
-              <li>UART inference pipeline · HC-SR04 ultrasonic</li>
+              <li>Arduino IDE</li>  
+              <li>Code Composer Studio</li>
+              <li>Edge Impulse</li>
             </ul>
           </div>
 
           <div class="modal-actions">
-            <a href="https://github.com/goombad" target="_blank" class="modal-action">GitHub <span>→</span></a>
+            <a href="https://github.com/goombad/PACK-E" target="_blank" class="modal-action">GitHub <span>→</span></a>
           </div>
         </div>
       </div>
@@ -871,11 +925,11 @@
       <div>
         <p class="project-num">PROJECT 03</p>
         <h3 class="project-title">Automated Blast Gate Network</h3>
-        <p class="project-desc">Electrical/Embedded systems lead on a fleet of "smart" blast gates for the SHED Wood Shop. Closed-loop positioning, broadcast UART protocol, and locally-computed flow balancing across nodes — no central controller.</p>
+        <p class="project-desc">Electrical/Embedded Systems lead on a fleet of "smart" blast gates for the SHED Wood Shop. Precise closed-loop positioning, broadcast UART protocol, and locally-computed flow balancing across nodes. Designed to be <em>minimally</em> invasive.</p>
         <div class="project-stats">
           <div class="stat-row"><span class="label">DRIVER</span><span class="value">L298N</span></div>
           <div class="stat-row"><span class="label">PROTOCOL</span><span class="value">8N1 UART · BROADCAST</span></div>
-          <div class="stat-row"><span class="label">CONTROL</span><span class="value">CLOSED-LOOP</span></div>
+          <div class="stat-row"><span class="label">CONTROL</span><span class="value">CLOSED-LOOP</span></div>  
           <div class="stat-row"><span class="label">SCOPE</span><span class="value">JAN — MAY 2026</span></div>
         </div>
         <button class="project-expand">Learn more <span class="arrow">→</span></button>
@@ -970,8 +1024,7 @@
           </div>
 
           <div class="modal-actions">
-            <a href="https://github.com/goombad" target="_blank" class="modal-action">GitHub <span>→</span></a>
-            <a href="#" class="modal-action">Write-up <span>→</span></a>
+            <a href="https://github.com/goombad/Blast-Gate-Repo" target="_blank" class="modal-action">GitHub <span>→</span></a>
           </div>
         </div>
       </div>
@@ -1057,10 +1110,6 @@
               <li>HC-05 Bluetooth module · I²C telemetry</li>
             </ul>
           </div>
-
-          <div class="modal-actions">
-            <a href="https://github.com/goombad" target="_blank" class="modal-action">GitHub <span>→</span></a>
-          </div>
         </div>
       </div>
     </div>
@@ -1119,6 +1168,45 @@
         <p>I've shipped projects in three countries — automated parcel sortation at USPS Atlanta, NOX module testing with Toyota in Tokyo, and a few hundred Wood Shop students in Rochester. I like systems that are clean enough to explain in one sentence, and stubborn enough to survive the real world.</p>
         <p>Outside of school, I work at the SHED makerspace as a mentor, tutor multivariable calc &amp; physics, and tinker on whatever robot I can fit in a carry-on.</p>
       </div>
+
+      <!-- ─────────────────────────────────────────────
+           HOW I WORK — edit the steps below to your liking.
+      ───────────────────────────────────────────────── -->
+      <div class="about-workflow">
+        <h4 class="workflow-heading">HOW I WORK</h4>
+        <ol class="workflow-list">
+          <li>
+            <span class="workflow-num">01</span>
+            <span class="workflow-step">
+              <strong>Scope.</strong> Sketch the system on paper, draft a block diagram, and define what "working" looks like before parts hit the table.
+            </span>
+          </li>
+          <li>
+            <span class="workflow-num">02</span>
+            <span class="workflow-step">
+              <strong>Design.</strong> CAD the mechanicals in SolidWorks or Inventor, draft the schematic in CirkitDesigner, and simulate critical sections in Multisim first.
+            </span>
+          </li>
+          <li>
+            <span class="workflow-num">03</span>
+            <span class="workflow-step">
+              <strong>Bench.</strong> Prototype on breadboard. Validate signal paths and motor commands in isolation before any integration.
+            </span>
+          </li>
+          <li>
+            <span class="workflow-num">04</span>
+            <span class="workflow-step">
+              <strong>Integrate.</strong> Bring up firmware on real hardware iteratively — one subsystem at a time, with a serial monitor open at all times.
+            </span>
+          </li>
+          <li>
+            <span class="workflow-num">05</span>
+            <span class="workflow-step">
+              <strong>Document.</strong> Comment the code, README the repo, draw the final block diagram. If the next person can't pick it up, it isn't done.
+            </span>
+          </li>
+        </ol>
+      </div>
     </div>
 
     <div class="about-meta">
@@ -1159,7 +1247,6 @@
     modal.classList.remove('open');
     modal.setAttribute('aria-hidden', 'true');
     document.body.classList.remove('modal-open');
-    // clear after the transition so DOM doesn't linger
     setTimeout(() => { modalContent.innerHTML = ''; }, 350);
   }
 
