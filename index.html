@@ -87,6 +87,7 @@
     align-items: stretch;
     justify-content: center;
     padding: 120px 48px 120px;
+    text-align: center;
     position: relative;
   }
 
@@ -103,7 +104,7 @@
   .hero-main {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     gap: 48px;
     width: 100%;
     max-width: 1300px;
@@ -117,16 +118,16 @@
     line-height: 1.02;
     color: var(--ink);
     margin: 0;
-    text-align: left;
+    text-align: center;
   }
 
   .hero-bio {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     gap: 24px;
-    max-width: 580px;
-    text-align: left;
+    max-width: 720px;
+    text-align: center;
   }
 
   .hero-bio p {
@@ -135,7 +136,7 @@
     line-height: 1.75;
     color: var(--ink-soft);
     margin: 0;
-    text-align: left;
+    text-align: center;
   }
 
   .hero-bio p strong {
@@ -183,6 +184,7 @@
     letter-spacing: 1.5px;
     color: var(--mid-2);
     line-height: 1.7;
+    text-align: left;
   }
 
   .hero-corner-r {
@@ -190,6 +192,20 @@
     right: 48px;
     text-align: right;
   }
+
+  /* HERO — CORNER BRACKETS (subtle framing) */
+  .hero-bracket {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    border: 1px solid var(--mid-2);
+    pointer-events: none;
+  }
+
+  .hero-bracket-tl { top: 100px; left: 32px; border-right: none; border-bottom: none; }
+  .hero-bracket-tr { top: 100px; right: 32px; border-left: none; border-bottom: none; }
+  .hero-bracket-bl { bottom: 32px; left: 32px; border-right: none; border-top: none; }
+  .hero-bracket-br { bottom: 32px; right: 32px; border-left: none; border-top: none; }
 
   /* SECTION SHELL */
   section {
@@ -726,6 +742,11 @@
 
     .hero-main { gap: 36px; }
 
+    .hero-bracket-tl { top: 80px; left: 16px; }
+    .hero-bracket-tr { top: 80px; right: 16px; }
+    .hero-bracket-bl { bottom: 16px; left: 16px; }
+    .hero-bracket-br { bottom: 16px; right: 16px; }
+
     section { padding: 64px 24px; }
 
     .projects-grid { grid-template-columns: 1fr; }
@@ -804,6 +825,13 @@
       <a href="#about" class="hero-cta">Read full bio <span class="arrow">→</span></a>
     </div>
   </div>
+
+
+  <!-- Corner brackets -->
+  <div class="hero-bracket hero-bracket-tl"></div>
+  <div class="hero-bracket hero-bracket-tr"></div>
+  <div class="hero-bracket hero-bracket-bl"></div>
+  <div class="hero-bracket hero-bracket-br"></div>
 </div>
 
 <!-- PROJECTS -->
@@ -813,9 +841,145 @@
 
   <div class="projects-grid">
 
-    <!-- 01 -->
-    <div class="project-card" data-project="01">
-      <p class="project-num">PROJECT 01</p>
+    <!-- 01 (NEW) -->
+    <div class="project-card full-width" data-project="01">
+      <div>
+        <p class="project-num">PROJECT 01</p>
+        <h3 class="project-title">Physical to Digital Photo Match</h3>
+        <p class="project-desc">[EDIT ME] A computer vision pipeline that matches features from a physical photograph against a digital reference — feature detection, descriptor matching, and registration in one tool.</p>
+
+        <div class="project-stats">
+          <div class="stat-row"><span class="label">PIPELINE</span><span class="value">OPENCV / PYTHON</span></div>
+          <div class="stat-row"><span class="label">DETECTOR</span><span class="value">ORB · SIFT</span></div>
+          <div class="stat-row"><span class="label">STATUS</span><span class="value">IN DEVELOPMENT</span></div>
+        </div>
+
+        <button class="project-expand">Learn more <span class="arrow">→</span></button>
+      </div>
+
+      <div class="project-image">
+        <!-- TO USE A REAL PHOTO: replace the <svg>…</svg> below with:
+             <img src="images/photo-match.jpg" alt="Photo match" /> -->
+        <svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+          <rect width="600" height="400" fill="#F0EFEB" />
+
+          <rect x="50" y="80" width="220" height="240" fill="#FAFAF8" stroke="#9A9A9A" stroke-width="1" />
+          <text x="50" y="68" font-family="JetBrains Mono" font-size="9" fill="#9A9A9A">PHYSICAL · IMG-001.JPG</text>
+
+          <rect x="330" y="80" width="220" height="240" fill="#FAFAF8" stroke="#9A9A9A" stroke-width="1" />
+          <text x="330" y="68" font-family="JetBrains Mono" font-size="9" fill="#9A9A9A">DIGITAL · REF.PNG</text>
+
+          <g fill="#1A1A1A">
+            <circle cx="95" cy="125" r="3" />
+            <circle cx="145" cy="170" r="3" />
+            <circle cx="210" cy="145" r="3" />
+            <circle cx="125" cy="225" r="3" />
+            <circle cx="225" cy="260" r="3" />
+            <circle cx="180" cy="290" r="3" />
+            <circle cx="85" cy="285" r="3" />
+          </g>
+
+          <g fill="#1A1A1A">
+            <circle cx="375" cy="125" r="3" />
+            <circle cx="425" cy="170" r="3" />
+            <circle cx="490" cy="145" r="3" />
+            <circle cx="405" cy="225" r="3" />
+            <circle cx="505" cy="260" r="3" />
+            <circle cx="460" cy="290" r="3" />
+            <circle cx="365" cy="285" r="3" />
+          </g>
+
+          <g stroke="#22C55E" stroke-width="0.7" opacity="0.65" fill="none">
+            <path d="M 95 125 L 375 125" />
+            <path d="M 145 170 L 425 170" />
+            <path d="M 210 145 L 490 145" />
+            <path d="M 125 225 L 405 225" />
+            <path d="M 225 260 L 505 260" />
+            <path d="M 180 290 L 460 290" />
+            <path d="M 85 285 L 365 285" />
+          </g>
+
+          <text x="50" y="370" font-family="JetBrains Mono" font-size="8" fill="#9A9A9A">FEATURES · 247</text>
+          <text x="300" y="370" font-family="JetBrains Mono" font-size="8" fill="#9A9A9A" text-anchor="middle">MATCHES · 89</text>
+          <text x="550" y="370" font-family="JetBrains Mono" font-size="8" fill="#9A9A9A" text-anchor="end">INLIERS · 92%</text>
+        </svg>
+      </div>
+
+      <div class="project-extended">
+        <div class="modal-hero-img">
+          <!-- TO USE A REAL PHOTO: replace this svg with <img src="images/photo-match-large.jpg" alt="" /> -->
+          <svg viewBox="0 0 600 338" xmlns="http://www.w3.org/2000/svg">
+            <rect width="600" height="338" fill="#F0EFEB" />
+
+            <rect x="50" y="60" width="220" height="220" fill="#FAFAF8" stroke="#9A9A9A" stroke-width="1" />
+            <rect x="330" y="60" width="220" height="220" fill="#FAFAF8" stroke="#9A9A9A" stroke-width="1" />
+
+            <g fill="#1A1A1A">
+              <circle cx="95" cy="105" r="3" />
+              <circle cx="145" cy="150" r="3" />
+              <circle cx="210" cy="130" r="3" />
+              <circle cx="125" cy="200" r="3" />
+              <circle cx="225" cy="240" r="3" />
+              <circle cx="180" cy="260" r="3" />
+            </g>
+            <g fill="#1A1A1A">
+              <circle cx="375" cy="105" r="3" />
+              <circle cx="425" cy="150" r="3" />
+              <circle cx="490" cy="130" r="3" />
+              <circle cx="405" cy="200" r="3" />
+              <circle cx="505" cy="240" r="3" />
+              <circle cx="460" cy="260" r="3" />
+            </g>
+            <g stroke="#22C55E" stroke-width="0.7" opacity="0.65" fill="none">
+              <path d="M 95 105 L 375 105" />
+              <path d="M 145 150 L 425 150" />
+              <path d="M 210 130 L 490 130" />
+              <path d="M 125 200 L 405 200" />
+              <path d="M 225 240 L 505 240" />
+              <path d="M 180 260 L 460 260" />
+            </g>
+          </svg>
+        </div>
+
+        <div class="modal-body">
+          <p class="modal-num">PROJECT 01 · [DATE] — PRESENT</p>
+          <h2 class="modal-title">Physical to Digital Photo Match</h2>
+          <p class="modal-tagline">[EDIT ME] A computer vision pipeline that matches features from a physical photograph against a digital reference using descriptor-based matching.</p>
+
+          <div class="modal-section">
+            <h4>OVERVIEW</h4>
+            <p>[EDIT ME] Describe the project goals and approach here. What problem does it solve? What makes the approach interesting?</p>
+          </div>
+
+          <div class="modal-section">
+            <h4>ARCHITECTURE</h4>
+            <ul>
+              <li>[EDIT ME] Extract feature keypoints from both physical and digital images</li>
+              <li>[EDIT ME] Compute descriptors for each keypoint</li>
+              <li>[EDIT ME] Brute-force matcher with cross-check filtering</li>
+              <li>[EDIT ME] RANSAC for outlier rejection and homography estimation</li>
+            </ul>
+          </div>
+
+          <div class="modal-section">
+            <h4>TOOLCHAIN</h4>
+            <ul>
+              <li>[EDIT ME] OpenCV · Python</li>
+              <li>[EDIT ME] NumPy for vector math</li>
+              <li>[EDIT ME] Matplotlib for visualization</li>
+            </ul>
+          </div>
+
+          <div class="modal-actions">
+            <a href="#" target="_blank" class="modal-action">GitHub <span>→</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 02 -->
+    <div class="project-card" data-project="02">
+      <p class="project-num">PROJECT 02</p>
       <h3 class="project-title">Automated SVG Sisyphus Table</h3>
       <p class="project-desc">A polar CNC sand table driven by a custom SVG-to-G-code converter, Nano firmware, and Python serial bridge for live pattern streaming.</p>
 
@@ -873,7 +1037,7 @@
         </div>
 
         <div class="modal-body">
-          <p class="modal-num">PROJECT 01 · MAR 2026 — PRESENT</p>
+          <p class="modal-num">PROJECT 02 · MAR 2026 — PRESENT</p>
           <h2 class="modal-title">Automated SVG Sisyphus Table</h2>
           <p class="modal-tagline">A polar coordinate CNC machine that draws patterns in sand using a magnetically-coupled steel ball — driven by a fully custom toolchain from SVG to motor torque.</p>
 
@@ -909,9 +1073,9 @@
       </div>
     </div>
 
-    <!-- 02 -->
-    <div class="project-card" data-project="02">
-      <p class="project-num">PROJECT 02</p>
+    <!-- 03 -->
+    <div class="project-card" data-project="03">
+      <p class="project-num">PROJECT 03</p>
       <h3 class="project-title">PACK-E</h3>
       <p class="project-desc">A real-time object detection and retrieval robot running a fine-tuned FOMO model on ESP32-S3, with ultrasonic sensing and UART inference feedback.</p>
 
@@ -974,7 +1138,7 @@
         </div>
 
         <div class="modal-body">
-          <p class="modal-num">PROJECT 02 · MAR 2026 — PAUSED</p>
+          <p class="modal-num">PROJECT 03 · MAR 2026 — PAUSED</p>
           <h2 class="modal-title">PACK-E</h2>
           <p class="modal-tagline">Package Acquisition & Collection Kernel Earth-Class. Autonomous object detection and retrieval by squeezing a TinyML pipeline onto a $15 microcontroller.</p>
 
@@ -1010,22 +1174,11 @@
       </div>
     </div>
 
-    <!-- 03 -->
-    <div class="project-card full-width" data-project="03">
-      <div>
-        <p class="project-num">PROJECT 03</p>
-        <h3 class="project-title">Automated Blast Gate Network</h3>
-        <p class="project-desc">Electrical/Embedded Systems lead on a fleet of "smart" blast gates for the SHED Wood Shop. Precise closed-loop positioning, broadcast UART protocol, and locally-computed flow balancing across nodes. Designed to be <em>minimally</em> invasive.</p>
-
-        <div class="project-stats">
-          <div class="stat-row"><span class="label">DRIVER</span><span class="value">L298N</span></div>
-          <div class="stat-row"><span class="label">PROTOCOL</span><span class="value">8N1 UART · BROADCAST</span></div>
-          <div class="stat-row"><span class="label">CONTROL</span><span class="value">CLOSED-LOOP</span></div>
-          <div class="stat-row"><span class="label">SCOPE</span><span class="value">JAN — MAY 2026</span></div>
-        </div>
-
-        <button class="project-expand">Learn more <span class="arrow">→</span></button>
-      </div>
+    <!-- 04 -->
+    <div class="project-card" data-project="04">
+      <p class="project-num">PROJECT 04</p>
+      <h3 class="project-title">Automated Blast Gate Network</h3>
+      <p class="project-desc">Electrical/Embedded Systems lead on a fleet of "smart" blast gates for the SHED Wood Shop. Precise closed-loop positioning, broadcast UART protocol, and locally-computed flow balancing across nodes. Designed to be <em>minimally</em> invasive.</p>
 
       <div class="project-image">
         <svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
@@ -1066,6 +1219,15 @@
         </svg>
       </div>
 
+      <div class="project-stats">
+        <div class="stat-row"><span class="label">DRIVER</span><span class="value">L298N</span></div>
+        <div class="stat-row"><span class="label">PROTOCOL</span><span class="value">8N1 UART · BROADCAST</span></div>
+        <div class="stat-row"><span class="label">CONTROL</span><span class="value">CLOSED-LOOP</span></div>
+        <div class="stat-row"><span class="label">SCOPE</span><span class="value">JAN — MAY 2026</span></div>
+      </div>
+
+      <button class="project-expand">Learn more <span class="arrow">→</span></button>
+
       <div class="project-extended">
         <div class="modal-hero-img">
           <svg viewBox="0 0 600 338" xmlns="http://www.w3.org/2000/svg">
@@ -1093,7 +1255,7 @@
         </div>
 
         <div class="modal-body">
-          <p class="modal-num">PROJECT 03 · JAN — MAY 2026</p>
+          <p class="modal-num">PROJECT 04 · JAN — MAY 2026</p>
           <h2 class="modal-title">Automated Blast Gate Network</h2>
           <p class="modal-tagline">A fleet of "smart" blast gates for the RIT SHED Wood Shop — gates that talk to each other and balance vacuum flow with no central controller in the loop.</p>
 
@@ -1128,9 +1290,9 @@
       </div>
     </div>
 
-    <!-- 04 -->
-    <div class="project-card" data-project="04">
-      <p class="project-num">PROJECT 04</p>
+    <!-- 05 -->
+    <div class="project-card" data-project="05">
+      <p class="project-num">PROJECT 05</p>
       <h3 class="project-title">RC Tank &amp; Bluetooth Bridge</h3>
       <p class="project-desc">Fully CADed, 3D-printed analog joystick tank platform. Custom H-bridge driver built from P-MOS / N-MOS for all four motion states, with HC-05 Bluetooth and I²C telemetry.</p>
 
@@ -1185,7 +1347,7 @@
         </div>
 
         <div class="modal-body">
-          <p class="modal-num">PROJECT 04 · AUG 2021 — MAY 2022</p>
+          <p class="modal-num">PROJECT 05 · AUG 2021 — MAY 2022</p>
           <h2 class="modal-title">RC Tank &amp; Bluetooth Bridge</h2>
           <p class="modal-tagline">My first real mechatronics build. Custom-designed chassis, custom H-bridge driver from discrete MOSFETs, custom controller — every layer from mechanical to firmware was hand-rolled.</p>
 
@@ -1273,7 +1435,7 @@
       <h3 class="about-headline">I build things that <em>move, sense,</em> and <em>think</em> for themselves.</h3>
 
       <div class="about-body">
-        <p>I'm a dual-degree engineering student at RIT, splitting my time between Mechatronics and Computer Engineering Technology. Most of my work lives in the seam between physical hardware and the firmware that keeps it honest — motor control, sensor fusion, embedded ML, and the protocols holding them all together.</p></p>
+        <p>I'm a dual-degree engineering student at RIT, splitting my time between Mechatronics and Computer Engineering Technology. Most of my work lives in the seam between physical hardware and the firmware that keeps it honest — motor control, sensor fusion, embedded ML, and the protocols holding them all together.</p>
       </div>
     </div>
 
@@ -1313,7 +1475,7 @@
         <li>
           <span class="workflow-num">05</span>
           <span class="workflow-step">
-            <strong>Optimize.</strong> Document it on GitHub. Then scale it. Put it on a PCB. Make it easier to use. Go above and beyond.
+            <strong>Optimize.</strong> Document it on GitHub. Then Scale it. Put it on a PCB. Make it easier to use. Go above and beyond.
           </span>
         </li>
       </ol>
