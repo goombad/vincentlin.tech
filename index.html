@@ -859,12 +859,12 @@
     <div class="project-card full-width" data-project="01">
       <div>
         <p class="project-num">PROJECT 01</p>
-        <h3 class="project-title">Physical to Digital Photo Match</h3>
-        <p class="project-desc">Computer vision pipeline using both DINOv3 and traditional ORB and SIFT algorithms to match physical images to their digital counterparts.</p>
+        <h3 class="project-title">LifeStory - Memory Record Player</h3>
+        <p class="project-desc">UncommonHacks '26 1st Place Winner using both Meta's DINOv3 embedding model and ORB feature matching algorithm.</p>
 
         <div class="project-stats">
-          <div class="stat-row"><span class="label">PIPELINE</span><span class="value">OPENCV / PYTHON</span></div>
-          <div class="stat-row"><span class="label">DETECTOR</span><span class="value">ORB · SIFT</span></div>
+          <div class="stat-row"><span class="label">PIPELINE</span><span class="value">PYTORCH / OPENCV</span></div>
+          <div class="stat-row"><span class="label">DETECTOR</span><span class="value">DINOv3 · ORB</span></div>
           <div class="stat-row"><span class="label">STATUS</span><span class="value">IN DEVELOPMENT</span></div>
         </div>
 
@@ -922,7 +922,7 @@
       <div class="project-extended">
         <div class="modal-hero-img">
           <!-- TO USE A REAL PHOTO: replace this svg with <img src="images/photo-match-large.jpg" alt="" /> -->
-          <img src = "images/imagematchertest.jpg" alt="Photo match" />
+          <img src = "images/imagematchertest.jpg"
             <rect width="600" height="338" fill="#F0EFEB" />
 
             <rect x="50" y="60" width="220" height="220" fill="#FAFAF8" stroke="#9A9A9A" stroke-width="1" />
@@ -956,7 +956,7 @@
         </div>
 
         <div class="modal-body">
-          <p class="modal-num">PROJECT 01 · [DATE] — PRESENT</p>
+          <p class="modal-num">PROJECT 01 · MAY 2026 — PRESENT</p>
           <h2 class="modal-title">Physical to Digital Photo Match</h2>
           <p class="modal-tagline">[EDIT ME] A computer vision pipeline that matches features from a physical photograph against a digital reference using descriptor-based matching.</p>
 
@@ -966,7 +966,7 @@
           </div>
 
           <div class="modal-section">
-            <h4>ARCHITECTURE</h4>
+            <h4>SYSTEM ARCHITECTURE</h4>
             <ul>
               <li>[EDIT ME] Extract feature keypoints from both physical and digital images</li>
               <li>[EDIT ME] Compute descriptors for each keypoint</li>
@@ -974,13 +974,33 @@
               <li>[EDIT ME] RANSAC for outlier rejection and homography estimation</li>
             </ul>
           </div>
+          
+          <div class="modal-section">
+            <h4>IMAGE MATCHING PIPELINE</h4>
+            <ul>
+              <li>ESP32S3 hosts a live camera web server at full 2MP resolution to capture images</li>
+              <li>Python script continuously pulls jpeg frames from web server</li>
+              <li>Generate DINOv3 embeddings to rank visually similar digital images to physical photo</li>
+              <li>Detect ORB keypoints and compute binary descriptors for physical image and each digital candidate</li>
+              <li>Calculate brute-force hamming distance between descriptors to find top feature matches</li>
+              <li>Use Lowe’s ratio of 0.80 and RANSAC homography for outlier rejection</li>
+              <li>Return highest ORB/RANSAC match, then output keypoint matches, inlier counts, and DINOv3 similarity</li>
+            </ul>
+          </div>
 
           <div class="modal-section">
             <h4>TOOLCHAIN</h4>
             <ul>
-              <li>[EDIT ME] OpenCV · Python</li>
+              <li>[EDIT ME] OpenCV · Pytorch</li>
               <li>[EDIT ME] NumPy for vector math</li>
               <li>[EDIT ME] Matplotlib for visualization</li>
+            </ul>
+          </div>
+
+          <div class="modal-section">
+            <h4>DEVPOST</h4>
+            <ul>
+              <li>Full Devpost can be found here: <a href="https://devpost.com/software/lifestory" target="_blank">https://devpost.com/software/lifestory</a></li>
             </ul>
           </div>
 
