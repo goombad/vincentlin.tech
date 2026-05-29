@@ -121,7 +121,6 @@
     color: var(--ink);
     margin: 0;
     text-align: center;
-    text-wrap: balance;
   }
 
   .hero-bio {
@@ -140,7 +139,6 @@
     color: var(--ink-soft);
     margin: 0;
     text-align: center;
-    text-wrap: pretty;
   }
 
   .hero-bio p strong {
@@ -663,7 +661,6 @@
     line-height: 1.15;
     color: var(--ink);
     margin-bottom: 32px;
-    text-wrap: balance;
   }
 
   .about-headline em {
@@ -679,7 +676,6 @@
     color: var(--ink-soft);
     margin-bottom: 18px;
     max-width: 560px;
-    text-wrap: pretty;
   }
 
   .about-body p:last-child { margin-bottom: 0; }
@@ -738,7 +734,6 @@
     font-size: 14.5px;
     line-height: 1.6;
     color: var(--ink-soft);
-    text-wrap: pretty;
   }
 
   .workflow-step strong {
@@ -887,7 +882,6 @@
   window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };
 </script>
 <script defer src="/_vercel/speed-insights/script.js"></script>
-
 </head>
 <body>
 
@@ -922,7 +916,7 @@
     <div class="hero-bio anim d3">
       <p>
         <strong>Mechatronics &amp; Embedded Systems Engineer</strong> based in Brooklyn, NY. <br />
-        Focused on robotic systems, computer vision, and physical AI.
+        Focused on robotic systems, computer vision, and physical AI. <br />
       </p>
 
       <a href="#about" class="hero-cta">Read full bio <span class="arrow">→</span></a>
@@ -1040,7 +1034,7 @@
               <li>Generate DINOv3 embeddings to rank visually similar digital images to physical photo</li>
               <li>Detect ORB keypoints and compute binary descriptors for physical image and each digital candidate</li>
               <li>Calculate brute-force hamming distance between descriptors to find top feature matches</li>
-              <li>Use Lowe's ratio of 0.80 and RANSAC homography for outlier rejection</li>
+              <li>Use Lowe’s ratio of 0.80 and RANSAC homography for outlier rejection</li>
               <li>Return highest ORB/RANSAC match, then output keypoint matches, inlier counts, and DINOv3 similarity</li>
             </ul>
           </div>
