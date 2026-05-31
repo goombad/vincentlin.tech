@@ -210,6 +210,28 @@
     text-align: right;
   }
 
+  .hero-trace {
+    display: block;
+    width: 200px;
+    height: 50px;
+    margin-bottom: 18px;
+  }
+
+  .hero-corner-r .hero-trace {
+    margin-left: auto;
+    transform: scaleX(-1);
+  }
+
+  .hero-corner .key {
+    display: inline-block;
+    min-width: 100px;
+    color: var(--mid);
+  }
+
+  .hero-corner-r .key {
+    text-align: right;
+  }
+
   /* SECTION SHELL */
   section {
     padding: 100px 48px;
@@ -979,15 +1001,39 @@
 <!-- HERO -->
 <div class="hero">
   <div class="hero-corner">
-    TYO → ATL → NYC<br />
-    LAT 43.0848°N<br />
-    LON 77.6743°W
+    <svg class="hero-trace" viewBox="0 0 200 50" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <!-- Component pad (left) -->
+      <rect x="4" y="22" width="8" height="8" fill="none" stroke="currentColor" stroke-width="0.8" />
+      <!-- Trace: outer thick stroke creates the trace body -->
+      <path d="M 12 26 L 66 26 L 76 36 L 160 36" stroke="currentColor" stroke-width="3" fill="none" stroke-linejoin="miter" />
+      <!-- Trace: inner stroke in bg color creates the double-line outline effect -->
+      <path d="M 12 26 L 66 26 L 76 36 L 160 36" stroke="var(--bg)" stroke-width="1.5" fill="none" stroke-linejoin="miter" />
+      <!-- Test-point crosshair (right) -->
+      <circle cx="172" cy="36" r="6" fill="none" stroke="currentColor" stroke-width="0.8" />
+      <line x1="164" y1="36" x2="180" y2="36" stroke="currentColor" stroke-width="0.6" />
+      <line x1="172" y1="28" x2="172" y2="44" stroke="currentColor" stroke-width="0.6" />
+    </svg>
+    <span class="key">/loc/origin</span>TYO<br />
+    <span class="key">/loc/relay</span>ATL<br />
+    <span class="key">/loc/host</span>NYC
   </div>
 
   <div class="hero-corner hero-corner-r">
-    PORTFOLIO / 2026<br />
-    INDEX 001 / 004<br />
-    STATUS: ACTIVE
+    <svg class="hero-trace" viewBox="0 0 200 50" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <!-- Component pad (left) -->
+      <rect x="4" y="22" width="8" height="8" fill="none" stroke="currentColor" stroke-width="0.8" />
+      <!-- Trace: outer thick stroke creates the trace body -->
+      <path d="M 12 26 L 66 26 L 76 36 L 160 36" stroke="currentColor" stroke-width="3" fill="none" stroke-linejoin="miter" />
+      <!-- Trace: inner stroke in bg color creates the double-line outline effect -->
+      <path d="M 12 26 L 66 26 L 76 36 L 160 36" stroke="var(--bg)" stroke-width="1.5" fill="none" stroke-linejoin="miter" />
+      <!-- Test-point crosshair (right) -->
+      <circle cx="172" cy="36" r="6" fill="none" stroke="currentColor" stroke-width="0.8" />
+      <line x1="164" y1="36" x2="180" y2="36" stroke="currentColor" stroke-width="0.6" />
+      <line x1="172" y1="28" x2="172" y2="44" stroke="currentColor" stroke-width="0.6" />
+    </svg>
+    <span class="key">/sys/build</span>v2026<br />
+    <span class="key">/sys/uptime</span>∞<br />
+    <span class="key">/sys/state</span>ACTIVE
   </div>
 
   <p class="hero-tag anim d1">[ MECHATRONICS / COMPUTER ENGINEERING ]</p>
