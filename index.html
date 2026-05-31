@@ -22,6 +22,21 @@
     --line: #E6E4DF;
     --line-strong: #D4D2CC;
     --accent: #22C55E;
+    --cover-bg: #F0EFEB;
+    --nav-bg: rgba(250, 250, 248, 0.78);
+  }
+
+  [data-theme="dark"] {
+    --bg: #1A1A18;
+    --panel: #242421;
+    --ink: #FAFAF8;
+    --ink-soft: #D4D2CC;
+    --mid: #8C8C8C;
+    --mid-2: #5A5A56;
+    --line: #2E2E2A;
+    --line-strong: #3E3E3A;
+    --cover-bg: #262622;
+    --nav-bg: rgba(26, 26, 24, 0.78);
   }
 
   html { scroll-behavior: smooth; }
@@ -49,7 +64,7 @@
     left: 0;
     right: 0;
     z-index: 50;
-    background: rgba(250, 250, 248, 0.78);
+    background: var(--nav-bg);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--line);
@@ -276,7 +291,7 @@
   .project-image {
     width: 100%;
     aspect-ratio: 4 / 3;
-    background: #F0EFEB;
+    background: var(--cover-bg);
     margin-bottom: 32px;
     overflow: hidden;
     position: relative;
@@ -400,7 +415,7 @@
   .modal-hero-img {
     width: 100%;
     aspect-ratio: 16 / 9;
-    background: #F0EFEB;
+    background: var(--cover-bg);
     overflow: hidden;
     border-bottom: 1px solid var(--line);
   }
@@ -494,7 +509,7 @@
   .modal-figure {
     margin: 4px 0 0;
     border: 1px solid var(--line);
-    background: #F0EFEB;
+    background: var(--cover-bg);
     overflow: hidden;
   }
 
@@ -874,6 +889,51 @@
 
     .footer { padding: 60px 24px 32px; }
   }
+
+  /* DARK MODE — override the hardcoded fills inside the inline SVG illustrations */
+  [data-theme="dark"] svg [fill="#F0EFEB"] { fill: var(--cover-bg); }
+  [data-theme="dark"] svg [fill="#FAFAF8"] { fill: var(--panel); }
+  [data-theme="dark"] svg [fill="#1A1A1A"] { fill: var(--ink); }
+  [data-theme="dark"] svg [stroke="#1A1A1A"] { stroke: var(--ink); }
+  [data-theme="dark"] svg [fill="#9A9A9A"] { fill: var(--mid); }
+  [data-theme="dark"] svg [stroke="#9A9A9A"] { stroke: var(--mid); }
+
+  /* THEME TOGGLE */
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 56px;
+  }
+
+  .theme-toggle {
+    background: transparent;
+    border: 1px solid var(--line);
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--ink);
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s, border-color 0.2s;
+  }
+
+  .theme-toggle:hover {
+    background: var(--ink);
+    color: var(--bg);
+    border-color: var(--ink);
+  }
+
+  .theme-toggle svg {
+    width: 14px;
+    height: 14px;
+    display: block;
+  }
+
+  .theme-toggle .icon-sun { display: none; }
+  [data-theme="dark"] .theme-toggle .icon-moon { display: none; }
+  [data-theme="dark"] .theme-toggle .icon-sun { display: block; }
 </style>
 <script defer src="/_vercel/insights/script.js"></script>
 
@@ -881,15 +941,38 @@
   window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };
 </script>
 <script defer src="/_vercel/speed-insights/script.js"></script>
+
+<script>
+  // Set initial theme before first paint to avoid flash
+  (function () {
+    try {
+      var stored = localStorage.getItem('theme');
+      var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      var theme = stored || (prefersDark ? 'dark' : 'light');
+      if (theme === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+    } catch (e) {}
+  })();
+</script>
 </head>
 <body>
 
 <nav>
   <a href="#about" class="logo">V. LIN</a>
-  <div class="nav-links">
-    <a href="#projects">PROJECTS</a>
-    <a href="#experience">EXPERIENCE</a>
-    <a href="#about">ABOUT</a>
+  <div class="nav-right">
+    <div class="nav-links">
+      <a href="#projects">PROJECTS</a>
+      <a href="#experience">EXPERIENCE</a>
+      <a href="#about">ABOUT</a>
+    </div>
+    <button class="theme-toggle" type="button" aria-label="Toggle color theme">
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+      </svg>
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="12" cy="12" r="4" />
+        <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+      </svg>
+    </button>
   </div>
 </nav>
 
@@ -1634,6 +1717,20 @@
       } else {
         // Anywhere above About — scroll down to it
         aboutSection.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  }
+  // THEME TOGGLE
+  const themeToggle = document.querySelector('.theme-toggle');
+  if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      if (isDark) {
+        document.documentElement.removeAttribute('data-theme');
+        try { localStorage.setItem('theme', 'light'); } catch (e) {}
+      } else {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        try { localStorage.setItem('theme', 'dark'); } catch (e) {}
       }
     });
   }
