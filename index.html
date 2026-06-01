@@ -141,8 +141,13 @@
 
   .title-inner {
     display: inline-block;
-    transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
     will-change: transform;
+  }
+
+  .title-outline {
+    color: transparent;
+    -webkit-text-stroke: 1.5px var(--ink);
+    text-stroke: 1.5px var(--ink);
   }
 
   .hero-bio {
@@ -279,8 +284,7 @@
     height: 100%;
     width: 0;
     left: 50%;
-    background: var(--accent);
-    transition: width 0.18s ease-out, left 0.18s ease-out, right 0.18s ease-out;
+    background: var(--ink);
   }
 
   /* SECTION SHELL */
@@ -1063,8 +1067,12 @@
       <div class="imu-bar"><div class="imu-fill" data-axis="y"></div></div>
     </div>
     <div class="imu-row">
-      <span class="imu-label">GYRO_RATE</span>
-      <div class="imu-bar"><div class="imu-fill" data-axis="z"></div></div>
+      <span class="imu-label">ACCEL_X</span>
+      <div class="imu-bar"><div class="imu-fill" data-axis="ax"></div></div>
+    </div>
+    <div class="imu-row">
+      <span class="imu-label">ACCEL_Y</span>
+      <div class="imu-bar"><div class="imu-fill" data-axis="ay"></div></div>
     </div>
   </aside>
 
@@ -1107,7 +1115,7 @@
   <p class="hero-tag anim d1">[ MECHATRONICS / COMPUTER ENGINEERING ]</p>
 
   <div class="hero-main">
-    <h1 class="anim d2"><span class="title-inner">Engineering<br />systems that move.</span></h1>
+    <h1 class="anim d2"><span class="title-inner">Engineering<br /><span class="title-outline">systems that move.</span></span></h1>
 
     <div class="hero-bio anim d3">
       <p>
@@ -1849,98 +1857,112 @@
     });
   }
 
-  // HERO IMU + TITLE TILT — cursor offset from hero-main center drives both
+  // HERO IMU + TITLE TILT — cursor offset drives multiple MPU6050-style readouts
+  // TILT = smoothed/derived angle (heavy filter), ACCEL = raw sensor reading (light filter)
   const hero = document.querySelector('.hero');
-  const heroMain = document.querySelector('.hero-main');
   const titleInner = document.querySelector('.title-inner');
-  const fillX = document.querySelector('.imu-fill[data-axis="x"]');
-  const fillY = document.querySelector('.imu-fill[data-axis="y"]');
-  const fillZ = document.querySelector('.imu-fill[data-axis="z"]');
+  const fillTX = document.querySelector('.imu-fill[data-axis="x"]');     // TILT_X
+  const fillTY = document.querySelector('.imu-fill[data-axis="y"]');     // TILT_Y
+  const fillAX = document.querySelector('.imu-fill[data-axis="ax"]');    // ACCEL_X
+  const fillAY = document.querySelector('.imu-fill[data-axis="ay"]');    // ACCEL_Y
 
-  let lastMx = 0, lastMy = 0;
-  let velocityZ = 0;
+  let targetTX = 0, targetTY = 0;
+  let targetAX = 0, targetAY = 0;
+  let currentTX = 0, currentTY = 0;
+  let currentAX = 0, currentAY = 0;
   let lastT = performance.now();
   let rafId = null;
 
-  function setBar(el, value, bipolar) {
-    if (bipolar === false) {
-      // Unipolar: fill left-to-right across the full bar (used for Z = magnitude)
-      const widthPct = Math.min(1, Math.max(0, value)) * 100;
-      el.style.width = widthPct + '%';
-      el.style.left = '0';
-      el.style.right = '';
-      return;
-    }
-    // Bipolar: fill from center toward one side (used for X/Y = signed offset)
+  function setBar(el, value) {
+    // Bipolar fill from center toward one side
     const widthPct = Math.min(1, Math.abs(value)) * 50;
     el.style.width = widthPct + '%';
     if (value >= 0) {
       el.style.left = '50%';
-      el.style.right = '';
+      el.style.right = 'auto';
     } else {
+      el.style.left = 'auto';
       el.style.right = '50%';
-      el.style.left = '';
     }
   }
 
-  function tickGyro() {
+  function tick() {
     const now = performance.now();
     const dt = Math.min(0.1, (now - lastT) / 1000);
-    velocityZ *= Math.pow(0.5, dt / 0.25); // half-life ~250ms
     lastT = now;
-    if (fillZ) setBar(fillZ, velocityZ, false);
-    if (velocityZ > 0.005) {
-      rafId = requestAnimationFrame(tickGyro);
+
+    // TILT: heavy smoothing (80ms half-life) — like a low-pass-filtered angle
+    const kTilt = 1 - Math.pow(0.5, dt / 0.08);
+    currentTX += (targetTX - currentTX) * kTilt;
+    currentTY += (targetTY - currentTY) * kTilt;
+
+    // ACCEL: light smoothing (40ms half-life) — raw sensor, snappier
+    const kAccel = 1 - Math.pow(0.5, dt / 0.04);
+    currentAX += (targetAX - currentAX) * kAccel;
+    currentAY += (targetAY - currentAY) * kAccel;
+
+    // Title uses TILT — tilt is the geometric angle that physically rotates an object
+    if (titleInner) {
+      titleInner.style.transform = `rotateX(${-currentTY * 3}deg) rotateY(${currentTX * 3}deg)`;
+    }
+    if (fillTX) setBar(fillTX, currentTX);
+    if (fillTY) setBar(fillTY, currentTY);
+    if (fillAX) setBar(fillAX, currentAX);
+    if (fillAY) setBar(fillAY, currentAY);
+
+    const stillMoving =
+      Math.abs(targetTX - currentTX) > 0.001 ||
+      Math.abs(targetTY - currentTY) > 0.001 ||
+      Math.abs(targetAX - currentAX) > 0.001 ||
+      Math.abs(targetAY - currentAY) > 0.001;
+
+    if (stillMoving) {
+      rafId = requestAnimationFrame(tick);
     } else {
-      velocityZ = 0;
-      if (fillZ) setBar(fillZ, 0, false);
+      currentTX = targetTX; currentTY = targetTY;
+      currentAX = targetAX; currentAY = targetAY;
+      if (titleInner) titleInner.style.transform = `rotateX(${-currentTY * 3}deg) rotateY(${currentTX * 3}deg)`;
+      if (fillTX) setBar(fillTX, currentTX);
+      if (fillTY) setBar(fillTY, currentTY);
+      if (fillAX) setBar(fillAX, currentAX);
+      if (fillAY) setBar(fillAY, currentAY);
       rafId = null;
+    }
+  }
+
+  function ensureTick() {
+    if (rafId === null) {
+      lastT = performance.now();
+      rafId = requestAnimationFrame(tick);
     }
   }
 
   function resetHero() {
-    if (titleInner) titleInner.style.transform = '';
-    if (fillX) setBar(fillX, 0);
-    if (fillY) setBar(fillY, 0);
-    if (fillZ) setBar(fillZ, 0, false);
-    velocityZ = 0;
-    if (rafId !== null) {
-      cancelAnimationFrame(rafId);
-      rafId = null;
-    }
+    targetTX = 0; targetTY = 0;
+    targetAX = 0; targetAY = 0;
+    ensureTick();
   }
 
-  if (hero && heroMain && titleInner) {
+  if (hero && titleInner) {
     hero.addEventListener('mousemove', (e) => {
-      const rect = heroMain.getBoundingClientRect();
+      const rect = hero.getBoundingClientRect();
       const cx = rect.left + rect.width / 2;
       const cy = rect.top + rect.height / 2;
       const nx = Math.max(-1, Math.min(1, (e.clientX - cx) / (rect.width / 2)));
       const ny = Math.max(-1, Math.min(1, (e.clientY - cy) / (rect.height / 2)));
 
-      // Title tilts toward cursor — rotateY follows X offset, rotateX inverted for natural feel
-      titleInner.style.transform = `rotateX(${-ny * 6}deg) rotateY(${nx * 6}deg)`;
+      // TILT = cubic curve (heavily damped — small motions barely register)
+      targetTX = nx * nx * nx;
+      targetTY = ny * ny * ny;
 
-      if (fillX) setBar(fillX, nx);
-      if (fillY) setBar(fillY, ny);
+      // ACCEL = quadratic curve (less damped — pickier than TILT but still calm near center)
+      targetAX = Math.sign(nx) * nx * nx;
+      targetAY = Math.sign(ny) * ny * ny;
 
-      // Z = cursor velocity (mouse speed pulses the bar; decays via rAF)
-      if (lastMx || lastMy) {
-        const dx = e.clientX - lastMx;
-        const dy = e.clientY - lastMy;
-        const speed = Math.sqrt(dx * dx + dy * dy);
-        velocityZ = Math.min(1, velocityZ + speed * 0.025);
-        if (rafId === null) {
-          lastT = performance.now();
-          rafId = requestAnimationFrame(tickGyro);
-        }
-      }
-      lastMx = e.clientX;
-      lastMy = e.clientY;
+      ensureTick();
     });
 
     hero.addEventListener('mouseleave', resetHero);
-    resetHero();
   }
 })();
 </script>
