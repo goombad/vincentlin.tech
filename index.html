@@ -8,7 +8,7 @@
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cg fill='%230A0A0A'%3E%3Ccircle cx='16' cy='16' r='10'/%3E%3Crect x='13.5' y='2' width='5' height='8'/%3E%3Crect x='13.5' y='2' width='5' height='8' transform='rotate(45 16 16)'/%3E%3Crect x='13.5' y='2' width='5' height='8' transform='rotate(90 16 16)'/%3E%3Crect x='13.5' y='2' width='5' height='8' transform='rotate(135 16 16)'/%3E%3Crect x='13.5' y='2' width='5' height='8' transform='rotate(180 16 16)'/%3E%3Crect x='13.5' y='2' width='5' height='8' transform='rotate(225 16 16)'/%3E%3Crect x='13.5' y='2' width='5' height='8' transform='rotate(270 16 16)'/%3E%3Crect x='13.5' y='2' width='5' height='8' transform='rotate(315 16 16)'/%3E%3C/g%3E%3Ccircle cx='16' cy='16' r='3.5' fill='%23FAFAF8'/%3E%3C/svg%3E" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -42,7 +42,7 @@
   html { scroll-behavior: smooth; }
 
   body {
-    font-family: 'Hanken Grotesk', sans-serif;
+    font-family: 'Inter', sans-serif;
     background: var(--bg);
     color: var(--ink);
     font-weight: 400;
@@ -130,12 +130,19 @@
 
   h1 {
     font-size: clamp(48px, 7vw, 96px);
-    font-weight: 600;
+    font-weight: 800;
     letter-spacing: -0.03em;
     line-height: 1.02;
     color: var(--ink);
     margin: 0;
     text-align: center;
+    perspective: 1200px;
+  }
+
+  .title-inner {
+    display: inline-block;
+    transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+    will-change: transform;
   }
 
   .hero-bio {
@@ -230,6 +237,50 @@
 
   .hero-corner-r .key {
     text-align: right;
+  }
+
+  /* HERO IMU PANEL — left-side accelerometer-style readout that tracks cursor */
+  .hero-imu {
+    position: absolute;
+    top: 50%;
+    left: 48px;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .imu-row {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .imu-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    color: var(--mid-2);
+  }
+
+  .imu-bar {
+    width: 100px;
+    height: 3px;
+    background: var(--line);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .imu-fill {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 0;
+    left: 50%;
+    background: var(--accent);
+    transition: width 0.18s ease-out, left 0.18s ease-out, right 0.18s ease-out;
   }
 
   /* SECTION SHELL */
@@ -417,7 +468,7 @@
     height: 36px;
     border: 1px solid var(--line);
     background: var(--panel);
-    font-family: 'Hanken Grotesk', sans-serif;
+    font-family: 'Inter', sans-serif;
     font-size: 18px;
     color: var(--ink);
     cursor: pointer;
@@ -700,7 +751,7 @@
   }
 
   .about-headline em {
-    font-family: 'Hanken Grotesk', serif;
+    font-family: 'Inter', sans-serif;
     font-style: italic;
     font-weight: 400;
     color: var(--mid);
@@ -856,6 +907,8 @@
 
     .hero-corner-r { right: 24px; }
 
+    .hero-imu { display: none; }
+
     .hero-main { gap: 36px; }
 
     section { padding: 64px 24px; }
@@ -1000,6 +1053,21 @@
 
 <!-- HERO -->
 <div class="hero">
+  <aside class="hero-imu" aria-hidden="true">
+    <div class="imu-row">
+      <span class="imu-label">TILT_X</span>
+      <div class="imu-bar"><div class="imu-fill" data-axis="x"></div></div>
+    </div>
+    <div class="imu-row">
+      <span class="imu-label">TILT_Y</span>
+      <div class="imu-bar"><div class="imu-fill" data-axis="y"></div></div>
+    </div>
+    <div class="imu-row">
+      <span class="imu-label">GYRO_RATE</span>
+      <div class="imu-bar"><div class="imu-fill" data-axis="z"></div></div>
+    </div>
+  </aside>
+
   <div class="hero-corner">
     <svg class="hero-trace" viewBox="0 0 200 50" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
       <!-- Component pad (left) -->
@@ -1013,9 +1081,9 @@
       <line x1="164" y1="36" x2="180" y2="36" stroke="currentColor" stroke-width="0.6" />
       <line x1="172" y1="28" x2="172" y2="44" stroke="currentColor" stroke-width="0.6" />
     </svg>
-    <span class="key">/loc/temp</span>TYO<br />
+    <span class="key">/loc/origin</span>TYO<br />
     <span class="key">/loc/relay</span>ATL<br />
-    <span class="key">/loc/current</span>NYC
+    <span class="key">/loc/host</span>NYC
   </div>
 
   <div class="hero-corner hero-corner-r">
@@ -1039,7 +1107,7 @@
   <p class="hero-tag anim d1">[ MECHATRONICS / COMPUTER ENGINEERING ]</p>
 
   <div class="hero-main">
-    <h1 class="anim d2">Engineering<br />systems that move.</h1>
+    <h1 class="anim d2"><span class="title-inner">Engineering<br />systems that move.</span></h1>
 
     <div class="hero-bio anim d3">
       <p>
@@ -1779,6 +1847,100 @@
         try { localStorage.setItem('theme', 'dark'); } catch (e) {}
       }
     });
+  }
+
+  // HERO IMU + TITLE TILT — cursor offset from hero-main center drives both
+  const hero = document.querySelector('.hero');
+  const heroMain = document.querySelector('.hero-main');
+  const titleInner = document.querySelector('.title-inner');
+  const fillX = document.querySelector('.imu-fill[data-axis="x"]');
+  const fillY = document.querySelector('.imu-fill[data-axis="y"]');
+  const fillZ = document.querySelector('.imu-fill[data-axis="z"]');
+
+  let lastMx = 0, lastMy = 0;
+  let velocityZ = 0;
+  let lastT = performance.now();
+  let rafId = null;
+
+  function setBar(el, value, bipolar) {
+    if (bipolar === false) {
+      // Unipolar: fill left-to-right across the full bar (used for Z = magnitude)
+      const widthPct = Math.min(1, Math.max(0, value)) * 100;
+      el.style.width = widthPct + '%';
+      el.style.left = '0';
+      el.style.right = '';
+      return;
+    }
+    // Bipolar: fill from center toward one side (used for X/Y = signed offset)
+    const widthPct = Math.min(1, Math.abs(value)) * 50;
+    el.style.width = widthPct + '%';
+    if (value >= 0) {
+      el.style.left = '50%';
+      el.style.right = '';
+    } else {
+      el.style.right = '50%';
+      el.style.left = '';
+    }
+  }
+
+  function tickGyro() {
+    const now = performance.now();
+    const dt = Math.min(0.1, (now - lastT) / 1000);
+    velocityZ *= Math.pow(0.5, dt / 0.25); // half-life ~250ms
+    lastT = now;
+    if (fillZ) setBar(fillZ, velocityZ, false);
+    if (velocityZ > 0.005) {
+      rafId = requestAnimationFrame(tickGyro);
+    } else {
+      velocityZ = 0;
+      if (fillZ) setBar(fillZ, 0, false);
+      rafId = null;
+    }
+  }
+
+  function resetHero() {
+    if (titleInner) titleInner.style.transform = '';
+    if (fillX) setBar(fillX, 0);
+    if (fillY) setBar(fillY, 0);
+    if (fillZ) setBar(fillZ, 0, false);
+    velocityZ = 0;
+    if (rafId !== null) {
+      cancelAnimationFrame(rafId);
+      rafId = null;
+    }
+  }
+
+  if (hero && heroMain && titleInner) {
+    hero.addEventListener('mousemove', (e) => {
+      const rect = heroMain.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      const nx = Math.max(-1, Math.min(1, (e.clientX - cx) / (rect.width / 2)));
+      const ny = Math.max(-1, Math.min(1, (e.clientY - cy) / (rect.height / 2)));
+
+      // Title tilts toward cursor — rotateY follows X offset, rotateX inverted for natural feel
+      titleInner.style.transform = `rotateX(${-ny * 6}deg) rotateY(${nx * 6}deg)`;
+
+      if (fillX) setBar(fillX, nx);
+      if (fillY) setBar(fillY, ny);
+
+      // Z = cursor velocity (mouse speed pulses the bar; decays via rAF)
+      if (lastMx || lastMy) {
+        const dx = e.clientX - lastMx;
+        const dy = e.clientY - lastMy;
+        const speed = Math.sqrt(dx * dx + dy * dy);
+        velocityZ = Math.min(1, velocityZ + speed * 0.025);
+        if (rafId === null) {
+          lastT = performance.now();
+          rafId = requestAnimationFrame(tickGyro);
+        }
+      }
+      lastMx = e.clientX;
+      lastMy = e.clientY;
+    });
+
+    hero.addEventListener('mouseleave', resetHero);
+    resetHero();
   }
 })();
 </script>
