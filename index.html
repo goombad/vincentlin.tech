@@ -96,6 +96,11 @@
 
   .nav-links a:hover { color: var(--mid); }
 
+  /* NAV HEX-BUFFER HOVER — monochrome: churning buffer reads high-contrast,
+     locked letters resolve into the grey hover color so there's no pop on settle */
+  .nav-links a .hx { color: var(--ink); }
+  .nav-links a .lk { color: var(--mid); }
+
   /* HERO */
   .hero {
     min-height: 100vh;
@@ -147,7 +152,6 @@
   .title-outline {
     color: transparent;
     -webkit-text-stroke: 1.5px var(--ink);
-    text-stroke: 1.5px var(--ink);
   }
 
   .hero-bio {
@@ -515,6 +519,15 @@
     object-fit: contain;
   }
 
+  /* Interactive 3D model inside a modal hero (model-viewer) */
+  .modal-hero-img model-viewer {
+    width: 100%;
+    height: 100%;
+    display: block;
+    background: var(--cover-bg);
+    --poster-color: transparent;
+  }
+
   .modal-body { padding: 48px 56px 56px; }
 
   .modal-num {
@@ -832,6 +845,156 @@
     font-weight: 600;
   }
 
+  /* CAD — interactive 3D model portfolio (horizontal scroller) */
+  .cad {
+    border-top: 1px solid var(--line);
+    padding-top: 100px;
+  }
+
+  .cad-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+
+  .cad-bar .section-eyebrow { margin-bottom: 0; }
+
+  .cad-arrows {
+    display: flex;
+    gap: 10px;
+    flex-shrink: 0;
+  }
+
+  .cad-arrow {
+    width: 38px;
+    height: 38px;
+    padding: 0;
+    background: transparent;
+    border: 1px solid var(--line-strong);
+    color: var(--ink);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s, color 0.2s, border-color 0.2s, opacity 0.2s;
+  }
+
+  .cad-arrow:hover {
+    background: var(--ink);
+    color: var(--bg);
+    border-color: var(--ink);
+  }
+
+  .cad-arrow svg { width: 15px; height: 15px; display: block; }
+
+  .cad-arrow:disabled {
+    opacity: 0.3;
+    cursor: default;
+  }
+
+  .cad-arrow:disabled:hover {
+    background: transparent;
+    color: var(--ink);
+    border-color: var(--line-strong);
+  }
+
+  .cad-scroller {
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: var(--line-strong) transparent;
+  }
+
+  .cad-scroller::-webkit-scrollbar { height: 8px; }
+  .cad-scroller::-webkit-scrollbar-thumb { background: var(--line-strong); }
+  .cad-scroller::-webkit-scrollbar-track { background: transparent; }
+
+  .cad-track {
+    display: flex;
+    gap: 24px;
+    width: max-content;
+    padding: 4px 0 14px;
+  }
+
+  .cad-card {
+    flex: 0 0 380px;
+    scroll-snap-align: start;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: border-color 0.3s, transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .cad-card:hover {
+    border-color: var(--line-strong);
+    transform: translateY(-2px);
+  }
+
+  .cad-viewer {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    background: var(--cover-bg);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .cad-viewer model-viewer {
+    width: 100%;
+    height: 100%;
+    display: block;
+    background: var(--cover-bg);
+    --poster-color: transparent;
+  }
+
+  .cad-meta {
+    padding: 24px 28px 28px;
+  }
+
+  .cad-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--mid);
+    margin-bottom: 12px;
+  }
+
+  .cad-title {
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    margin-bottom: 16px;
+  }
+
+  .cad-specs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .cad-spec {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 1px;
+    color: var(--mid);
+    border: 1px solid var(--line);
+    padding: 5px 10px;
+  }
+
+  .cad-hint {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    color: var(--mid-2);
+    margin-top: 18px;
+  }
+
   /* FOOTER — bottom-left contact */
   .footer {
     padding: 80px 48px 48px;
@@ -898,9 +1061,13 @@
   @media (max-width: 1000px) {
     nav { padding: 16px 24px; }
 
-    .nav-links { gap: 24px; }
+    .nav-links { gap: 18px; }
 
-    .nav-links a:nth-child(n+4) { display: none; }
+    .nav-right { gap: 14px; }
+
+    .nav-divider { display: none; }
+
+    .nav-links a:nth-child(n+5) { display: none; }
 
     .hero { padding: 100px 24px; }
 
@@ -918,6 +1085,8 @@
     section { padding: 64px 24px; }
 
     .projects-grid { grid-template-columns: 1fr; }
+
+    .cad-card { flex-basis: 80vw; }
 
     .project-card.full-width {
       grid-template-columns: 1fr;
@@ -977,14 +1146,31 @@
   [data-theme="dark"] svg [fill="#9A9A9A"] { fill: var(--mid); }
   [data-theme="dark"] svg [stroke="#9A9A9A"] { stroke: var(--mid); }
 
-  /* THEME TOGGLE */
-  .nav-left {
+  /* THEME + MOTION TOGGLES */
+  /* NAV RIGHT — links, a hairline divider, then the two icon toggles as a cluster */
+  .nav-right {
     display: flex;
     align-items: center;
-    gap: 32px;
+    gap: 28px;
   }
 
-  .theme-toggle {
+  /* Hairline separator so the toggles read as controls, not another nav link */
+  .nav-divider {
+    width: 1px;
+    height: 20px;
+    background: var(--line);
+    flex-shrink: 0;
+  }
+
+  /* Keep the two icon toggles tucked together as one control cluster */
+  .nav-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .theme-toggle,
+  .motion-toggle {
     background: transparent;
     border: 1px solid var(--line);
     width: 32px;
@@ -998,13 +1184,15 @@
     transition: background 0.2s, color 0.2s, border-color 0.2s;
   }
 
-  .theme-toggle:hover {
+  .theme-toggle:hover,
+  .motion-toggle:hover {
     background: var(--ink);
     color: var(--bg);
     border-color: var(--ink);
   }
 
-  .theme-toggle svg {
+  .theme-toggle svg,
+  .motion-toggle svg {
     width: 14px;
     height: 14px;
     display: block;
@@ -1013,6 +1201,173 @@
   .theme-toggle .icon-sun { display: none; }
   [data-theme="dark"] .theme-toggle .icon-moon { display: none; }
   [data-theme="dark"] .theme-toggle .icon-sun { display: block; }
+
+  /* MOTION TOGGLE — pulse icon when animations are on, slashed/flat when off */
+  .motion-toggle .icon-motion-off { display: none; }
+  [data-motion="off"] .motion-toggle .icon-motion { display: none; }
+  [data-motion="off"] .motion-toggle .icon-motion-off { display: block; }
+
+  /* REDUCED MOTION — applied when the user toggles animations off (data-motion="off").
+     Near-zero durations keep final keyframe states (e.g. fade-ins land visible)
+     while removing the motion itself. SMIL + the cursor-driven hero are handled in JS. */
+  [data-motion="off"] { scroll-behavior: auto; }
+
+  [data-motion="off"] *,
+  [data-motion="off"] *::before,
+  [data-motion="off"] *::after {
+    animation-duration: 0.001ms !important;
+    animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+
+  /* Always respect a true reduced-motion OS preference for the looping SVG/keyframes,
+     even before JS runs */
+  @media (prefers-reduced-motion: reduce) {
+    .anim { animation-duration: 0.001ms; animation-delay: 0ms; }
+  }
+
+  /* SERIAL MONITOR */
+  .serial-section {
+    border-top: 1px solid var(--line);
+    padding-top: 100px;
+  }
+
+  .serial-window {
+    border: 1px solid var(--line-strong);
+    background: var(--panel);
+    font-family: 'JetBrains Mono', monospace;
+    overflow: hidden;
+  }
+
+  .serial-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 12px 18px;
+    background: var(--cover-bg);
+    border-bottom: 1px solid var(--line);
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    color: var(--mid);
+  }
+
+  .serial-bar-left,
+  .serial-bar-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .serial-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    display: inline-block;
+    animation: pulse 2.2s ease-in-out infinite;
+  }
+
+  .serial-port { color: var(--ink-soft); }
+
+  .serial-io {
+    display: inline-flex;
+    gap: 10px;
+  }
+
+  .serial-io i {
+    font-style: normal;
+    color: var(--mid-2);
+    transition: color 0.12s;
+  }
+
+  .serial-io i.live { color: var(--accent); }
+
+  .serial-log {
+    height: clamp(220px, 38vh, 340px);
+    overflow-y: auto;
+    padding: 16px 18px;
+    font-size: 12.5px;
+    line-height: 1.7;
+    color: var(--ink-soft);
+    background: var(--panel);
+  }
+
+  .serial-log::-webkit-scrollbar { width: 8px; }
+  .serial-log::-webkit-scrollbar-thumb { background: var(--line-strong); }
+  .serial-log::-webkit-scrollbar-track { background: transparent; }
+
+  .serial-line {
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  .serial-line .t { color: var(--mid-2); }
+  .serial-line .tag { color: var(--mid); }
+  .serial-line .v { color: var(--ink-soft); }
+  .serial-line .ok { color: var(--accent); }
+  .serial-line.cmd .v,
+  .serial-line.cmd { color: var(--ink); }
+
+  .serial-cursor {
+    display: inline-block;
+    width: 7px;
+    height: 1.05em;
+    transform: translateY(2px);
+    margin-left: 3px;
+    background: var(--ink-soft);
+    animation: blink 1.05s steps(1) infinite;
+  }
+
+  @keyframes blink { 50% { opacity: 0; } }
+
+  .serial-input {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 18px;
+    background: var(--cover-bg);
+    border-top: 1px solid var(--line);
+  }
+
+  .serial-prompt {
+    color: var(--accent);
+    font-size: 13px;
+  }
+
+  .serial-input input {
+    flex: 1;
+    min-width: 0;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12.5px;
+    color: var(--ink);
+    letter-spacing: 0.3px;
+  }
+
+  .serial-input input::placeholder { color: var(--mid-2); }
+
+  .serial-input button {
+    background: transparent;
+    border: 1px solid var(--line-strong);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    color: var(--ink);
+    padding: 8px 14px;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s, border-color 0.2s;
+  }
+
+  .serial-input button:hover {
+    background: var(--ink);
+    color: var(--bg);
+    border-color: var(--ink);
+  }
 </style>
 <script defer src="/_vercel/insights/script.js"></script>
 
@@ -1031,27 +1386,60 @@
       if (theme === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
     } catch (e) {}
   })();
+
+  // Set initial motion preference before first paint to avoid an animation flash.
+  // Default: respect the OS "reduce motion" setting unless the user has chosen explicitly.
+  (function () {
+    try {
+      var storedMotion = localStorage.getItem('motion');
+      var prefersReduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var motionOff = storedMotion ? storedMotion === 'off' : prefersReduce;
+      if (motionOff) document.documentElement.setAttribute('data-motion', 'off');
+    } catch (e) {}
+  })();
 </script>
+
+<!-- model-viewer — interactive 3D (GLB) viewer for the SolidWorks assembly -->
+<script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.3.1/model-viewer.min.js"></script>
 </head>
 <body>
 
 <nav>
-  <div class="nav-left">
-    <button class="theme-toggle" type="button" aria-label="Toggle color theme">
-      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-      </svg>
-      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <circle cx="12" cy="12" r="4" />
-        <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
-      </svg>
-    </button>
-    <a href="#about" class="logo">V. LIN</a>
-  </div>
-  <div class="nav-links">
-    <a href="#projects">PROJECTS</a>
-    <a href="#experience">EXPERIENCE</a>
-    <a href="#about">ABOUT</a>
+  <a href="#about" class="logo">V. LIN</a>
+
+  <div class="nav-right">
+    <div class="nav-links">
+      <a href="#projects">PROJECTS</a>
+      <a href="#cad">CAD</a>
+      <a href="#experience">EXPERIENCE</a>
+      <a href="#about">ABOUT</a>
+    </div>
+
+    <span class="nav-divider" aria-hidden="true"></span>
+
+    <div class="nav-controls">
+      <button class="theme-toggle" type="button" aria-label="Toggle color theme">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+        </svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="4" />
+          <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+        </svg>
+      </button>
+
+      <button class="motion-toggle" type="button" aria-label="Toggle animations" aria-pressed="false" title="Toggle animations">
+        <!-- animations ON: activity pulse -->
+        <svg class="icon-motion" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+        </svg>
+        <!-- animations OFF: dimmed pulse + slash -->
+        <svg class="icon-motion-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" opacity="0.4" />
+          <line x1="3" y1="3" x2="21" y2="21" />
+        </svg>
+      </button>
+    </div>
   </div>
 </nav>
 
@@ -1483,28 +1871,20 @@
 
       <div class="project-extended">
         <div class="modal-hero-img">
-          <svg viewBox="0 0 600 338" xmlns="http://www.w3.org/2000/svg">
-            <rect width="600" height="338" fill="#F0EFEB" />
-
-            <g stroke="#9A9A9A" stroke-width="0.5" fill="none">
-              <path d="M 0 169 L 600 169" />
-              <path d="M 150 60 L 150 280" />
-              <path d="M 300 60 L 300 280" />
-              <path d="M 450 60 L 450 280" />
-            </g>
-
-            <g stroke="#1A1A1A" stroke-width="1.2" fill="#F0EFEB">
-              <circle cx="150" cy="169" r="22" />
-              <circle cx="300" cy="169" r="22" />
-              <circle cx="450" cy="169" r="22" />
-            </g>
-
-            <g font-family="JetBrains Mono" font-size="9" fill="#1A1A1A" text-anchor="middle">
-              <text x="150" y="172">N1</text>
-              <text x="300" y="172">N2</text>
-              <text x="450" y="172">N3</text>
-            </g>
-          </svg>
+          <model-viewer
+            src="models/blast-gate-assembly.glb"
+            alt="Interactive 3D model of the Automated Blast Gate Network assembly"
+            camera-controls
+            auto-rotate
+            auto-rotate-delay="500"
+            rotation-per-second="18deg"
+            interaction-prompt="none"
+            environment-image="neutral"
+            shadow-intensity="0.8"
+            exposure="1"
+            touch-action="pan-y"
+            loading="eager">
+          </model-viewer>
         </div>
 
         <div class="modal-body">
@@ -1645,10 +2025,128 @@
   </div>
 </section>
 
+<!-- CAD / PORTFOLIO -->
+<section id="cad" class="cad">
+  <p class="section-label">CAD / PORTFOLIO</p>
+
+  <div class="cad-bar">
+    <p class="section-eyebrow">[ 002 / INTERACTIVE ASSEMBLIES ]</p>
+    <div class="cad-arrows">
+      <button class="cad-arrow" type="button" data-dir="-1" aria-label="Previous model">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6" /></svg>
+      </button>
+      <button class="cad-arrow" type="button" data-dir="1" aria-label="Next model">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6" /></svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="cad-scroller">
+    <div class="cad-track">
+
+      <!-- CAD 01 -->
+      <div class="cad-card">
+        <div class="cad-viewer">
+          <model-viewer
+            src="models/blast-gate-assembly.glb"
+            alt="Interactive 3D model of the Automated Blast Gate assembly"
+            camera-controls
+            auto-rotate
+            auto-rotate-delay="500"
+            rotation-per-second="18deg"
+            interaction-prompt="none"
+            environment-image="neutral"
+            shadow-intensity="0.8"
+            exposure="1"
+            touch-action="pan-y"
+            loading="lazy">
+          </model-viewer>
+        </div>
+        <div class="cad-meta">
+          <p class="cad-num">CAD 01</p>
+          <h3 class="cad-title">Automated Blast Gate</h3>
+          <div class="cad-specs">
+            <span class="cad-spec">SOLIDWORKS</span>
+            <span class="cad-spec">ASSEMBLY</span>
+          </div>
+          <p class="cad-hint">⊹ DRAG TO ORBIT · SCROLL TO ZOOM</p>
+        </div>
+      </div>
+
+      <!-- CAD 02 -->
+      <div class="cad-card">
+        <div class="cad-viewer">
+          <model-viewer
+            src="models/v6-twin-turbo.glb"
+            alt="Interactive 3D model of the V6 twin turbo engine assembly"
+            camera-controls
+            auto-rotate
+            auto-rotate-delay="500"
+            rotation-per-second="18deg"
+            interaction-prompt="none"
+            environment-image="neutral"
+            shadow-intensity="0.8"
+            exposure="1"
+            touch-action="pan-y"
+            loading="lazy">
+          </model-viewer>
+        </div>
+        <div class="cad-meta">
+          <p class="cad-num">CAD 02</p>
+          <h3 class="cad-title">V6 Twin Turbo Engine</h3>
+          <div class="cad-specs">
+            <span class="cad-spec">INVENTOR</span>
+            <span class="cad-spec">ASSEMBLY</span>
+          </div>
+          <p class="cad-hint">⊹ DRAG TO ORBIT · SCROLL TO ZOOM</p>
+        </div>
+      </div>
+
+      <!-- CAD 03 -->
+      <div class="cad-card">
+        <div class="cad-viewer">
+          <model-viewer
+            src="models/drone-model.glb"
+            alt="Interactive 3D model of the drone model"
+            camera-controls
+            auto-rotate
+            auto-rotate-delay="500"
+            rotation-per-second="18deg"
+            interaction-prompt="none"
+            environment-image="neutral"
+            shadow-intensity="0.8"
+            exposure="1"
+            touch-action="pan-y"
+            loading="lazy">
+          </model-viewer>
+        </div>
+        <div class="cad-meta">
+          <p class="cad-num">CAD 03</p>
+          <h3 class="cad-title">Drone Assembly</h3>
+          <div class="cad-specs">
+            <span class="cad-spec">ASSEMBLY</span>
+            <span class="cad-spec">QUADCOPTER</span>
+          </div>
+          <p class="cad-hint">⊹ DRAG TO ORBIT · SCROLL TO ZOOM</p>
+        </div>
+      </div>
+
+      <!--
+        TO ADD ANOTHER MODEL: copy one .cad-card block, then
+          1. drop the new .glb into the /models folder
+          2. change the model-viewer src to "models/your-new-file.glb"
+          3. update CAD 0N, the title, and the spec chips
+        The scroller and arrows update automatically as you add cards.
+      -->
+
+    </div>
+  </div>
+</section>
+
 <!-- EXPERIENCE -->
 <section id="experience" class="experience">
   <p class="section-label">EXPERIENCE / TIMELINE</p>
-  <p class="section-eyebrow">[ 002 / TRACK RECORD ]</p>
+  <p class="section-eyebrow">[ 003 / TRACK RECORD ]</p>
 
   <div class="exp-list">
     <div class="exp-item">
@@ -1691,7 +2189,7 @@
 <!-- ABOUT / PROFILE -->
 <section id="about" class="about">
   <p class="section-label">ABOUT / PROFILE</p>
-  <p class="section-eyebrow">[ 003 / FROM THE ENGINEER ]</p>
+  <p class="section-eyebrow">[ 004 / FROM THE ENGINEER ]</p>
 
   <div class="about-grid">
 
@@ -1748,6 +2246,34 @@
   </div>
 </section>
 
+<!-- SERIAL MONITOR -->
+<section id="serial" class="serial-section">
+  <p class="section-label">SYSTEM / SERIAL MONITOR</p>
+  <p class="section-eyebrow">[ 005 / LIVE TELEMETRY ]</p>
+
+  <div class="serial-window">
+    <div class="serial-bar">
+      <div class="serial-bar-left">
+        <span class="serial-dot" aria-hidden="true"></span>
+        <span class="serial-port">/dev/ttyUSB0</span>
+      </div>
+      <div class="serial-bar-right">
+        <span>115200 baud</span>
+        <span>8N1</span>
+        <span class="serial-io" aria-hidden="true"><i class="io-tx">TX</i><i class="io-rx">RX</i></span>
+      </div>
+    </div>
+
+    <div class="serial-log" id="serial-log" role="log" aria-live="off"></div>
+
+    <div class="serial-input">
+      <span class="serial-prompt" aria-hidden="true">&gt;</span>
+      <input id="serial-cmd" type="text" autocomplete="off" spellcheck="false" placeholder="type a command — try &quot;help&quot;" aria-label="Serial command input" />
+      <button id="serial-send" type="button">SEND</button>
+    </div>
+  </div>
+</section>
+
 <!-- FOOTER — bottom-left contact, edit URLs to your real profiles -->
 <footer class="footer">
   <div class="footer-contact">
@@ -1778,12 +2304,25 @@
   const modalContent = modal.querySelector('.modal-content');
   const closeBtn = modal.querySelector('.modal-close');
 
+  // Tracks whether animations are enabled. Initial value comes from the
+  // data-motion attribute set pre-paint in <head>. Referenced by the hero
+  // cursor handler below and flipped by the motion toggle.
+  let animationsEnabled = document.documentElement.getAttribute('data-motion') !== 'off';
+
+  // Filled in by the serial monitor module below; lets the motion toggle pause/resume the stream.
+  let serialStart = function () {}, serialStop = function () {};
+
   function openModal(extendedEl) {
     modalContent.innerHTML = extendedEl.innerHTML;
     modal.classList.add('open');
     modal.setAttribute('aria-hidden', 'false');
     document.body.classList.add('modal-open');
     modal.scrollTop = 0;
+    // Freeze any SMIL animations inside freshly-cloned modal SVGs if motion is off
+    if (!animationsEnabled) setSvgAnimations(false);
+    // If the cloned modal contains a 3D viewer, gate its auto-rotate on the motion toggle
+    const mv = modalContent.querySelector('model-viewer');
+    if (mv) mv.toggleAttribute('auto-rotate', animationsEnabled);
   }
 
   function closeModal() {
@@ -1835,10 +2374,10 @@
 
       if (window.scrollY >= aboutTop - tolerance) {
         // We're at or past the About section — go back to the landing
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        window.scrollTo({ top: 0, behavior: animationsEnabled ? 'smooth' : 'auto' });
       } else {
         // Anywhere above About — scroll down to it
-        aboutSection.scrollIntoView({ behavior: 'smooth' });
+        aboutSection.scrollIntoView({ behavior: animationsEnabled ? 'smooth' : 'auto' });
       }
     });
   }
@@ -1854,6 +2393,80 @@
         document.documentElement.setAttribute('data-theme', 'dark');
         try { localStorage.setItem('theme', 'dark'); } catch (e) {}
       }
+    });
+  }
+
+  // NAV HEX-BUFFER HOVER — on hover/focus each letter flickers through hex
+  // glyphs (0-9 A-F) and resolves left-to-right back into the label.
+  const HEX = '0123456789ABCDEF';
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    const label = link.textContent.trim();
+    link.dataset.label = label;
+    link.setAttribute('aria-label', label); // stable accessible name while the text scrambles
+    let frame = null;
+
+    function reset() {
+      cancelAnimationFrame(frame);
+      frame = null;
+      link.textContent = label;
+    }
+
+    function scramble() {
+      // Honor the motion toggle / reduced-motion preference: no flicker, just the label.
+      if (!animationsEnabled) { reset(); return; }
+      cancelAnimationFrame(frame);
+
+      const start = performance.now();
+      const step = 38;                          // ms before each next char locks in
+      const settle = label.length * step + 90;  // hard stop
+
+      function render(now) {
+        // If motion gets toggled off mid-flicker, bail to clean text immediately.
+        if (!animationsEnabled) { link.textContent = label; frame = null; return; }
+
+        const t = now - start;
+        let html = '';
+        let done = true;
+        for (let i = 0; i < label.length; i++) {
+          const ch = label[i];
+          if (ch === ' ') { html += ' '; continue; }
+          if (t >= (i + 1) * step) {
+            html += '<span class="lk">' + ch + '</span>';                          // locked
+          } else {
+            html += '<span class="hx">' + HEX[(Math.random() * 16) | 0] + '</span>'; // raw buffer
+            done = false;
+          }
+        }
+        link.innerHTML = html;
+
+        if (!done && t < settle) {
+          frame = requestAnimationFrame(render);
+        } else {
+          link.textContent = label;            // revert to clean text
+          frame = null;
+        }
+      }
+
+      frame = requestAnimationFrame(render);
+    }
+
+    link.addEventListener('mouseenter', scramble);
+    link.addEventListener('focus', scramble);
+    link.addEventListener('mouseleave', reset);
+    link.addEventListener('blur', reset);
+  });
+
+  // SMIL SVG animation control. CSS can't pause/resume <animate> elements
+  // (e.g. the rotating Sisyphus trace), so we drive the SVG timelines directly.
+  function setSvgAnimations(play) {
+    document.querySelectorAll('svg').forEach(svg => {
+      try {
+        if (play) {
+          if (typeof svg.unpauseAnimations === 'function') svg.unpauseAnimations();
+        } else {
+          if (typeof svg.pauseAnimations === 'function') svg.pauseAnimations();
+        }
+      } catch (e) {}
     });
   }
 
@@ -1945,6 +2558,9 @@
 
   if (hero && titleInner) {
     hero.addEventListener('mousemove', (e) => {
+      // When animations are off, leave the title flat and the IMU bars centered
+      if (!animationsEnabled) return;
+
       const rect = hero.getBoundingClientRect();
       const cx = rect.left + rect.width / 2;
       const cy = rect.top + rect.height / 2;
@@ -1963,6 +2579,291 @@
     });
 
     hero.addEventListener('mouseleave', resetHero);
+  }
+
+  // ANIMATION / MOTION TOGGLE
+  // Flips data-motion on <html> (CSS handles fades/transitions), pauses or resumes
+  // SMIL SVG loops, and snaps the cursor-driven hero back to neutral when off.
+  const motionToggle = document.querySelector('.motion-toggle');
+
+  function snapHeroNeutral() {
+    targetTX = targetTY = targetAX = targetAY = 0;
+    currentTX = currentTY = currentAX = currentAY = 0;
+    if (titleInner) titleInner.style.transform = '';
+    if (fillTX) setBar(fillTX, 0);
+    if (fillTY) setBar(fillTY, 0);
+    if (fillAX) setBar(fillAX, 0);
+    if (fillAY) setBar(fillAY, 0);
+  }
+
+  function applyMotion(enabled) {
+    animationsEnabled = enabled;
+    if (enabled) {
+      document.documentElement.removeAttribute('data-motion');
+    } else {
+      document.documentElement.setAttribute('data-motion', 'off');
+    }
+    try { localStorage.setItem('motion', enabled ? 'on' : 'off'); } catch (e) {}
+    setSvgAnimations(enabled);
+    setModelRotation(enabled);
+    if (enabled) serialStart(); else serialStop();
+    if (!enabled) snapHeroNeutral();
+    if (motionToggle) motionToggle.setAttribute('aria-pressed', String(!enabled));
+  }
+
+  // Gate any inline 3D viewers' auto-rotate on the motion toggle (the modal
+  // viewer is handled separately in openModal since it's cloned on open).
+  function setModelRotation(enabled) {
+    document.querySelectorAll('.cad-viewer model-viewer').forEach(mv => {
+      mv.toggleAttribute('auto-rotate', enabled);
+    });
+  }
+
+  // Reflect the pre-paint state on load: pause SMIL loops if motion starts off,
+  // and sync the toggle's pressed state for screen readers.
+  setSvgAnimations(animationsEnabled);
+  setModelRotation(animationsEnabled);
+  if (motionToggle) {
+    motionToggle.setAttribute('aria-pressed', String(!animationsEnabled));
+    motionToggle.addEventListener('click', () => applyMotion(!animationsEnabled));
+  }
+
+  // CAD PORTFOLIO — horizontal card scroller with prev/next arrows.
+  // Dragging on a card orbits its model, so the arrows (and native
+  // trackpad/scrollbar) are how you move between cards.
+  (function () {
+    const scroller = document.querySelector('.cad-scroller');
+    const track = scroller && scroller.querySelector('.cad-track');
+    const arrowsWrap = document.querySelector('.cad-arrows');
+    const arrows = document.querySelectorAll('.cad-arrow');
+    if (!scroller || !track || !arrows.length) return;
+
+    function step() {
+      const card = track.querySelector('.cad-card');
+      const styles = getComputedStyle(track);
+      const gap = parseInt(styles.columnGap || styles.gap || '24', 10) || 24;
+      return card ? card.getBoundingClientRect().width + gap : scroller.clientWidth * 0.9;
+    }
+
+    function update() {
+      const overflow = scroller.scrollWidth - scroller.clientWidth > 1;
+      if (arrowsWrap) arrowsWrap.style.display = overflow ? '' : 'none';
+      const x = scroller.scrollLeft;
+      const max = scroller.scrollWidth - scroller.clientWidth - 1;
+      arrows.forEach(a => {
+        const dir = Number(a.getAttribute('data-dir'));
+        a.disabled = dir < 0 ? x <= 0 : x >= max;
+      });
+    }
+
+    arrows.forEach(a => {
+      a.addEventListener('click', () => {
+        const dir = Number(a.getAttribute('data-dir'));
+        scroller.scrollBy({ left: dir * step(), behavior: animationsEnabled ? 'smooth' : 'auto' });
+      });
+    });
+
+    let raf = null;
+    scroller.addEventListener('scroll', () => {
+      if (raf) return;
+      raf = requestAnimationFrame(() => { update(); raf = null; });
+    }, { passive: true });
+    window.addEventListener('resize', update);
+    window.addEventListener('load', update);
+    update();
+  })();
+
+  // SERIAL MONITOR — faux ESP32 console: boot log + live telemetry, blinking cursor,
+  // TX/RX blips, and a small command prompt. Streaming pauses with the motion toggle.
+  const serialLog = document.getElementById('serial-log');
+  const serialCmd = document.getElementById('serial-cmd');
+  const serialSend = document.getElementById('serial-send');
+
+  if (serialLog) {
+    const ioTx = document.querySelector('.serial-io .io-tx');
+    const ioRx = document.querySelector('.serial-io .io-rx');
+    const MAX_LINES = 60;
+    let timer = null;
+    let booted = false;
+    let bootIdx = 0;
+    let cursorLine = null;
+
+    const pad2 = n => String(n).padStart(2, '0');
+    const stamp = () => {
+      const d = new Date();
+      return pad2(d.getHours()) + ':' + pad2(d.getMinutes()) + ':' + pad2(d.getSeconds());
+    };
+    const rnd = (min, max, dec = 0) => (Math.random() * (max - min) + min).toFixed(dec);
+    const pick = arr => arr[(Math.random() * arr.length) | 0];
+    const sgn = v => (parseFloat(v) >= 0 ? '+' : '') + v;
+    const hex = () => ('0' + ((Math.random() * 256) | 0).toString(16).toUpperCase()).slice(-2);
+
+    const bootSeq = [
+      [['ets Jun  8 2016 00:22:57', 'tag']],
+      [['rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)', 'tag']],
+      [['[BOOT] ', 'tag'], ['ESP32-S3 @ 240 MHz  flash 8MB  PSRAM 2MB', 'v']],
+      [['[FS]   ', 'tag'], ['mounting SPIFFS ... ', 'v'], ['ok', 'ok']],
+      [['[WiFi] ', 'tag'], ['connecting to network ...', 'v']],
+      [['[WiFi] ', 'tag'], ['connected  ip=192.168.1.42  ', 'v'], ['ok', 'ok']],
+      [['[I2C]  ', 'tag'], ['scan: 0x68 MPU6050  0x76 BME280', 'v']],
+      [['[INIT] ', 'tag'], ['subsystems online — streaming telemetry', 'v']]
+    ];
+
+    const telemetry = [
+      () => [['[IMU]  ', 'tag'], ['ax=' + sgn(rnd(0, 0.14, 2)) + ' ay=' + sgn(rnd(0, 0.14, 2)) + ' az=+0.9' + ((Math.random() * 9) | 0) + ' g   gyro=' + rnd(0, 6, 1) + ' dps', 'v']],
+      () => [['[ENV]  ', 'tag'], ['temp=' + rnd(22, 25, 1) + ' C  hum=' + rnd(38, 46, 0) + ' %  pres=' + rnd(1010, 1016, 0) + ' hPa', 'v']],
+      () => [['[ADC]  ', 'tag'], ['vbat=' + rnd(3.9, 4.1, 2) + ' V  load=' + rnd(20, 55, 0) + ' %', 'v']],
+      () => [['[UART] ', 'tag'], ['tx 0x' + hex() + '  rx 0x' + hex() + '  ', 'v'], ['ok', 'ok']],
+      () => [['[GATE] ', 'tag'], ['node ' + pick(['N1', 'N2', 'N3']) + '  pos=' + rnd(40, 95, 0) + '%  flow=', 'v'], ['balanced', 'ok']],
+      () => [['[CV]   ', 'tag'], ['frame=' + ((1000 + Math.random() * 9000) | 0) + '  fps=' + rnd(12, 18, 0) + '  det=cube ' + rnd(0.8, 0.97, 2), 'v']],
+      () => [['[SYS]  ', 'tag'], ['heap=' + rnd(180, 230, 0) + ' kB  rssi=-' + rnd(45, 70, 0) + ' dBm', 'v']]
+    ];
+
+    function removeCursor() {
+      if (cursorLine) {
+        const c = cursorLine.querySelector('.serial-cursor');
+        if (c) c.remove();
+        cursorLine = null;
+      }
+    }
+
+    function atBottom() {
+      return serialLog.scrollHeight - serialLog.scrollTop - serialLog.clientHeight < 28;
+    }
+
+    function appendLine(segments, opts) {
+      opts = opts || {};
+      removeCursor();
+      const stick = atBottom();
+      const line = document.createElement('div');
+      line.className = 'serial-line' + (opts.cls ? ' ' + opts.cls : '');
+
+      if (opts.stamp !== false) {
+        const t = document.createElement('span');
+        t.className = 't';
+        t.textContent = stamp() + '  ';
+        line.appendChild(t);
+      }
+      segments.forEach(seg => {
+        const s = document.createElement('span');
+        if (seg[1]) s.className = seg[1];
+        s.textContent = seg[0];
+        line.appendChild(s);
+      });
+
+      const cur = document.createElement('span');
+      cur.className = 'serial-cursor';
+      cur.setAttribute('aria-hidden', 'true');
+      line.appendChild(cur);
+      cursorLine = line;
+
+      serialLog.appendChild(line);
+      while (serialLog.childElementCount > MAX_LINES) serialLog.removeChild(serialLog.firstChild);
+      if (stick) serialLog.scrollTop = serialLog.scrollHeight;
+    }
+
+    function blinkIO(el) {
+      if (!el) return;
+      el.classList.add('live');
+      setTimeout(() => el.classList.remove('live'), 150);
+    }
+
+    function scheduleNext() {
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        if (!animationsEnabled) { timer = null; return; }
+        blinkIO(ioRx);
+        appendLine(pick(telemetry)());
+        scheduleNext();
+      }, 700 + Math.random() * 900);
+    }
+
+    function runBoot() {
+      if (bootIdx < bootSeq.length) {
+        if (bootIdx === 0) blinkIO(ioTx);
+        appendLine(bootSeq[bootIdx], { stamp: bootIdx >= 2 });
+        bootIdx++;
+        timer = setTimeout(runBoot, 130 + Math.random() * 170);
+      } else {
+        booted = true;
+        scheduleNext();
+      }
+    }
+
+    function start() {
+      clearTimeout(timer);
+      if (!booted) runBoot(); else scheduleNext();
+    }
+    function stop() {
+      clearTimeout(timer);
+      timer = null;
+    }
+    serialStart = start;
+    serialStop = stop;
+
+    // Command prompt
+    const replies = {
+      help: () => [['available: ', 'v'], ['help  status  whoami  ver  uptime  reboot  clear', 'ok']],
+      status: () => [['IMU ok · WiFi ok · gates 3/3 online · ', 'v'], ['ALL NOMINAL', 'ok']],
+      whoami: () => [['vincent.lin — mechatronics + computer engineering', 'v']],
+      ver: () => [['firmware v2026.6  state ', 'v'], ['ACTIVE', 'ok']],
+      uptime: () => [['uptime ', 'v'], ['∞', 'ok']],
+      reboot: () => [['rebooting ...', 'v']]
+    };
+
+    function runCommand(raw) {
+      const cmd = (raw || '').trim();
+      if (!cmd) return;
+      appendLine([['> ', 'ok'], [cmd, 'v']], { cls: 'cmd', stamp: false });
+      blinkIO(ioTx);
+
+      const key = cmd.toLowerCase().split(/\s+/)[0];
+      if (key === 'clear') {
+        serialLog.innerHTML = '';
+        cursorLine = null;
+        return;
+      }
+      const out = replies[key]
+        ? replies[key]()
+        : [['unknown command: ' + key + '  (try ', 'v'], ['help', 'ok'], [')', 'v']];
+
+      setTimeout(() => {
+        blinkIO(ioRx);
+        appendLine(out);
+        if (key === 'reboot' && animationsEnabled) {
+          booted = false;
+          bootIdx = 0;
+          setTimeout(() => {
+            serialLog.innerHTML = '';
+            cursorLine = null;
+            start();
+          }, 650);
+        }
+      }, 170);
+    }
+
+    if (serialCmd) {
+      serialCmd.addEventListener('keydown', e => {
+        if (e.key === 'Enter') { runCommand(serialCmd.value); serialCmd.value = ''; }
+      });
+    }
+    if (serialSend) {
+      serialSend.addEventListener('click', () => {
+        runCommand(serialCmd.value);
+        serialCmd.value = '';
+        serialCmd.focus();
+      });
+    }
+
+    // Initial state
+    if (animationsEnabled) {
+      start();
+    } else {
+      // Reduced motion: print a static snapshot, no streaming (cursor blink is CSS-disabled too).
+      bootSeq.forEach((seg, i) => appendLine(seg, { stamp: i >= 2 }));
+      appendLine(pick(telemetry)());
+      booted = true;
+    }
   }
 })();
 </script>
