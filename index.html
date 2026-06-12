@@ -1532,8 +1532,8 @@
 
         <div class="project-stats">
           <div class="stat-row"><span class="label">PIPELINE</span><span class="value">PYTORCH / OPENCV</span></div>
-          <div class="stat-row"><span class="label">DETECTOR</span><span class="value">DINOv3 · ORB</span></div>
-          <div class="stat-row"><span class="label">STATUS</span><span class="value">IN DEVELOPMENT</span></div>
+          <div class="stat-row"><span class="label">DETECTOR</span><span class="value">DINOv2 · ORB</span></div>
+          <div class="stat-row"><span class="label">STATUS</span><span class="value">COMPLETED</span></div>
         </div>
 
         <button class="project-expand">Learn more <span class="arrow">→</span></button>
@@ -1549,7 +1549,7 @@
         </div>
 
         <div class="modal-body">
-          <p class="modal-num">PROJECT 01 · MAY 2026 — PRESENT</p>
+          <p class="modal-num">PROJECT 01 · MAY 2026</p>
           <h2 class="modal-title">Physical to Digital Photo Match</h2>
           <p class="modal-tagline">A physical feature that allows Alzheimers patients to identify and interact with digital images of their memories.</p>
 
@@ -1570,28 +1570,38 @@
               <li>Each memory is stored in a chapter with context and voice narration</li>
               <li>A caretaker manages the digital memories and selects appropriate ones for the patient</li>
               <li>An ESP32-S3 CAM microcontroller acts as the physical album scanner, providing a direct interface</li>
-              <li>Patient places a </li>
+              <li>Patient takes a picture from an old album, and slides it under the camera</li>
+              <li>System runs through the uploaded digital memories to find the best match using DINOv2 and ORB</li>
+              <li>Once a match is found, the corresponding chapter with voice narration is played back to the patient</li>
             </ul>
           </div>
 
           <div class="modal-section">
             <h4>IMAGE MATCHING PIPELINE</h4>
             <ul>
-              <li>ESP32S3 hosts a live camera web server at full 2MP resolution to capture images</li>
+              <li>ESP32-S3 hosts a live camera web server at full 2MP resolution to capture images</li>
               <li>Python script continuously pulls jpeg frames from web server</li>
-              <li>Generate DINOv3 embeddings to rank visually similar digital images to physical photo</li>
+              <li>Generate DINOv2 embeddings to rank visually similar digital images to physical photo</li>
+              <li>Shortlists candidates above </li>
               <li>Detect ORB keypoints and compute binary descriptors for physical image and each digital candidate</li>
               <li>Calculate brute-force hamming distance between descriptors to find top feature matches</li>
               <li>Use Lowe’s ratio of 0.80 and RANSAC homography for outlier rejection</li>
-              <li>Return highest ORB/RANSAC match, then output keypoint matches, inlier counts, and DINOv3 similarity</li>
+              <li>Return highest ORB/RANSAC match, then output keypoint matches, inlier counts, and DINOv2 similarity</li>
             </ul>
           </div>
 
           <div class="modal-section">
             <h4>TOOLCHAIN</h4>
             <ul>
-              <li>OpenCV and PyTorch for computer vision processing</li>
-              <li>Arduino IDE for ESP32S3 development</li>
+              <li>Python for image processing pipeline</li>
+              <li>Arduino IDE for ESP32-S3 development</li>
+            </ul>
+          </div>
+          
+          <div class="modal-section">
+            <h4>TECH STACK</h4>
+            <ul>
+            <li>ESP32-S3 CAM · DINOv2 · ORB · OpenCV · PyTorch · NumPy · Wi-Fi </li>
             </ul>
           </div>
 
@@ -2172,7 +2182,7 @@
 
     <div class="exp-item">
       <div class="exp-date">2024 — PRESENT</div>
-      <div class="exp-role">Makerspace Mentor</div>
+      <div class="exp-role">Makerspace Lab Assistant</div>
       <div class="exp-company">RIT SHED</div>
       <div class="exp-tag">[ TEACHING ]</div>
     </div>
