@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Vincent Lin Personal Portfolio</title>
-<!-- FAVICON — inline SVG gear -->
+<!-- FAVICON - inline SVG gear -->
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cg fill='%230A0A0A'%3E%3Ccircle cx='16' cy='16' r='10'/%3E%3Crect x='13.5' y='2' width='5' height='8'/%3E%3Crect x='13.5' y='2' width='5' height='8' transform='rotate(45 16 16)'/%3E%3Crect x='13.5' y='2' width='5' height='8' transform='rotate(90 16 16)'/%3E%3Crect x='13.5' y='2' width='5' height='8' transform='rotate(135 16 16)'/%3E%3Crect x='13.5' y='2' width='5' height='8' transform='rotate(180 16 16)'/%3E%3Crect x='13.5' y='2' width='5' height='8' transform='rotate(225 16 16)'/%3E%3Crect x='13.5' y='2' width='5' height='8' transform='rotate(270 16 16)'/%3E%3Crect x='13.5' y='2' width='5' height='8' transform='rotate(315 16 16)'/%3E%3C/g%3E%3Ccircle cx='16' cy='16' r='3.5' fill='%23FAFAF8'/%3E%3C/svg%3E" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -96,7 +96,7 @@
 
   .nav-links a:hover { color: var(--mid); }
 
-  /* NAV HEX-BUFFER HOVER — monochrome: churning buffer reads high-contrast,
+  /* NAV HEX-BUFFER HOVER - monochrome: churning buffer reads high-contrast,
      locked letters resolve into the grey hover color so there's no pop on settle */
   .nav-links a .hx { color: var(--ink); }
   .nav-links a .lk { color: var(--mid); }
@@ -248,7 +248,7 @@
     text-align: right;
   }
 
-  /* HERO IMU PANEL — left-side accelerometer-style readout that tracks cursor */
+  /* HERO IMU PANEL - left-side accelerometer-style readout that tracks cursor */
   .hero-imu {
     position: absolute;
     top: 50%;
@@ -428,6 +428,49 @@
 
   .project-extended { display: none; }
 
+  /* AUTO-FILL LAST ROW
+     The projects grid is two columns. If the regular (non-full-width) cards come out
+     to an odd number, the final one would sit alone with an empty slot beside it. When
+     that happens, stretch that lone card across both columns and switch it to the same
+     horizontal text-and-image layout as the featured card, so the last row is always
+     full. It re-evaluates automatically as projects are added or removed.
+     (Desktop only — on narrow screens every card is already full width, so no gap.) */
+  @media (min-width: 1001px) {
+    .projects-grid > .project-card:not(.full-width):nth-child(odd of .project-card:not(.full-width)):nth-last-child(1 of .project-card:not(.full-width)) {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      column-gap: 56px;
+      align-content: start;
+      padding: 48px;
+    }
+
+    /* text stacks down the left column in source order... */
+    .projects-grid > .project-card:not(.full-width):nth-child(odd of .project-card:not(.full-width)):nth-last-child(1 of .project-card:not(.full-width)) > :not(.project-image) {
+      grid-column: 1;
+      margin-top: 0;
+    }
+
+    .projects-grid > .project-card:not(.full-width):nth-child(odd of .project-card:not(.full-width)):nth-last-child(1 of .project-card:not(.full-width)) > .project-stats {
+      margin-top: 24px;
+    }
+
+    /* keep the bordered "Learn more" button at its natural width, not stretched */
+    .projects-grid > .project-card:not(.full-width):nth-child(odd of .project-card:not(.full-width)):nth-last-child(1 of .project-card:not(.full-width)) > .project-expand {
+      justify-self: start;
+    }
+
+    /* ...and the image fills the right column for the full height of the card */
+    .projects-grid > .project-card:not(.full-width):nth-child(odd of .project-card:not(.full-width)):nth-last-child(1 of .project-card:not(.full-width)) > .project-image {
+      grid-column: 2;
+      grid-row: 1 / span 30;
+      align-self: stretch;
+      margin: 0;
+      aspect-ratio: auto;
+      min-height: 320px;
+    }
+  }
+
   /* MODAL */
   .modal-backdrop {
     position: fixed;
@@ -595,7 +638,7 @@
     font-family: 'JetBrains Mono', monospace;
   }
 
-  /* Image inside a modal section — every section image renders at the same size */
+  /* Image inside a modal section - every section image renders at the same size */
   .modal-figure {
     margin: 4px 0 0;
     border: 1px solid var(--line);
@@ -615,7 +658,7 @@
     object-fit: contain;
   }
 
-  /* Two images side by side — occupies the SAME 16:9 frame as one section image */
+  /* Two images side by side - occupies the SAME 16:9 frame as one section image */
   .modal-figure-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -784,7 +827,7 @@
 
   .about-body p:last-child { margin-bottom: 0; }
 
-  /* ABOUT — WORKFLOW */
+  /* ABOUT - WORKFLOW */
   .about-workflow {
     margin-top: 16px;
     padding-top: 0;
@@ -845,7 +888,7 @@
     font-weight: 600;
   }
 
-  /* CAD — interactive 3D model portfolio (horizontal scroller) */
+  /* CAD - interactive 3D model portfolio (horizontal scroller) */
   .cad {
     border-top: 1px solid var(--line);
     padding-top: 100px;
@@ -995,7 +1038,7 @@
     margin-top: 18px;
   }
 
-  /* FOOTER — bottom-left contact */
+  /* FOOTER - bottom-left contact */
   .footer {
     padding: 80px 48px 48px;
   }
@@ -1138,7 +1181,7 @@
     .footer { padding: 60px 24px 32px; }
   }
 
-  /* DARK MODE — override the hardcoded fills inside the inline SVG illustrations */
+  /* DARK MODE - override the hardcoded fills inside the inline SVG illustrations */
   [data-theme="dark"] svg [fill="#F0EFEB"] { fill: var(--cover-bg); }
   [data-theme="dark"] svg [fill="#FAFAF8"] { fill: var(--panel); }
   [data-theme="dark"] svg [fill="#1A1A1A"] { fill: var(--ink); }
@@ -1147,7 +1190,7 @@
   [data-theme="dark"] svg [stroke="#9A9A9A"] { stroke: var(--mid); }
 
   /* THEME + MOTION TOGGLES */
-  /* NAV RIGHT — links, a hairline divider, then the two icon toggles as a cluster */
+  /* NAV RIGHT - links, a hairline divider, then the two icon toggles as a cluster */
   .nav-right {
     display: flex;
     align-items: center;
@@ -1202,12 +1245,12 @@
   [data-theme="dark"] .theme-toggle .icon-moon { display: none; }
   [data-theme="dark"] .theme-toggle .icon-sun { display: block; }
 
-  /* MOTION TOGGLE — pulse icon when animations are on, slashed/flat when off */
+  /* MOTION TOGGLE - pulse icon when animations are on, slashed/flat when off */
   .motion-toggle .icon-motion-off { display: none; }
   [data-motion="off"] .motion-toggle .icon-motion { display: none; }
   [data-motion="off"] .motion-toggle .icon-motion-off { display: block; }
 
-  /* REDUCED MOTION — applied when the user toggles animations off (data-motion="off").
+  /* REDUCED MOTION - applied when the user toggles animations off (data-motion="off").
      Near-zero durations keep final keyframe states (e.g. fade-ins land visible)
      while removing the motion itself. SMIL + the cursor-driven hero are handled in JS. */
   [data-motion="off"] { scroll-behavior: auto; }
@@ -1227,7 +1270,7 @@
     .anim { animation-duration: 0.001ms; animation-delay: 0ms; }
   }
 
-  /* SERIAL MONITOR */
+  /* COMMAND CONSOLE */
   .serial-section {
     border-top: 1px solid var(--line);
     padding-top: 100px;
@@ -1310,6 +1353,18 @@
   .serial-line .ok { color: var(--accent); }
   .serial-line.cmd .v,
   .serial-line.cmd { color: var(--ink); }
+
+  /* COMMAND CONSOLE - extra line types layered on the serial palette */
+  .serial-line .hd { color: var(--ink); letter-spacing: 1px; }
+  .serial-line .warn { color: var(--mid); }
+  .serial-line .err { color: #E06C6C; }
+  .serial-line a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.15s;
+  }
+  .serial-line a:hover { border-bottom-color: var(--accent); }
 
   .serial-cursor {
     display: inline-block;
@@ -1399,7 +1454,7 @@
   })();
 </script>
 
-<!-- model-viewer — interactive 3D (GLB) viewer for the SolidWorks assembly -->
+<!-- model-viewer - interactive 3D (GLB) viewer for the SolidWorks assembly -->
 <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.3.1/model-viewer.min.js"></script>
 </head>
 <body>
@@ -1453,14 +1508,6 @@
     <div class="imu-row">
       <span class="imu-label">TILT_Y</span>
       <div class="imu-bar"><div class="imu-fill" data-axis="y"></div></div>
-    </div>
-    <div class="imu-row">
-      <span class="imu-label">ACCEL_X</span>
-      <div class="imu-bar"><div class="imu-fill" data-axis="ax"></div></div>
-    </div>
-    <div class="imu-row">
-      <span class="imu-label">ACCEL_Y</span>
-      <div class="imu-bar"><div class="imu-fill" data-axis="ay"></div></div>
     </div>
   </aside>
 
@@ -1531,9 +1578,9 @@
         <p class="project-desc">UncommonHacks '26 1st Place Winner using both Meta's DINOv3 embedding model and ORB feature matching algorithm.</p>
 
         <div class="project-stats">
-          <div class="stat-row"><span class="label">PIPELINE</span><span class="value">PYTORCH / OPENCV</span></div>
-          <div class="stat-row"><span class="label">DETECTOR</span><span class="value">DINOv2 · ORB</span></div>
-          <div class="stat-row"><span class="label">STATUS</span><span class="value">COMPLETED</span></div>
+          <div class="stat-row"><span class="label">STACK</span><span class="value">DINOv2 · ORB · ESP32-S3</span></div>
+          <div class="stat-row"><span class="label">STATUS</span><span class="value">COMPLETED · MAY 2026</span></div>
+          <div class="stat-row"><span class="label">DOMAIN</span><span class="value">COMPUTER VISION</span></div>
         </div>
 
         <button class="project-expand">Learn more <span class="arrow">→</span></button>
@@ -1622,6 +1669,184 @@
     <!-- 02 -->
     <div class="project-card" data-project="02">
       <p class="project-num">PROJECT 02</p>
+      <h3 class="project-title">MPU6050 Motion Controller → ROS2</h3>
+      <p class="project-desc">A handheld MPU6050 that teleoperates a virtual robot in RViz2. An ESP32 reads the IMU over I²C, fuses accel + gyro into stable orientation, and publishes motion commands straight into a ROS2 graph over micro-ROS - tilt the board, the simulated robot moves.</p>
+
+      <div class="project-image">
+        <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+          <rect width="400" height="300" fill="#F0EFEB" />
+
+          <g transform="rotate(-16 72 150)">
+            <rect x="42" y="124" width="64" height="46" rx="3" fill="#F0EFEB" stroke="#1A1A1A" stroke-width="1.2" />
+            <rect x="60" y="138" width="28" height="18" rx="2" fill="#1A1A1A" />
+            <text x="63" y="151" font-family="JetBrains Mono" font-size="7" fill="#FAFAF8">IMU</text>
+            <g stroke="#1A1A1A" stroke-width="0.9">
+              <line x1="50" y1="170" x2="50" y2="176" />
+              <line x1="58" y1="170" x2="58" y2="176" />
+              <line x1="66" y1="170" x2="66" y2="176" />
+              <line x1="74" y1="170" x2="74" y2="176" />
+            </g>
+            <g stroke="#9A9A9A" stroke-width="0.9">
+              <line x1="96" y1="132" x2="116" y2="132" />
+              <line x1="96" y1="132" x2="96" y2="112" />
+            </g>
+          </g>
+          <text x="40" y="196" font-family="JetBrains Mono" font-size="8" fill="#1A1A1A">MPU6050 · 0x68</text>
+          <text x="40" y="209" font-family="JetBrains Mono" font-size="7" fill="#9A9A9A">I²C · ESP32</text>
+
+          <g stroke="#9A9A9A" stroke-width="0.8" stroke-dasharray="3 3" fill="none"><path d="M 132 150 L 166 150" /></g>
+          <path d="M 166 150 l -6 -3.5 l 0 7 z" fill="#9A9A9A" />
+
+          <rect x="172" y="126" width="96" height="48" rx="2" fill="#F0EFEB" stroke="#1A1A1A" stroke-width="1.1" />
+          <text x="181" y="149" font-family="JetBrains Mono" font-size="9" fill="#1A1A1A">/imu_node</text>
+          <text x="181" y="164" font-family="JetBrains Mono" font-size="7" fill="#9A9A9A">tilt → /cmd_vel</text>
+
+          <g stroke="#9A9A9A" stroke-width="0.9" fill="none">
+            <path d="M 276 140 a 10 10 0 0 1 18 0" />
+            <path d="M 280 133 a 16 16 0 0 1 26 0" />
+          </g>
+
+          <g stroke="#9A9A9A" stroke-width="0.8" stroke-dasharray="3 3" fill="none"><path d="M 268 162 L 300 162" /></g>
+          <path d="M 300 162 l -6 -3.5 l 0 7 z" fill="#9A9A9A" />
+
+          <rect x="300" y="92" width="84" height="120" fill="#FAFAF8" stroke="#1A1A1A" stroke-width="1.1" />
+          <text x="306" y="107" font-family="JetBrains Mono" font-size="8" fill="#1A1A1A">RViz2</text>
+          <g stroke="#9A9A9A" stroke-width="0.5">
+            <line x1="306" y1="182" x2="378" y2="182" />
+            <line x1="312" y1="196" x2="372" y2="196" />
+            <line x1="320" y1="208" x2="364" y2="208" />
+            <line x1="334" y1="180" x2="326" y2="209" />
+            <line x1="346" y1="180" x2="346" y2="209" />
+            <line x1="358" y1="180" x2="366" y2="209" />
+          </g>
+          <g transform="translate(342 168)">
+            <rect x="-16" y="-10" width="32" height="19" rx="2" fill="#1A1A1A" />
+            <ellipse cx="-10" cy="10" rx="6" ry="3" fill="#1A1A1A" />
+            <ellipse cx="10" cy="10" rx="6" ry="3" fill="#1A1A1A" />
+            <g stroke="#22C55E" stroke-width="1.4">
+              <line x1="0" y1="0" x2="16" y2="-4" />
+              <line x1="0" y1="0" x2="1" y2="-16" />
+            </g>
+          </g>
+
+          <text x="20" y="284" font-family="JetBrains Mono" font-size="7" fill="#9A9A9A">ESP32 · COMPLEMENTARY FILTER</text>
+          <text x="380" y="284" text-anchor="end" font-family="JetBrains Mono" font-size="7" fill="#9A9A9A">ROS2 · MICRO-ROS</text>
+        </svg>
+      </div>
+
+      <div class="project-stats">
+        <div class="stat-row"><span class="label">STACK</span><span class="value">ESP32 · MICRO-ROS · ROS2</span></div>
+        <div class="stat-row"><span class="label">STATUS</span><span class="value">IN PROGRESS · 2026</span></div>
+        <div class="stat-row"><span class="label">DOMAIN</span><span class="value">ROBOTICS</span></div>
+      </div>
+
+      <button class="project-expand">Learn more <span class="arrow">→</span></button>
+
+      <div class="project-extended">
+        <div class="modal-hero-img">
+          <svg viewBox="0 0 400 225" xmlns="http://www.w3.org/2000/svg">
+            <rect width="400" height="225" fill="#F0EFEB" />
+
+            <text x="20" y="28" font-family="JetBrains Mono" font-size="8" fill="#9A9A9A">TILT → ORIENTATION → /cmd_vel → RVIZ2</text>
+
+            <g transform="rotate(-18 56 120)">
+              <rect x="36" y="104" width="44" height="30" rx="2" fill="#F0EFEB" stroke="#1A1A1A" stroke-width="1.2" />
+              <rect x="50" y="112" width="16" height="13" fill="#1A1A1A" />
+            </g>
+            <text x="34" y="162" font-family="JetBrains Mono" font-size="7" fill="#9A9A9A">MPU6050</text>
+
+            <g stroke="#9A9A9A" stroke-width="0.9" stroke-dasharray="4 3"><line x1="92" y1="120" x2="126" y2="120" /></g>
+            <path d="M 126 120 l -7 -4 l 0 8 z" fill="#9A9A9A" />
+
+            <rect x="128" y="100" width="72" height="40" fill="#F0EFEB" stroke="#1A1A1A" stroke-width="1.1" />
+            <text x="138" y="118" font-family="JetBrains Mono" font-size="8" fill="#1A1A1A">FILTER</text>
+            <text x="138" y="131" font-family="JetBrains Mono" font-size="7" fill="#9A9A9A">roll·pitch·yaw</text>
+
+            <g stroke="#9A9A9A" stroke-width="0.9" stroke-dasharray="4 3"><line x1="200" y1="120" x2="232" y2="120" /></g>
+            <path d="M 232 120 l -7 -4 l 0 8 z" fill="#9A9A9A" />
+
+            <rect x="234" y="100" width="60" height="40" fill="#F0EFEB" stroke="#1A1A1A" stroke-width="1.1" />
+            <text x="242" y="118" font-family="JetBrains Mono" font-size="7.5" fill="#1A1A1A">micro-ROS</text>
+            <text x="242" y="131" font-family="JetBrains Mono" font-size="7" fill="#9A9A9A">publish</text>
+
+            <g stroke="#9A9A9A" stroke-width="0.9" stroke-dasharray="4 3"><line x1="294" y1="120" x2="316" y2="120" /></g>
+            <path d="M 316 120 l -7 -4 l 0 8 z" fill="#9A9A9A" />
+
+            <rect x="318" y="74" width="66" height="92" fill="#FAFAF8" stroke="#1A1A1A" stroke-width="1.1" />
+            <text x="324" y="88" font-family="JetBrains Mono" font-size="7" fill="#1A1A1A">RViz2</text>
+            <g transform="translate(351 128)">
+              <rect x="-14" y="-9" width="28" height="17" rx="2" fill="#1A1A1A" />
+              <ellipse cx="-9" cy="9" rx="5" ry="2.5" fill="#1A1A1A" />
+              <ellipse cx="9" cy="9" rx="5" ry="2.5" fill="#1A1A1A" />
+              <g stroke="#22C55E" stroke-width="1.4">
+                <line x1="0" y1="0" x2="14" y2="-4" />
+                <line x1="0" y1="0" x2="1" y2="-14" />
+              </g>
+            </g>
+          </svg>
+        </div>
+
+        <div class="modal-body">
+          <p class="modal-num">PROJECT 02 · 2026</p>
+          <h2 class="modal-title">MPU6050 Motion Controller → ROS2</h2>
+          <p class="modal-tagline">Tilt a physical IMU in your hand and a virtual robot mirrors it live in RViz2 - a complete hardware-to-middleware loop, from raw I²C samples to ROS2 topics.</p>
+
+          <div class="modal-section">
+            <h4>OVERVIEW</h4>
+            <p>This project turns a $3 MPU6050 into a motion controller for a robot that only exists in simulation. An ESP32 samples the IMU over I²C, runs a complementary filter to recover stable roll/pitch/yaw from noisy accelerometer and gyro data, and maps that orientation onto velocity commands. Those commands enter the ROS2 graph through micro-ROS, drive a robot model published by robot_state_publisher, and the whole thing is visualized live in RViz2. Tilt the board forward and the robot drives forward; roll it and the robot turns.</p>
+          </div>
+
+          <div class="modal-section">
+            <h4>SYSTEM ARCHITECTURE</h4>
+            <ul>
+              <li>ESP32 reads the MPU6050's 6-axis data (accel + gyro) over I²C at address 0x68</li>
+              <li>A complementary filter fuses accelerometer tilt with gyro rate into drift-resistant orientation</li>
+              <li>Tilt angles map to a geometry_msgs/Twist - pitch → linear.x, roll → angular.z</li>
+              <li>micro-ROS runs on the ESP32 and publishes over Wi-Fi (UDP) to the micro-ROS Agent on the host</li>
+              <li>On the host, robot_state_publisher broadcasts TF from a URDF as the commands arrive</li>
+              <li>RViz2 renders the robot model and updates it in real time as the board moves</li>
+            </ul>
+          </div>
+
+          <div class="modal-section">
+            <h4>MOTION PIPELINE</h4>
+            <ul>
+              <li>Sample accel/gyro, then calibrate and subtract per-axis bias</li>
+              <li>Complementary filter (α ≈ 0.98) blends gyro integration with the accelerometer reference</li>
+              <li>Deadband + scaling so a level board commands zero velocity</li>
+              <li>Publish sensor_msgs/Imu for visualization and geometry_msgs/Twist for control</li>
+              <li>The micro-ROS Agent bridges the ESP32's XRCE-DDS traffic into the full ROS2 graph</li>
+            </ul>
+          </div>
+
+          <div class="modal-section">
+            <h4>STACK</h4>
+            <ul>
+              <li>ESP32 · MPU6050 (I²C) · complementary filter</li>
+              <li>micro-ROS · ROS2 (Humble / Jazzy) · rclpy</li>
+              <li>robot_state_publisher · URDF · RViz2</li>
+            </ul>
+          </div>
+
+          <div class="modal-section">
+            <h4>TOOLCHAIN</h4>
+            <ul>
+              <li>PlatformIO / Arduino IDE with micro_ros_arduino</li>
+              <li>ROS2 + micro_ros_agent</li>
+              <li>RViz2 for live visualization</li>
+            </ul>
+          </div>
+
+          <div class="modal-actions">
+            <a href="https://github.com/goombad/imu-ros2-controller" target="_blank" class="modal-action">GitHub <span>→</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 03 -->
+    <div class="project-card" data-project="03">
+      <p class="project-num">PROJECT 03</p>
       <h3 class="project-title">Automated SVG Sisyphus Table</h3>
       <p class="project-desc">A polar CNC sand table driven by a custom SVG-to-G-code converter, Nano firmware, and Python serial bridge for live pattern streaming.</p>
 
@@ -1652,9 +1877,9 @@
       </div>
 
       <div class="project-stats">
-        <div class="stat-row"><span class="label">FIRMWARE</span><span class="value">ARDUINO / C++</span></div>
-        <div class="stat-row"><span class="label">DRIVER</span><span class="value">NEMA17</span></div>
-        <div class="stat-row"><span class="label">PIPELINE</span><span class="value">SVG → G-CODE</span></div>
+        <div class="stat-row"><span class="label">STACK</span><span class="value">ARDUINO NANO · NEMA17 · PYTHON</span></div>
+        <div class="stat-row"><span class="label">STATUS</span><span class="value">IN PROGRESS · 2026</span></div>
+        <div class="stat-row"><span class="label">DOMAIN</span><span class="value">MOTION CONTROL</span></div>
       </div>
 
       <button class="project-expand">Learn more <span class="arrow">→</span></button>
@@ -1679,9 +1904,9 @@
         </div>
 
         <div class="modal-body">
-          <p class="modal-num">PROJECT 02 · MAR 2026 — PRESENT</p>
+          <p class="modal-num">PROJECT 03 · MAR 2026 - PRESENT</p>
           <h2 class="modal-title">Automated SVG Sisyphus Table</h2>
-          <p class="modal-tagline">A polar coordinate CNC machine that draws patterns in sand using a magnetically-coupled steel ball — driven by a fully custom toolchain from SVG to motor torque.</p>
+          <p class="modal-tagline">A polar coordinate CNC machine that draws patterns in sand using a magnetically-coupled steel ball - driven by a fully custom toolchain from SVG to motor torque.</p>
 
           <div class="modal-section">
             <h4>OVERVIEW</h4>
@@ -1710,7 +1935,7 @@
 
           <div class="modal-section">
             <h4>ELECTRICAL SCHEMATIC</h4>
-            <p>Two NEMA17 steppers run the polar axes — one slides the radial rail, the other rotates theta — each driven by its own A4988 driver off a shared 12V supply, with all step/direction lines fanned out from an Arduino Mega.</p>
+            <p>Two NEMA17 steppers run the polar axes - one slides the radial rail, the other rotates theta - each driven by its own A4988 driver off a shared 12V supply, with all step/direction lines fanned out from an Arduino Mega.</p>
             <figure class="modal-figure contain">
               <img src="images/sisyphus-schematic.png" alt="CirkitDesigner schematic of the Sisyphus table: two NEMA17 steppers, A4988 drivers, Arduino Mega, and 12V supply" />
               <figcaption>CIRKITDESIGNER · RAIL + THETA STEPPERS · ARDUINO MEGA · 12V</figcaption>
@@ -1724,9 +1949,9 @@
       </div>
     </div>
 
-    <!-- 03 -->
-    <div class="project-card" data-project="03">
-      <p class="project-num">PROJECT 03</p>
+    <!-- 04 -->
+    <div class="project-card" data-project="04">
+      <p class="project-num">PROJECT 04</p>
       <h3 class="project-title">PACK-E</h3>
       <p class="project-desc">A real-time object detection and retrieval robot running a fine-tuned FOMO model on ESP32-S3, with ultrasonic sensing and UART inference feedback.</p>
 
@@ -1763,9 +1988,9 @@
       </div>
 
       <div class="project-stats">
-        <div class="stat-row"><span class="label">PLATFORM</span><span class="value">ESP32-S3</span></div>
-        <div class="stat-row"><span class="label">MODEL</span><span class="value">FOMO / TFLITE</span></div>
-        <div class="stat-row"><span class="label">STATUS</span><span class="value">PAUSED</span></div>
+        <div class="stat-row"><span class="label">STACK</span><span class="value">ESP32-S3 · FOMO · MSP432</span></div>
+        <div class="stat-row"><span class="label">STATUS</span><span class="value">PAUSED · 2026</span></div>
+        <div class="stat-row"><span class="label">DOMAIN</span><span class="value">EMBEDDED ML</span></div>
       </div>
 
       <button class="project-expand">Learn more <span class="arrow">→</span></button>
@@ -1789,13 +2014,13 @@
         </div>
 
         <div class="modal-body">
-          <p class="modal-num">PROJECT 03 · MAR 2026 — PAUSED</p>
+          <p class="modal-num">PROJECT 04 · MAR 2026 - PAUSED</p>
           <h2 class="modal-title">PACK-E</h2>
           <p class="modal-tagline">Package Acquisition & Collection Kernel Earth-Class. Autonomous object detection and retrieval by squeezing a TinyML pipeline onto a $15 microcontroller.</p>
 
           <div class="modal-section">
             <h4>OVERVIEW</h4>
-            <p>PACK-E identifies small target packages from a camera feed, navigates to them, and retrieves them — all without any external processing. The full vision and control loop runs on an ESP32-S3 CAM, while the MSP432 robot chassis handles the motor controls.</p>
+            <p>PACK-E identifies small target packages from a camera feed, navigates to them, and retrieves them - all without any external processing. The full vision and control loop runs on an ESP32-S3 CAM, while the MSP432 robot chassis handles the motor controls.</p>
           </div>
 
           <div class="modal-section">
@@ -1805,7 +2030,7 @@
               <li>Bare-metal C firmware on MSP432 for motor control, ultrasonic sensing, and UART feedback</li>
               <li>ESP32 computes error from centroid location to frame center, then sends a navigation command to MSP432 via UART</li>
               <li>HC-SR04 gauges distance to target and MSP432 adjusts forward velocity accordingly</li>
-              <li>Status: paused — physical chassis is at school</li>
+              <li>Status: paused - physical chassis is at school</li>
             </ul>
           </div>
 
@@ -1825,9 +2050,9 @@
       </div>
     </div>
 
-    <!-- 04 -->
-    <div class="project-card" data-project="04">
-      <p class="project-num">PROJECT 04</p>
+    <!-- 05 -->
+    <div class="project-card" data-project="05">
+      <p class="project-num">PROJECT 05</p>
       <h3 class="project-title">Automated Blast Gate Network</h3>
       <p class="project-desc">Electrical/Embedded Systems lead on a fleet of "smart" blast gates for the SHED Wood Shop. Precise closed-loop positioning, broadcast UART protocol, and locally-computed flow balancing across nodes. Designed to be <em>minimally</em> invasive.</p>
 
@@ -1871,10 +2096,9 @@
       </div>
 
       <div class="project-stats">
-        <div class="stat-row"><span class="label">DRIVER</span><span class="value">L298N</span></div>
-        <div class="stat-row"><span class="label">PROTOCOL</span><span class="value">8N1 UART · BROADCAST</span></div>
-        <div class="stat-row"><span class="label">CONTROL</span><span class="value">CLOSED-LOOP</span></div>
-        <div class="stat-row"><span class="label">SCOPE</span><span class="value">JAN — MAY 2026</span></div>
+        <div class="stat-row"><span class="label">STACK</span><span class="value">ESP32 · L298N · UART</span></div>
+        <div class="stat-row"><span class="label">STATUS</span><span class="value">COMPLETED · MAY 2026</span></div>
+        <div class="stat-row"><span class="label">DOMAIN</span><span class="value">CONTROL SYSTEMS</span></div>
       </div>
 
       <button class="project-expand">Learn more <span class="arrow">→</span></button>
@@ -1898,9 +2122,9 @@
         </div>
 
         <div class="modal-body">
-          <p class="modal-num">PROJECT 04 · JAN — MAY 2026</p>
+          <p class="modal-num">PROJECT 05 · JAN - MAY 2026</p>
           <h2 class="modal-title">Automated Blast Gate Network</h2>
-          <p class="modal-tagline">A fleet of "smart" blast gates for the RIT SHED Wood Shop — gates that talk to each other and balance vacuum flow with no central controller in the loop.</p>
+          <p class="modal-tagline">A fleet of "smart" blast gates for the RIT SHED Wood Shop - gates that talk to each other and balance vacuum flow with no central controller in the loop.</p>
 
           <div class="modal-section">
             <h4>OVERVIEW</h4>
@@ -1954,9 +2178,9 @@
       </div>
     </div>
 
-    <!-- 05 -->
-    <div class="project-card" data-project="05">
-      <p class="project-num">PROJECT 05</p>
+    <!-- 06 -->
+    <div class="project-card" data-project="06">
+      <p class="project-num">PROJECT 06</p>
       <h3 class="project-title">RC Tank &amp; Bluetooth Bridge</h3>
       <p class="project-desc">Fully CADed, 3D-printed analog joystick tank platform. Custom H-bridge driver built from P-MOS / N-MOS for all four motion states, with HC-05 Bluetooth and I²C telemetry.</p>
 
@@ -1988,9 +2212,9 @@
       </div>
 
       <div class="project-stats">
-        <div class="stat-row"><span class="label">CONTROLLER</span><span class="value">ARDUINO MEGA</span></div>
-        <div class="stat-row"><span class="label">DRIVER</span><span class="value">P-MOS / N-MOS</span></div>
-        <div class="stat-row"><span class="label">LINK</span><span class="value">HC-05 · I²C</span></div>
+        <div class="stat-row"><span class="label">STACK</span><span class="value">ARDUINO MEGA · HC-05 · I²C</span></div>
+        <div class="stat-row"><span class="label">STATUS</span><span class="value">COMPLETED · 2022</span></div>
+        <div class="stat-row"><span class="label">DOMAIN</span><span class="value">POWER ELECTRONICS</span></div>
       </div>
 
       <button class="project-expand">Learn more <span class="arrow">→</span></button>
@@ -2001,9 +2225,9 @@
         </div>
 
         <div class="modal-body">
-          <p class="modal-num">PROJECT 05 · AUG 2021 — MAY 2022</p>
+          <p class="modal-num">PROJECT 06 · AUG 2021 - MAY 2022</p>
           <h2 class="modal-title">RC Tank &amp; Bluetooth Bridge</h2>
-          <p class="modal-tagline">My first real mechatronics build. Custom-designed chassis, custom H-bridge driver from discrete MOSFETs, custom controller — every layer from mechanical to firmware was hand-rolled.</p>
+          <p class="modal-tagline">My first real mechatronics build. Custom-designed chassis, custom H-bridge driver from discrete MOSFETs, custom controller - every layer from mechanical to firmware was hand-rolled.</p>
 
           <div class="modal-section">
             <h4>OVERVIEW</h4>
@@ -2160,35 +2384,35 @@
 
   <div class="exp-list">
     <div class="exp-item">
-      <div class="exp-date">SEP — DEC 2025</div>
+      <div class="exp-date">SEP - DEC 2025</div>
       <div class="exp-role">Robotics Automation Field Engineer</div>
       <div class="exp-company">Retiina / USPS Atlanta RPDC</div>
       <div class="exp-tag">[ ROBOTICS ]</div>
     </div>
 
     <div class="exp-item">
-      <div class="exp-date">MAY — AUG 2025</div>
+      <div class="exp-date">MAY - AUG 2025</div>
       <div class="exp-role">Design &amp; Manufacturing Intern</div>
       <div class="exp-company">Electronic Hardware Corporation</div>
       <div class="exp-tag">[ MECHANICAL ]</div>
     </div>
 
     <div class="exp-item">
-      <div class="exp-date">JUN — AUG 2024</div>
+      <div class="exp-date">JUN - AUG 2024</div>
       <div class="exp-role">Development Engineer Intern</div>
       <div class="exp-company">OPmobility · Tokyo Plastic Omnium</div>
       <div class="exp-tag">[ VALIDATION ]</div>
     </div>
 
     <div class="exp-item">
-      <div class="exp-date">2024 — PRESENT</div>
+      <div class="exp-date">2024 - PRESENT</div>
       <div class="exp-role">Makerspace Lab Assistant</div>
       <div class="exp-company">RIT SHED</div>
       <div class="exp-tag">[ TEACHING ]</div>
     </div>
 
     <div class="exp-item">
-      <div class="exp-date">2023 — 2026</div>
+      <div class="exp-date">2023 - 2026</div>
       <div class="exp-role">Math &amp; Physics Tutor</div>
       <div class="exp-company">RIT Academic Success Center</div>
       <div class="exp-tag">[ TEACHING ]</div>
@@ -2207,7 +2431,7 @@
       <h3 class="about-headline">I build things that <em>move, sense,</em> and <em>think</em> for themselves.</h3>
 
       <div class="about-body">
-        <p>I'm a dual-degree engineering student at RIT, splitting my time between Mechatronics and Computer Engineering Technology. Most of my work lives in the seam between physical hardware and the firmware that keeps it honest — motor control, sensor fusion, embedded ML, and the protocols holding them all together.</p>
+        <p>I'm a dual-degree engineering student at RIT, splitting my time between Mechatronics and Computer Engineering Technology. Most of my work lives in the seam between physical hardware and the firmware that keeps it honest - motor control, sensor fusion, embedded ML, and the protocols holding them all together.</p>
       </div>
     </div>
 
@@ -2240,7 +2464,7 @@
         <li>
           <span class="workflow-num">04</span>
           <span class="workflow-step">
-            <strong>Integrate.</strong> Bring up firmware on real hardware iteratively — one subsystem at a time, with a serial monitor open at all times.
+            <strong>Integrate.</strong> Bring up firmware on real hardware iteratively - one subsystem at a time, with a serial monitor open at all times.
           </span>
         </li>
 
@@ -2256,10 +2480,10 @@
   </div>
 </section>
 
-<!-- SERIAL MONITOR -->
+<!-- COMMAND CONSOLE -->
 <section id="serial" class="serial-section">
-  <p class="section-label">SYSTEM / SERIAL MONITOR</p>
-  <p class="section-eyebrow">[ 005 / LIVE TELEMETRY ]</p>
+  <p class="section-label">SYSTEM / COMMAND CONSOLE</p>
+  <p class="section-eyebrow">[ 005 / INTERACTIVE CONSOLE ]</p>
 
   <div class="serial-window">
     <div class="serial-bar">
@@ -2274,17 +2498,17 @@
       </div>
     </div>
 
-    <div class="serial-log" id="serial-log" role="log" aria-live="off"></div>
+    <div class="serial-log" id="serial-log" role="log" aria-live="polite"></div>
 
     <div class="serial-input">
       <span class="serial-prompt" aria-hidden="true">&gt;</span>
-      <input id="serial-cmd" type="text" autocomplete="off" spellcheck="false" placeholder="type a command — try &quot;help&quot;" aria-label="Serial command input" />
+      <input id="serial-cmd" type="text" autocomplete="off" spellcheck="false" placeholder="type a command - try &quot;help&quot;, or just ask a question" aria-label="Console command input" />
       <button id="serial-send" type="button">SEND</button>
     </div>
   </div>
 </section>
 
-<!-- FOOTER — bottom-left contact, edit URLs to your real profiles -->
+<!-- FOOTER - bottom-left contact, edit URLs to your real profiles -->
 <footer class="footer">
   <div class="footer-contact">
     <a href="https://github.com/goombad" target="_blank" rel="noopener" aria-label="GitHub">
@@ -2319,7 +2543,7 @@
   // cursor handler below and flipped by the motion toggle.
   let animationsEnabled = document.documentElement.getAttribute('data-motion') !== 'off';
 
-  // Filled in by the serial monitor module below; lets the motion toggle pause/resume the stream.
+  // Filled in by the command console below; lets the motion toggle hook in if needed.
   let serialStart = function () {}, serialStop = function () {};
 
   function openModal(extendedEl) {
@@ -2380,13 +2604,13 @@
     logo.addEventListener('click', e => {
       e.preventDefault();
       const aboutTop = aboutSection.getBoundingClientRect().top + window.scrollY;
-      const tolerance = 120; // px — counts as "at About" once the section is within this distance of the top of the viewport
+      const tolerance = 120; // px - counts as "at About" once the section is within this distance of the top of the viewport
 
       if (window.scrollY >= aboutTop - tolerance) {
-        // We're at or past the About section — go back to the landing
+        // We're at or past the About section - go back to the landing
         window.scrollTo({ top: 0, behavior: animationsEnabled ? 'smooth' : 'auto' });
       } else {
-        // Anywhere above About — scroll down to it
+        // Anywhere above About - scroll down to it
         aboutSection.scrollIntoView({ behavior: animationsEnabled ? 'smooth' : 'auto' });
       }
     });
@@ -2406,7 +2630,7 @@
     });
   }
 
-  // NAV HEX-BUFFER HOVER — on hover/focus each letter flickers through hex
+  // NAV HEX-BUFFER HOVER - on hover/focus each letter flickers through hex
   // glyphs (0-9 A-F) and resolves left-to-right back into the label.
   const HEX = '0123456789ABCDEF';
   document.querySelectorAll('.nav-links a').forEach(link => {
@@ -2480,19 +2704,14 @@
     });
   }
 
-  // HERO IMU + TITLE TILT — cursor offset drives multiple MPU6050-style readouts
-  // TILT = smoothed/derived angle (heavy filter), ACCEL = raw sensor reading (light filter)
+  // HERO IMU + TITLE TILT - cursor offset drives an MPU6050-style tilt readout
   const hero = document.querySelector('.hero');
   const titleInner = document.querySelector('.title-inner');
   const fillTX = document.querySelector('.imu-fill[data-axis="x"]');     // TILT_X
   const fillTY = document.querySelector('.imu-fill[data-axis="y"]');     // TILT_Y
-  const fillAX = document.querySelector('.imu-fill[data-axis="ax"]');    // ACCEL_X
-  const fillAY = document.querySelector('.imu-fill[data-axis="ay"]');    // ACCEL_Y
 
   let targetTX = 0, targetTY = 0;
-  let targetAX = 0, targetAY = 0;
   let currentTX = 0, currentTY = 0;
-  let currentAX = 0, currentAY = 0;
   let lastT = performance.now();
   let rafId = null;
 
@@ -2514,41 +2733,29 @@
     const dt = Math.min(0.1, (now - lastT) / 1000);
     lastT = now;
 
-    // TILT: heavy smoothing (80ms half-life) — like a low-pass-filtered angle
+    // TILT: heavy smoothing (80ms half-life) - like a low-pass-filtered angle
     const kTilt = 1 - Math.pow(0.5, dt / 0.08);
     currentTX += (targetTX - currentTX) * kTilt;
     currentTY += (targetTY - currentTY) * kTilt;
 
-    // ACCEL: light smoothing (40ms half-life) — raw sensor, snappier
-    const kAccel = 1 - Math.pow(0.5, dt / 0.04);
-    currentAX += (targetAX - currentAX) * kAccel;
-    currentAY += (targetAY - currentAY) * kAccel;
-
-    // Title uses TILT — tilt is the geometric angle that physically rotates an object
+    // Title uses TILT - tilt is the geometric angle that physically rotates an object
     if (titleInner) {
       titleInner.style.transform = `rotateX(${-currentTY * 3}deg) rotateY(${currentTX * 3}deg)`;
     }
     if (fillTX) setBar(fillTX, currentTX);
     if (fillTY) setBar(fillTY, currentTY);
-    if (fillAX) setBar(fillAX, currentAX);
-    if (fillAY) setBar(fillAY, currentAY);
 
     const stillMoving =
       Math.abs(targetTX - currentTX) > 0.001 ||
-      Math.abs(targetTY - currentTY) > 0.001 ||
-      Math.abs(targetAX - currentAX) > 0.001 ||
-      Math.abs(targetAY - currentAY) > 0.001;
+      Math.abs(targetTY - currentTY) > 0.001;
 
     if (stillMoving) {
       rafId = requestAnimationFrame(tick);
     } else {
       currentTX = targetTX; currentTY = targetTY;
-      currentAX = targetAX; currentAY = targetAY;
       if (titleInner) titleInner.style.transform = `rotateX(${-currentTY * 3}deg) rotateY(${currentTX * 3}deg)`;
       if (fillTX) setBar(fillTX, currentTX);
       if (fillTY) setBar(fillTY, currentTY);
-      if (fillAX) setBar(fillAX, currentAX);
-      if (fillAY) setBar(fillAY, currentAY);
       rafId = null;
     }
   }
@@ -2562,7 +2769,6 @@
 
   function resetHero() {
     targetTX = 0; targetTY = 0;
-    targetAX = 0; targetAY = 0;
     ensureTick();
   }
 
@@ -2577,13 +2783,9 @@
       const nx = Math.max(-1, Math.min(1, (e.clientX - cx) / (rect.width / 2)));
       const ny = Math.max(-1, Math.min(1, (e.clientY - cy) / (rect.height / 2)));
 
-      // TILT = cubic curve (heavily damped — small motions barely register)
+      // TILT = cubic curve (heavily damped - small motions barely register)
       targetTX = nx * nx * nx;
       targetTY = ny * ny * ny;
-
-      // ACCEL = quadratic curve (less damped — pickier than TILT but still calm near center)
-      targetAX = Math.sign(nx) * nx * nx;
-      targetAY = Math.sign(ny) * ny * ny;
 
       ensureTick();
     });
@@ -2597,13 +2799,11 @@
   const motionToggle = document.querySelector('.motion-toggle');
 
   function snapHeroNeutral() {
-    targetTX = targetTY = targetAX = targetAY = 0;
-    currentTX = currentTY = currentAX = currentAY = 0;
+    targetTX = targetTY = 0;
+    currentTX = currentTY = 0;
     if (titleInner) titleInner.style.transform = '';
     if (fillTX) setBar(fillTX, 0);
     if (fillTY) setBar(fillTY, 0);
-    if (fillAX) setBar(fillAX, 0);
-    if (fillAY) setBar(fillAY, 0);
   }
 
   function applyMotion(enabled) {
@@ -2638,7 +2838,7 @@
     motionToggle.addEventListener('click', () => applyMotion(!animationsEnabled));
   }
 
-  // CAD PORTFOLIO — horizontal card scroller with prev/next arrows.
+  // CAD PORTFOLIO - horizontal card scroller with prev/next arrows.
   // Dragging on a card orbits its model, so the arrows (and native
   // trackpad/scrollbar) are how you move between cards.
   (function () {
@@ -2683,8 +2883,11 @@
     update();
   })();
 
-  // SERIAL MONITOR — faux ESP32 console: boot log + live telemetry, blinking cursor,
-  // TX/RX blips, and a small command prompt. Streaming pauses with the motion toggle.
+  // ── COMMAND CONSOLE ──────────────────────────────────────────────
+  // Replaces the old auto-streaming telemetry. Boots ONCE, then waits for
+  // input - no auto-scrolling feed. Visitors can look up projects, CAD,
+  // experience, and contact info, jump around the page, and ask an
+  // (optional) AI agent. Unknown / free-form input routes to the agent.
   const serialLog = document.getElementById('serial-log');
   const serialCmd = document.getElementById('serial-cmd');
   const serialSend = document.getElementById('serial-send');
@@ -2692,43 +2895,100 @@
   if (serialLog) {
     const ioTx = document.querySelector('.serial-io .io-tx');
     const ioRx = document.querySelector('.serial-io .io-rx');
-    const MAX_LINES = 60;
-    let timer = null;
-    let booted = false;
-    let bootIdx = 0;
+    const MAX_LINES = 240;
     let cursorLine = null;
+    let booted = false;
+    let bootTimer = null;
+    const cmdHistory = [];
+    let histIdx = 0;
+    const chat = [];           // AI conversation turns
 
+    // ── CONFIG ──
+    // The assistant answers offline, from the project data defined below
+    // (keyword search over PROJECTS / CAD / EXPERIENCE). No backend, no API key.
+    const AI_ENDPOINT = '';
+
+    // ── DATA - single source of truth for the console ──
+    const PROFILE = {
+      name: 'Vincent Lin',
+      title: 'Mechatronics & Computer Engineering @ RIT',
+      location: 'Brooklyn, NY',
+      focus: 'robotic systems, computer vision, embedded ML, and physical AI',
+      github: 'https://github.com/goombad',
+      linkedin: 'https://www.linkedin.com/in/vincent-lin-513ba4197/'
+    };
+
+    const PROJECTS = [
+      {
+        n: '01', name: 'LifeStory - Memory Record Player', when: 'May 2026', status: 'Completed',
+        blurb: 'UncommonHacks \u201926 1st place. A physical photo album becomes a portal to digital memories for Alzheimer\u2019s patients - slide a printed photo under an ESP32-S3 CAM and the matching narrated memory plays back.',
+        tags: ['DINOv2', 'ORB', 'OpenCV', 'PyTorch', 'ESP32-S3', 'computer vision', 'TinyML'],
+        links: { GitHub: 'https://github.com/JzJoker/uncommonhacks-life-story/tree/main/memory%20record%20player', Devpost: 'https://devpost.com/software/lifestory' }
+      },
+      {
+        n: '02', name: 'MPU6050 Motion Controller \u2192 ROS2', when: '2026', status: 'In progress',
+        blurb: 'A handheld MPU6050 teleoperates a virtual robot in RViz2. An ESP32 reads the IMU over I\u00B2C, fuses accel + gyro into stable orientation with a complementary filter, and publishes motion commands into a ROS2 graph over micro-ROS - tilt the board, the simulated robot moves.',
+        tags: ['ESP32', 'MPU6050', 'I\u00B2C', 'micro-ROS', 'ROS2', 'RViz2', 'sensor fusion', 'complementary filter'],
+        links: { GitHub: 'https://github.com/goombad/imu-ros2-controller' }
+      },
+      {
+        n: '03', name: 'Automated SVG Sisyphus Table', when: 'Mar 2026 - present', status: 'In progress',
+        blurb: 'A polar-coordinate CNC sand table driven by a custom SVG-to-G-code converter, Arduino Nano firmware, and a Python serial bridge that streams patterns live.',
+        tags: ['Arduino Nano', 'NEMA17', 'A4988', 'C++', 'Python', 'NumPy', 'CirkitDesigner'],
+        links: { GitHub: 'https://github.com/goombad/Sisyphus-Table' }
+      },
+      {
+        n: '04', name: 'PACK-E', when: 'Mar 2026 - paused', status: 'Paused',
+        blurb: 'Autonomous object-detection and retrieval robot running a fine-tuned FOMO model on an ESP32-S3 CAM, with HC-SR04 ranging and UART command feedback to an MSP432 chassis.',
+        tags: ['ESP32-S3', 'FOMO', 'TFLite Micro', 'MSP432', 'UART', 'Edge Impulse'],
+        links: { GitHub: 'https://github.com/goombad/PACK-E' }
+      },
+      {
+        n: '05', name: 'Automated Blast Gate Network', when: 'Jan - May 2026', status: 'Completed',
+        blurb: 'Electrical/embedded lead on a fleet of smart blast gates for the RIT SHED wood shop. Closed-loop positioning, a single-byte 8N1 UART broadcast protocol, and locally-computed flow balancing - no central controller. Shown at Imagine RIT.',
+        tags: ['Arduino Nano', 'ESP32', 'L298N', 'closed-loop', 'UART broadcast', 'SolidWorks'],
+        links: { GitHub: 'https://github.com/goombad/Blast-Gate-Repo' }
+      },
+      {
+        n: '06', name: 'RC Tank & Bluetooth Bridge', when: 'Aug 2021 - May 2022', status: 'Completed',
+        blurb: 'First full mechatronics build: CADed and 3D-printed chassis + analog joystick, a discrete P-MOS/N-MOS H-bridge for all four motion states, an HC-05 Bluetooth link, and I\u00B2C telemetry.',
+        tags: ['Arduino Mega', 'discrete H-bridge', 'P-MOS / N-MOS', 'HC-05', 'I\u00B2C', '3D printing'],
+        links: {}
+      }
+    ];
+
+    const CAD = [
+      { n: '01', name: 'Automated Blast Gate', tool: 'SolidWorks', type: 'Assembly' },
+      { n: '02', name: 'V6 Twin Turbo Engine', tool: 'Inventor', type: 'Assembly' },
+      { n: '03', name: 'Drone Assembly', tool: 'CAD', type: 'Quadcopter' }
+    ];
+
+    const EXPERIENCE = [
+      { when: 'Sep - Dec 2025', role: 'Robotics Automation Field Engineer', org: 'Retiina / USPS Atlanta RPDC', tag: 'ROBOTICS' },
+      { when: 'May - Aug 2025', role: 'Design & Manufacturing Intern', org: 'Electronic Hardware Corporation', tag: 'MECHANICAL' },
+      { when: 'Jun - Aug 2024', role: 'Development Engineer Intern', org: 'OPmobility \u00B7 Tokyo Plastic Omnium', tag: 'VALIDATION' },
+      { when: '2024 - present', role: 'Makerspace Lab Assistant', org: 'RIT SHED', tag: 'TEACHING' },
+      { when: '2023 - 2026', role: 'Math & Physics Tutor', org: 'RIT Academic Success Center', tag: 'TEACHING' }
+    ];
+
+    // ── helpers ──
     const pad2 = n => String(n).padStart(2, '0');
     const stamp = () => {
       const d = new Date();
       return pad2(d.getHours()) + ':' + pad2(d.getMinutes()) + ':' + pad2(d.getSeconds());
     };
-    const rnd = (min, max, dec = 0) => (Math.random() * (max - min) + min).toFixed(dec);
-    const pick = arr => arr[(Math.random() * arr.length) | 0];
-    const sgn = v => (parseFloat(v) >= 0 ? '+' : '') + v;
-    const hex = () => ('0' + ((Math.random() * 256) | 0).toString(16).toUpperCase()).slice(-2);
+    const numArg = a => { const m = (a || '').match(/\d+/); return m ? pad2(parseInt(m[0], 10)) : ''; };
+    const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    const link = (label, url) => '<a href="' + url + '" target="_blank" rel="noopener">' + esc(label) + '</a>';
 
-    const bootSeq = [
-      [['ets Jun  8 2016 00:22:57', 'tag']],
-      [['rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)', 'tag']],
-      [['[BOOT] ', 'tag'], ['ESP32-S3 @ 240 MHz  flash 8MB  PSRAM 2MB', 'v']],
-      [['[FS]   ', 'tag'], ['mounting SPIFFS ... ', 'v'], ['ok', 'ok']],
-      [['[WiFi] ', 'tag'], ['connecting to network ...', 'v']],
-      [['[WiFi] ', 'tag'], ['connected  ip=192.168.1.42  ', 'v'], ['ok', 'ok']],
-      [['[I2C]  ', 'tag'], ['scan: 0x68 MPU6050  0x76 BME280', 'v']],
-      [['[INIT] ', 'tag'], ['subsystems online — streaming telemetry', 'v']]
-    ];
-
-    const telemetry = [
-      () => [['[IMU]  ', 'tag'], ['ax=' + sgn(rnd(0, 0.14, 2)) + ' ay=' + sgn(rnd(0, 0.14, 2)) + ' az=+0.9' + ((Math.random() * 9) | 0) + ' g   gyro=' + rnd(0, 6, 1) + ' dps', 'v']],
-      () => [['[ENV]  ', 'tag'], ['temp=' + rnd(22, 25, 1) + ' C  hum=' + rnd(38, 46, 0) + ' %  pres=' + rnd(1010, 1016, 0) + ' hPa', 'v']],
-      () => [['[ADC]  ', 'tag'], ['vbat=' + rnd(3.9, 4.1, 2) + ' V  load=' + rnd(20, 55, 0) + ' %', 'v']],
-      () => [['[UART] ', 'tag'], ['tx 0x' + hex() + '  rx 0x' + hex() + '  ', 'v'], ['ok', 'ok']],
-      () => [['[GATE] ', 'tag'], ['node ' + pick(['N1', 'N2', 'N3']) + '  pos=' + rnd(40, 95, 0) + '%  flow=', 'v'], ['balanced', 'ok']],
-      () => [['[CV]   ', 'tag'], ['frame=' + ((1000 + Math.random() * 9000) | 0) + '  fps=' + rnd(12, 18, 0) + '  det=cube ' + rnd(0.8, 0.97, 2), 'v']],
-      () => [['[SYS]  ', 'tag'], ['heap=' + rnd(180, 230, 0) + ' kB  rssi=-' + rnd(45, 70, 0) + ' dBm', 'v']]
-    ];
-
+    function blinkIO(el) {
+      if (!el) return;
+      el.classList.add('live');
+      setTimeout(() => el.classList.remove('live'), 150);
+    }
+    function atBottom() {
+      return serialLog.scrollHeight - serialLog.scrollTop - serialLog.clientHeight < 40;
+    }
     function removeCursor() {
       if (cursorLine) {
         const c = cursorLine.querySelector('.serial-cursor');
@@ -2737,143 +2997,374 @@
       }
     }
 
-    function atBottom() {
-      return serialLog.scrollHeight - serialLog.scrollTop - serialLog.clientHeight < 28;
-    }
-
-    function appendLine(segments, opts) {
+    // emit a line. segments: [text, cls] pairs, or { html, cls } objects for rich content.
+    function emit(segments, opts) {
       opts = opts || {};
       removeCursor();
       const stick = atBottom();
       const line = document.createElement('div');
       line.className = 'serial-line' + (opts.cls ? ' ' + opts.cls : '');
-
-      if (opts.stamp !== false) {
+      if (opts.stamp) {
         const t = document.createElement('span');
         t.className = 't';
         t.textContent = stamp() + '  ';
         line.appendChild(t);
       }
-      segments.forEach(seg => {
+      (segments || []).forEach(seg => {
         const s = document.createElement('span');
-        if (seg[1]) s.className = seg[1];
-        s.textContent = seg[0];
+        if (seg && seg.html !== undefined) {
+          if (seg.cls) s.className = seg.cls;
+          s.innerHTML = seg.html;
+        } else {
+          if (seg[1]) s.className = seg[1];
+          s.textContent = seg[0];
+        }
         line.appendChild(s);
       });
+      serialLog.appendChild(line);
+      while (serialLog.childElementCount > MAX_LINES) serialLog.removeChild(serialLog.firstChild);
+      if (stick) serialLog.scrollTop = serialLog.scrollHeight;
+      return line;
+    }
+    function gap() { emit([[' ']]); }
 
+    // park a blinking cursor on a fresh line after output settles
+    function park() {
+      removeCursor();
+      const stick = atBottom();
+      const line = document.createElement('div');
+      line.className = 'serial-line';
       const cur = document.createElement('span');
       cur.className = 'serial-cursor';
       cur.setAttribute('aria-hidden', 'true');
       line.appendChild(cur);
       cursorLine = line;
-
       serialLog.appendChild(line);
       while (serialLog.childElementCount > MAX_LINES) serialLog.removeChild(serialLog.firstChild);
       if (stick) serialLog.scrollTop = serialLog.scrollHeight;
     }
 
-    function blinkIO(el) {
-      if (!el) return;
-      el.classList.add('live');
-      setTimeout(() => el.classList.remove('live'), 150);
+    // ── command outputs ──
+    function listProjects() {
+      emit([['PROJECTS', 'hd']]);
+      PROJECTS.forEach(p => {
+        emit([
+          ['  ' + p.n + '  ', 'tag'],
+          [p.name + '  ', 'v'],
+          ['[' + p.status + ']', p.status === 'Completed' ? 'ok' : 'warn']
+        ]);
+      });
+      emit([['  open <n>', 'tag'], [' for detail \u00B7 ', 'warn'], ['find <term>', 'tag'], [' to search', 'warn']]);
     }
 
-    function scheduleNext() {
-      clearTimeout(timer);
-      timer = setTimeout(() => {
-        if (!animationsEnabled) { timer = null; return; }
+    function showProject(arg) {
+      const id = numArg(arg);
+      const q = (arg || '').toLowerCase();
+      const p = PROJECTS.find(x => x.n === id) ||
+                PROJECTS.find(x => q && x.name.toLowerCase().indexOf(q) >= 0);
+      if (!p) { emit([['no project \u201c' + (arg || '') + '\u201d - try ', 'warn'], ['projects', 'tag']]); return; }
+      emit([[p.n + ' \u00B7 ', 'tag'], [p.name, 'hd']]);
+      emit([[p.when + '  \u00B7  ', 'warn'], [p.status, p.status === 'Completed' ? 'ok' : 'warn']]);
+      emit([[p.blurb, 'v']]);
+      emit([['stack: ', 'tag'], [p.tags.join(' \u00B7 '), 'warn']]);
+      Object.keys(p.links).forEach(k => emit([['  ' + k + '  ', 'tag'], { html: link(p.links[k], p.links[k]) }]));
+      emit([['open ' + p.n, 'tag'], [' to view the full writeup on the page', 'warn']]);
+    }
+
+    function openProject(arg) {
+      const id = numArg(arg);
+      if (!id) { emit([['usage: ', 'warn'], ['open <n>', 'tag']]); return; }
+      const card = document.querySelector('.project-card[data-project="' + id + '"]');
+      const p = PROJECTS.find(x => x.n === id);
+      if (!card) { showProject(arg); return; }
+      emit([['opening ', 'v'], [p ? p.name : 'project ' + id, 'ok'], [' \u2026', 'v']]);
+      const btn = card.querySelector('.project-expand');
+      if (btn) btn.click();
+    }
+
+    function listCad() {
+      emit([['CAD / INTERACTIVE ASSEMBLIES', 'hd']]);
+      CAD.forEach(c => emit([['  ' + c.n + '  ', 'tag'], [c.name + '  ', 'v'], ['[' + c.tool + ' \u00B7 ' + c.type + ']', 'warn']]));
+      emit([['goto cad', 'tag'], [' to orbit them in 3D', 'warn']]);
+    }
+
+    function listExp() {
+      emit([['EXPERIENCE', 'hd']]);
+      EXPERIENCE.forEach(e => {
+        emit([['  ' + e.when, 'warn']]);
+        emit([['    ' + e.role + '  ', 'v'], ['\u00B7 ' + e.org + '  ', 'warn'], ['[' + e.tag + ']', 'tag']]);
+      });
+    }
+
+    function listSkills() {
+      const set = [];
+      PROJECTS.forEach(p => p.tags.forEach(t => { if (set.indexOf(t) < 0) set.push(t); }));
+      emit([['STACK / RECURRING TOOLS', 'hd']]);
+      emit([[set.join('  \u00B7  '), 'v']]);
+    }
+
+    function showContact() {
+      emit([['CONTACT', 'hd']]);
+      emit([['  GitHub    ', 'tag'], { html: link('github.com/goombad', PROFILE.github) }]);
+      emit([['  LinkedIn  ', 'tag'], { html: link('Vincent Lin', PROFILE.linkedin) }]);
+    }
+
+    function showAbout() {
+      emit([[PROFILE.name, 'hd']]);
+      emit([[PROFILE.title, 'v']]);
+      emit([[PROFILE.location + '  \u00B7  focus: ' + PROFILE.focus, 'warn']]);
+      emit([['Dual-degree engineering student working in the seam between hardware and the firmware that keeps it honest - motor control, sensor fusion, embedded ML, and the protocols that hold them together.', 'v']]);
+    }
+
+    function search(q) {
+      const terms = q.toLowerCase().split(/\s+/).filter(Boolean);
+      const score = txt => terms.reduce((a, t) => a + (txt.indexOf(t) >= 0 ? 1 : 0), 0);
+      const hits = [];
+      PROJECTS.forEach(p => {
+        const s = score((p.name + ' ' + p.blurb + ' ' + p.tags.join(' ') + ' ' + p.status).toLowerCase());
+        if (s) hits.push({ s: s, kind: 'PROJECT ' + p.n, label: p.name, hint: 'open ' + p.n });
+      });
+      EXPERIENCE.forEach(e => {
+        const s = score((e.role + ' ' + e.org + ' ' + e.tag + ' ' + e.when).toLowerCase());
+        if (s) hits.push({ s: s, kind: 'EXPERIENCE', label: e.role + ' - ' + e.org, hint: e.when });
+      });
+      CAD.forEach(c => {
+        const s = score((c.name + ' ' + c.tool + ' ' + c.type).toLowerCase());
+        if (s) hits.push({ s: s, kind: 'CAD ' + c.n, label: c.name, hint: c.tool });
+      });
+      hits.sort((a, b) => b.s - a.s);
+      if (!hits.length) {
+        emit([['no matches for ', 'warn'], ['\u201c' + q + '\u201d', 'v']]);
+        emit([['try: ', 'warn'], ['esp32, vision, uart, cad, hackathon, robotics', 'tag']]);
+        return;
+      }
+      emit([[hits.length + ' match' + (hits.length > 1 ? 'es' : '') + ' for ', 'v'], ['\u201c' + q + '\u201d', 'ok']]);
+      hits.slice(0, 8).forEach(r => emit([['  ' + r.kind + '  ', 'tag'], [r.label, 'v'], ['  \u00B7 ' + r.hint, 'warn']]));
+    }
+
+    function gotoSection(arg) {
+      const a = (arg || '').toLowerCase();
+      if (a === '' || a === 'top' || a === 'home') {
+        window.scrollTo({ top: 0, behavior: animationsEnabled ? 'smooth' : 'auto' });
+        emit([['\u2192 top', 'ok']]); return;
+      }
+      const map = { projects: '#projects', cad: '#cad', experience: '#experience', exp: '#experience', about: '#about', console: '#serial', serial: '#serial' };
+      const sel = map[a];
+      if (!sel) { emit([['unknown section: ', 'warn'], [a, 'v'], ['  (projects/cad/experience/about/top)', 'warn']]); return; }
+      const el = document.querySelector(sel);
+      if (el) el.scrollIntoView({ behavior: animationsEnabled ? 'smooth' : 'auto' });
+      emit([['\u2192 ' + a, 'ok']]);
+    }
+
+    function toggleTheme(arg) {
+      const want = (arg || '').toLowerCase();
+      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      const dark = want === 'dark' ? true : want === 'light' ? false : !isDark;
+      if (dark) document.documentElement.setAttribute('data-theme', 'dark');
+      else document.documentElement.removeAttribute('data-theme');
+      try { localStorage.setItem('theme', dark ? 'dark' : 'light'); } catch (e) {}
+      emit([['theme \u2192 ', 'v'], [dark ? 'dark' : 'light', 'ok']]);
+    }
+
+    function printHelp() {
+      emit([['COMMANDS', 'hd']]);
+      const rows = [
+        ['help', 'this list'],
+        ['projects', 'list featured builds'],
+        ['open <n>', 'open a project (e.g. open 1)'],
+        ['cad', 'list interactive CAD assemblies'],
+        ['exp', 'experience timeline'],
+        ['skills', 'aggregate tech stack'],
+        ['find <term>', 'search across everything'],
+        ['goto <sec>', 'jump to a section'],
+        ['contact', 'github + linkedin'],
+        ['theme', 'toggle dark / light'],
+        ['ask <q>', 'ask the assistant (or just type a question)'],
+        ['clear', 'clear the console']
+      ];
+      rows.forEach(r => emit([['  ' + (r[0] + '             ').slice(0, 13) + ' ', 'tag'], [r[1], 'warn']]));
+    }
+
+    // ── AI agent ──
+    function thinking() {
+      removeCursor();
+      const line = emit([['[AI] ', 'tag'], ['thinking', 'warn']]);
+      const span = line.querySelector('span:last-child');
+      let n = 0;
+      const id = setInterval(() => { n = (n + 1) % 4; span.textContent = 'thinking' + new Array(n + 1).join('.'); }, 280);
+      return () => { clearInterval(id); line.remove(); };
+    }
+
+    async function remoteAsk(q) {
+      chat.push({ role: 'user', content: q });
+      const res = await fetch(AI_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ messages: chat.slice(-12) })
+      });
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      const data = await res.json();
+      let text = '';
+      if (typeof data.reply === 'string') text = data.reply;
+      else if (Array.isArray(data.content)) text = data.content.filter(b => b.type === 'text').map(b => b.text).join('\n');
+      text = (text || '').trim();
+      chat.push({ role: 'assistant', content: text });
+      return text;
+    }
+
+    function localAsk(q) {
+      const s = q.toLowerCase();
+      const has = function () { for (var i = 0; i < arguments.length; i++) { if (s.indexOf(arguments[i]) >= 0) return true; } return false; };
+      if (has('who', 'about', 'yourself', 'bio'))
+        return PROFILE.name + ' - ' + PROFILE.title + ', based in ' + PROFILE.location + '. Focus: ' + PROFILE.focus + '. Type \u201cprojects\u201d for builds or \u201ccontact\u201d for links.';
+      if (has('contact', 'email', 'reach', 'hire', 'linkedin', 'github'))
+        return 'Reach Vincent on GitHub (goombad) or LinkedIn - type \u201ccontact\u201d for clickable links.';
+      if (has('experience', 'intern', 'work', 'job', 'retiina', 'usps', 'opmobility'))
+        return 'Most recent role: Robotics Automation Field Engineer at Retiina / USPS Atlanta RPDC (Sep\u2013Dec 2025). Type \u201cexp\u201d for the full timeline.';
+      if (has('cad', 'solidworks', 'inventor', 'model', '3d', 'assembly', 'drone', 'engine'))
+        return 'The CAD section has 3 interactive assemblies - type \u201ccad\u201d to list them or \u201cgoto cad\u201d to orbit them.';
+      if (has('hackathon', 'win', 'won', 'award', 'uncommon', 'prize'))
+        return 'LifeStory won 1st place at UncommonHacks \u201926 - type \u201copen 1\u201d for the full writeup.';
+      const terms = s.split(/\s+/).filter(w => w.length > 2);
+      let best = null, bestScore = 0;
+      PROJECTS.forEach(p => {
+        const hay = (p.name + ' ' + p.blurb + ' ' + p.tags.join(' ')).toLowerCase();
+        const sc = terms.reduce((a, t) => a + (hay.indexOf(t) >= 0 ? 1 : 0), 0);
+        if (sc > bestScore) { bestScore = sc; best = p; }
+      });
+      if (best && bestScore)
+        return 'Closest match: ' + best.name + ' (' + best.when + '). ' + best.blurb + ' - type \u201copen ' + best.n + '\u201d for the full writeup.';
+      return 'I can answer questions about Vincent\u2019s projects, experience, CAD work, and skills. Try \u201cwhat did he build with computer vision?\u201d or a command like \u201cfind esp32\u201d. Type \u201chelp\u201d for everything.';
+    }
+
+    async function ask(q) {
+      if (!q) { emit([['usage: ', 'warn'], ['ask <question>', 'tag']]); park(); return; }
+      blinkIO(ioTx);
+      const stop = thinking();
+      try {
+        const answer = AI_ENDPOINT ? await remoteAsk(q) : localAsk(q);
+        stop();
         blinkIO(ioRx);
-        appendLine(pick(telemetry)());
-        scheduleNext();
-      }, 700 + Math.random() * 900);
+        emit([['[AI] ', 'tag'], [answer, 'v']]);
+      } catch (e) {
+        stop();
+        emit([['[AI] ', 'tag'], ['agent unreachable - using local lookup', 'err']]);
+        emit([['[AI] ', 'tag'], [localAsk(q), 'v']]);
+      }
+      park();
+    }
+
+    // ── dispatch ──
+    function run(raw) {
+      const input = (raw || '').trim();
+      if (!input) { park(); return; }
+      cmdHistory.push(input);
+      histIdx = cmdHistory.length;
+      emit([['> ', 'ok'], [input, 'v']], { cls: 'cmd' });
+      blinkIO(ioTx);
+
+      const parts = input.split(/\s+/);
+      const key = parts[0].toLowerCase();
+      const arg = parts.slice(1).join(' ');
+
+      switch (key) {
+        case 'help': case '?': printHelp(); break;
+        case 'projects': case 'ls': case 'list': listProjects(); break;
+        case 'project': case 'show': case 'info': showProject(arg); break;
+        case 'open': openProject(arg); break;
+        case 'cad': case 'models': listCad(); break;
+        case 'exp': case 'experience': case 'work': listExp(); break;
+        case 'skills': case 'stack': case 'tech': listSkills(); break;
+        case 'contact': case 'links': showContact(); break;
+        case 'about': case 'whoami': case 'bio': showAbout(); break;
+        case 'find': case 'search': case 'grep':
+          if (arg) search(arg); else emit([['usage: ', 'warn'], ['find <term>', 'tag']]);
+          break;
+        case 'goto': case 'cd': gotoSection(arg); break;
+        case 'theme': toggleTheme(arg); break;
+        case 'reboot': reboot(); return;
+        case 'clear': case 'cls': serialLog.innerHTML = ''; cursorLine = null; park(); return;
+        case 'ask': ask(arg); return;        // async; parks its own cursor
+        default: ask(input); return;          // free-form → assistant
+      }
+      park();
+    }
+
+    // ── boot ──
+    const bootSeq = [
+      [['ets Jun  8 2016 00:22:57', 'tag']],
+      [['rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)', 'tag']],
+      [['[BOOT] ', 'tag'], ['ESP32-S3 @ 240 MHz  flash 8MB  PSRAM 2MB', 'v']],
+      [['[FS]   ', 'tag'], ['mounting SPIFFS ... ', 'v'], ['ok', 'ok']],
+      [['[NET]  ', 'tag'], ['portfolio.local up  ip=192.168.1.42  ', 'v'], ['ok', 'ok']],
+      [['[INIT] ', 'tag'], ['command console ready', 'v']]
+    ];
+
+    function banner() {
+      gap();
+      emit([['  V. LIN \u00B7 COMMAND CONSOLE', 'hd']]);
+      emit([['  type ', 'warn'], ['help', 'tag'], [' for commands, or just ask a question - e.g. ', 'warn'], ['\u201cwhat won the hackathon?\u201d', 'v']]);
+      park();
     }
 
     function runBoot() {
-      if (bootIdx < bootSeq.length) {
-        if (bootIdx === 0) blinkIO(ioTx);
-        appendLine(bootSeq[bootIdx], { stamp: bootIdx >= 2 });
-        bootIdx++;
-        timer = setTimeout(runBoot, 130 + Math.random() * 170);
-      } else {
-        booted = true;
-        scheduleNext();
-      }
-    }
-
-    function start() {
-      clearTimeout(timer);
-      if (!booted) runBoot(); else scheduleNext();
-    }
-    function stop() {
-      clearTimeout(timer);
-      timer = null;
-    }
-    serialStart = start;
-    serialStop = stop;
-
-    // Command prompt
-    const replies = {
-      help: () => [['available: ', 'v'], ['help  status  whoami  ver  uptime  reboot  clear', 'ok']],
-      status: () => [['IMU ok · WiFi ok · gates 3/3 online · ', 'v'], ['ALL NOMINAL', 'ok']],
-      whoami: () => [['vincent.lin — mechatronics + computer engineering', 'v']],
-      ver: () => [['firmware v2026.6  state ', 'v'], ['ACTIVE', 'ok']],
-      uptime: () => [['uptime ', 'v'], ['∞', 'ok']],
-      reboot: () => [['rebooting ...', 'v']]
-    };
-
-    function runCommand(raw) {
-      const cmd = (raw || '').trim();
-      if (!cmd) return;
-      appendLine([['> ', 'ok'], [cmd, 'v']], { cls: 'cmd', stamp: false });
-      blinkIO(ioTx);
-
-      const key = cmd.toLowerCase().split(/\s+/)[0];
-      if (key === 'clear') {
-        serialLog.innerHTML = '';
-        cursorLine = null;
-        return;
-      }
-      const out = replies[key]
-        ? replies[key]()
-        : [['unknown command: ' + key + '  (try ', 'v'], ['help', 'ok'], [')', 'v']];
-
-      setTimeout(() => {
-        blinkIO(ioRx);
-        appendLine(out);
-        if (key === 'reboot' && animationsEnabled) {
-          booted = false;
-          bootIdx = 0;
-          setTimeout(() => {
-            serialLog.innerHTML = '';
-            cursorLine = null;
-            start();
-          }, 650);
+      let i = 0;
+      (function stepBoot() {
+        if (i < bootSeq.length) {
+          if (i === 0) blinkIO(ioTx);
+          emit(bootSeq[i], { stamp: i >= 2 });
+          i++;
+          bootTimer = setTimeout(stepBoot, animationsEnabled ? 80 + Math.random() * 130 : 0);
+        } else {
+          booted = true;
+          banner();
         }
-      }, 170);
+      })();
     }
 
+    function reboot() {
+      clearTimeout(bootTimer);
+      serialLog.innerHTML = '';
+      cursorLine = null;
+      booted = false;
+      runBoot();
+    }
+
+    // The console no longer auto-streams, so the motion toggle has nothing to
+    // pause/resume here - wire these to no-ops to satisfy the toggle's calls.
+    serialStart = function () {};
+    serialStop = function () {};
+
+    // input handlers
     if (serialCmd) {
       serialCmd.addEventListener('keydown', e => {
-        if (e.key === 'Enter') { runCommand(serialCmd.value); serialCmd.value = ''; }
+        if (e.key === 'Enter') {
+          run(serialCmd.value);
+          serialCmd.value = '';
+        } else if (e.key === 'ArrowUp') {
+          if (cmdHistory.length) {
+            histIdx = Math.max(0, histIdx - 1);
+            serialCmd.value = cmdHistory[histIdx] || '';
+            e.preventDefault();
+          }
+        } else if (e.key === 'ArrowDown') {
+          if (cmdHistory.length) {
+            histIdx = Math.min(cmdHistory.length, histIdx + 1);
+            serialCmd.value = cmdHistory[histIdx] || '';
+            e.preventDefault();
+          }
+        }
       });
     }
     if (serialSend) {
       serialSend.addEventListener('click', () => {
-        runCommand(serialCmd.value);
+        run(serialCmd.value);
         serialCmd.value = '';
         serialCmd.focus();
       });
     }
 
-    // Initial state
-    if (animationsEnabled) {
-      start();
-    } else {
-      // Reduced motion: print a static snapshot, no streaming (cursor blink is CSS-disabled too).
-      bootSeq.forEach((seg, i) => appendLine(seg, { stamp: i >= 2 }));
-      appendLine(pick(telemetry)());
-      booted = true;
-    }
+    runBoot();
   }
 })();
 </script>
