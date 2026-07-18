@@ -2366,6 +2366,35 @@
       <div class="cad-card">
         <div class="cad-viewer">
           <model-viewer
+            src="models/Workstation-Assembly.glb"
+            alt="Interactive 3D model of the camera workstation assembly"
+            camera-controls
+            auto-rotate
+            auto-rotate-delay="500"
+            rotation-per-second="18deg"
+            interaction-prompt="none"
+            environment-image="neutral"
+            shadow-intensity="0.8"
+            exposure="1"
+            touch-action="pan-y"
+            loading="lazy">
+          </model-viewer>
+        </div>
+        <div class="cad-meta">
+          <p class="cad-num">CAD 01</p>
+          <h3 class="cad-title">Camera Workstation</h3>
+          <div class="cad-specs">
+            <span class="cad-spec">SOLIDWORKS</span>
+            <span class="cad-spec">ASSEMBLY</span>
+          </div>
+          <p class="cad-hint">⊹ DRAG TO ORBIT · SCROLL TO ZOOM</p>
+        </div>
+      </div>
+
+      <!-- CAD 02 -->
+      <div class="cad-card">
+        <div class="cad-viewer">
+          <model-viewer
             src="models/blast-gate-assembly.glb"
             alt="Interactive 3D model of the Automated Blast Gate assembly"
             camera-controls
@@ -2381,7 +2410,7 @@
           </model-viewer>
         </div>
         <div class="cad-meta">
-          <p class="cad-num">CAD 01</p>
+          <p class="cad-num">CAD 02</p>
           <h3 class="cad-title">Automated Blast Gate</h3>
           <div class="cad-specs">
             <span class="cad-spec">SOLIDWORKS</span>
@@ -2391,7 +2420,7 @@
         </div>
       </div>
 
-      <!-- CAD 02 -->
+      <!-- CAD 03 -->
       <div class="cad-card">
         <div class="cad-viewer">
           <model-viewer
@@ -2410,7 +2439,7 @@
           </model-viewer>
         </div>
         <div class="cad-meta">
-          <p class="cad-num">CAD 02</p>
+          <p class="cad-num">CAD 03</p>
           <h3 class="cad-title">V6 Twin Turbo Engine</h3>
           <div class="cad-specs">
             <span class="cad-spec">INVENTOR</span>
@@ -2420,7 +2449,7 @@
         </div>
       </div>
 
-      <!-- CAD 03 -->
+      <!-- CAD 04 -->
       <div class="cad-card">
         <div class="cad-viewer">
           <model-viewer
@@ -2439,40 +2468,11 @@
           </model-viewer>
         </div>
         <div class="cad-meta">
-          <p class="cad-num">CAD 03</p>
+          <p class="cad-num">CAD 04</p>
           <h3 class="cad-title">Drone Assembly</h3>
           <div class="cad-specs">
             <span class="cad-spec">ASSEMBLY</span>
             <span class="cad-spec">QUADCOPTER</span>
-          </div>
-          <p class="cad-hint">⊹ DRAG TO ORBIT · SCROLL TO ZOOM</p>
-        </div>
-      </div>
-
-      <!-- CAD 04 -->
-      <div class="cad-card">
-        <div class="cad-viewer">
-          <model-viewer
-            src="models/Workstation-Assembly.glb"
-            alt="Interactive 3D model of the camera workstation assembly"
-            camera-controls
-            auto-rotate
-            auto-rotate-delay="500"
-            rotation-per-second="18deg"
-            interaction-prompt="none"
-            environment-image="neutral"
-            shadow-intensity="0.8"
-            exposure="1"
-            touch-action="pan-y"
-            loading="lazy">
-          </model-viewer>
-        </div>
-        <div class="cad-meta">
-          <p class="cad-num">CAD 04</p>
-          <h3 class="cad-title">Camera Workstation</h3>
-          <div class="cad-specs">
-            <span class="cad-spec">SOLIDWORKS</span>
-            <span class="cad-spec">ASSEMBLY</span>
           </div>
           <p class="cad-hint">⊹ DRAG TO ORBIT · SCROLL TO ZOOM</p>
         </div>
@@ -3100,10 +3100,10 @@
     ];
 
     const CAD = [
-      { n: '01', name: 'Automated Blast Gate', tool: 'SolidWorks', type: 'Assembly' },
-      { n: '02', name: 'V6 Twin Turbo Engine', tool: 'Inventor', type: 'Assembly' },
-      { n: '03', name: 'Drone Assembly', tool: 'CAD', type: 'Quadcopter' },
-      { n: '04', name: 'Camera Workstation', tool: 'SolidWorks', type: 'Assembly' }
+      { n: '01', name: 'Camera Workstation', tool: 'SolidWorks', type: 'Assembly' },
+      { n: '02', name: 'Automated Blast Gate', tool: 'SolidWorks', type: 'Assembly' },
+      { n: '03', name: 'V6 Twin Turbo Engine', tool: 'Inventor', type: 'Assembly' },
+      { n: '04', name: 'Drone Assembly', tool: 'CAD', type: 'Quadcopter' }
     ];
 
     const EXPERIENCE = [
