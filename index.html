@@ -1390,7 +1390,14 @@
       display: block;
       background: transparent;
       --poster-color: transparent;
+      --progress-bar-height: 0px;
+      --progress-bar-color: transparent;
       outline: none;
+    }
+
+    /* Hide model-viewer's built-in loading bar when switching CAD models. */
+    .hero-cad-viewer::part(default-progress-bar) {
+      display: none;
     }
 
     .hero-cad-arrow {
@@ -1679,8 +1686,6 @@
 
   <!-- HERO / INTERACTIVE CAD PORTFOLIO -->
   <div class="hero hero-cad" id="cad">
-    <p class="hero-tag anim d1">[ CAD / INTERACTIVE ASSEMBLIES ]</p>
-
     <div class="hero-cad-stage anim d2">
       <button class="hero-cad-arrow hero-cad-prev" type="button" aria-label="Previous CAD model">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -1735,8 +1740,8 @@
 
   <!-- PROJECTS -->
   <section id="projects">
-    <p class="section-label">PROJECTS / SELECTED WORK</p>
-    <p class="section-eyebrow">[ 001 / FEATURED BUILDS ]</p>
+    <p class="section-label">PROJECTS</p>
+    <p class="section-eyebrow">[ 001 ]</p>
 
     <div class="projects-grid">
 
@@ -2457,12 +2462,12 @@
 
   <!-- EXPERIENCE -->
   <section id="experience" class="experience">
-    <p class="section-label">EXPERIENCE / TIMELINE</p>
-    <p class="section-eyebrow">[ 003 / TRACK RECORD ]</p>
+    <p class="section-label">EXPERIENCE</p>
+    <p class="section-eyebrow">[ 002 ]</p>
 
     <div class="exp-list">
       <div class="exp-item">
-        <div class="exp-date">JUN 2026 - AUG 2026</div>
+        <div class="exp-date">JUN - AUG 2026</div>
         <div class="exp-role">Hardware Design Engineer</div>
         <div class="exp-company">LoomLogic Inc</div>
         <div class="exp-tag">[ HARDWARE ]</div>
@@ -2507,8 +2512,8 @@
 
   <!-- ABOUT / PROFILE -->
   <section id="about" class="about">
-    <p class="section-label">ABOUT / PROFILE</p>
-    <p class="section-eyebrow">[ 004 / FROM THE ENGINEER ]</p>
+    <p class="section-label">ABOUT </p>
+    <p class="section-eyebrow">[ 003 ]</p>
 
     <div class="about-grid">
 
@@ -2993,4 +2998,4 @@
   </script>
 
   </body>
-  </html>
+  </html> 
