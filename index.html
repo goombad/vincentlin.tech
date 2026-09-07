@@ -1951,6 +1951,266 @@
       }
     }
 
+
+    /* ORDER UPDATE: intro first, CAD preview directly below it */
+    .landing-intro {
+      border-top: 0;
+      padding-top: 130px;
+      padding-bottom: 72px;
+    }
+
+    .hero.hero-cad {
+      border-top: none;
+      padding-top: 58px;
+      padding-bottom: 34px;
+    }
+
+    @media (max-width: 760px) {
+      .landing-intro {
+        padding-top: 110px;
+        padding-bottom: 58px;
+      }
+
+      .hero.hero-cad {
+        padding-top: 46px;
+      }
+    }
+
+
+    /* ABOUT — wider copy + project photo gallery */
+    .about-grid {
+      grid-template-columns: minmax(420px, 0.95fr) minmax(0, 1.35fr);
+      gap: 64px;
+      align-items: start;
+    }
+
+    .about-left {
+      padding: 10px 0 0;
+    }
+
+    .about-body p {
+      max-width: 650px;
+      font-size: 16px;
+      line-height: 1.72;
+    }
+
+    .about-gallery {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-auto-flow: dense;
+      grid-auto-rows: 118px;
+      gap: 12px;
+      width: 100%;
+    }
+
+    .about-gallery-item {
+      display: block;
+      min-width: 0;
+      grid-row: span 2;
+      overflow: hidden;
+      background: var(--cover-bg);
+      text-decoration: none;
+    }
+
+    .about-gallery-item.tall {
+      grid-row: span 3;
+    }
+
+    .about-gallery-item.wide {
+      grid-column: 1 / -1;
+      grid-row: span 2;
+    }
+
+    .about-gallery-item img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1),
+                  opacity 0.25s ease;
+    }
+
+    .about-gallery-item:hover img {
+      transform: scale(1.025);
+      opacity: 0.92;
+    }
+
+    @media (max-width: 1100px) {
+      .about-grid {
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+
+      .about-body p {
+        max-width: 760px;
+      }
+
+      .about-gallery {
+        grid-auto-rows: 130px;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .about-gallery {
+        gap: 8px;
+        grid-auto-rows: 92px;
+      }
+
+      .about-gallery-item,
+      .about-gallery-item.tall {
+        grid-row: span 2;
+      }
+
+      .about-gallery-item.wide {
+        grid-column: 1 / -1;
+        grid-row: span 2;
+      }
+    }
+
+
+    /* ABOUT — single rotating image canvas */
+    .about-grid {
+      grid-template-columns: minmax(420px, 0.95fr) minmax(0, 1.35fr);
+      gap: 72px;
+      align-items: center;
+    }
+
+    .about-slideshow {
+      width: 100%;
+      min-width: 0;
+    }
+
+    .about-slideshow-stage {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+      background: var(--cover-bg);
+    }
+
+    .about-slideshow-stage img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      opacity: 1;
+      transform: scale(1);
+      transition:
+        opacity 0.38s ease,
+        transform 0.55s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .about-slideshow-stage.is-changing img {
+      opacity: 0;
+      transform: scale(1.01);
+    }
+
+    .about-slide-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 44px;
+      height: 68px;
+      padding: 0;
+      border: 0;
+      background: rgba(10, 10, 10, 0.22);
+      color: #fff;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.2s, background 0.2s, transform 0.2s;
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+    }
+
+    .about-slideshow-stage:hover .about-slide-arrow,
+    .about-slide-arrow:focus-visible {
+      opacity: 1;
+    }
+
+    .about-slide-arrow:hover {
+      background: rgba(10, 10, 10, 0.5);
+    }
+
+    .about-slide-arrow svg {
+      width: 20px;
+      height: 20px;
+      display: block;
+    }
+
+    .about-slide-prev { left: 0; }
+    .about-slide-next { right: 0; }
+
+    .about-slide-prev:hover {
+      transform: translate(-3px, -50%);
+    }
+
+    .about-slide-next:hover {
+      transform: translate(3px, -50%);
+    }
+
+    .about-slideshow-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      padding-top: 12px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 1.6px;
+      color: var(--mid);
+    }
+
+    @media (max-width: 1100px) {
+      .about-grid {
+        grid-template-columns: 1fr;
+        gap: 44px;
+        align-items: start;
+      }
+
+      .about-slideshow-stage {
+        aspect-ratio: 16 / 10;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .about-slideshow-stage {
+        aspect-ratio: 4 / 3;
+      }
+
+      .about-slide-arrow {
+        width: 38px;
+        height: 58px;
+        opacity: 0.9;
+      }
+    }
+
+
+    /* ABOUT — remove slideshow/gallery and let the bio breathe */
+    .about-grid {
+      grid-template-columns: 1fr;
+      gap: 0;
+      align-items: start;
+    }
+
+    .about-left {
+      max-width: 920px;
+      padding: 10px 0 0;
+    }
+
+    .about-body p {
+      max-width: 900px;
+      font-size: 16px;
+      line-height: 1.72;
+    }
+
+    .about-slideshow,
+    .about-gallery {
+      display: none !important;
+    }
+
   </style>
   <script defer src="/_vercel/insights/script.js"></script>
 
@@ -2038,6 +2298,25 @@
     </div>
   </nav>
 
+  <!-- COMPACT INTRO -->
+  <div class="landing-intro">
+    <h1 class="landing-name anim d2">Vincent Lin</h1>
+
+    <p class="landing-intro-copy anim d3">
+      <strong>Mechatronics &amp; Embedded Systems Engineer</strong> based in Brooklyn, NY.<br />
+      Focused on robotic systems, computer vision, and physical AI.
+    </p>
+
+    <div class="landing-intro-actions anim d4">
+      <a href="#contact" class="hero-cta">
+        Contact <span class="arrow">↓</span>
+      </a>
+      <a href="Vincent_Lin_Resume.pdf" class="hero-cta" target="_blank" rel="noopener">
+        Resume <span class="arrow">↗</span>
+      </a>
+    </div>
+  </div>
+
   <!-- HERO / INTERACTIVE CAD PORTFOLIO -->
   <div class="hero hero-cad" id="cad">
     <div class="hero-cad-stage anim d2">
@@ -2053,6 +2332,7 @@
         src="models/Workstation-Assembly.glb"
         alt="Interactive 3D model of the LoomLogic Camera Workstation"
         camera-controls
+        disable-zoom
         auto-rotate
         auto-rotate-delay="500"
         rotation-per-second="18deg"
@@ -2081,7 +2361,7 @@
       </div>
 
       <div class="hero-cad-controls">
-        <p class="hero-cad-hint">DRAG TO ORBIT · SCROLL TO ZOOM</p>
+        <p class="hero-cad-hint">DRAG TO ORBIT</p>
         <div class="hero-cad-index" aria-label="Choose CAD model">
           <button type="button" class="hero-cad-index-btn active" data-cad-index="0" aria-label="Show CAD model 1">01</button>
           <button type="button" class="hero-cad-index-btn" data-cad-index="1" aria-label="Show CAD model 2">02</button>
@@ -2089,25 +2369,6 @@
           <button type="button" class="hero-cad-index-btn" data-cad-index="3" aria-label="Show CAD model 4">04</button>
         </div>
       </div>
-    </div>
-  </div>
-
-  <!-- COMPACT INTRO -->
-  <div class="landing-intro">
-    <h1 class="landing-name anim d2">Vincent Lin</h1>
-
-    <p class="landing-intro-copy anim d3">
-      <strong>Mechatronics &amp; Embedded Systems Engineer</strong> based in Brooklyn, NY.<br />
-      Focused on robotic systems, computer vision, and physical AI.
-    </p>
-
-    <div class="landing-intro-actions anim d4">
-      <a href="#contact" class="hero-cta">
-        Contact <span class="arrow">↓</span>
-      </a>
-      <a href="Vincent_Lin_Resume.pdf" class="hero-cta" target="_blank" rel="noopener">
-        Resume <span class="arrow">↗</span>
-      </a>
     </div>
   </div>
 
@@ -2893,9 +3154,8 @@
       <div class="about-left">
         <h3 class="about-headline">Mechatronics from the <em>start</em>. </h3>
         <div class="about-body">
-          <p>I'm a 5th-year engineering student at RIT, with a dual major B.S. in Mechatronics/Electrical Engineering Technology. I'm finished with the Mechatronics curriculum and wanted to learn more, so I pursued a second major in Electrical Engineering Technology. 
-            It's a very apt fit for me because I love to work with microcontrollers and I've kinda always been into Mechatronics from the start. I was a Mechatronics & Robotics major in Brooklyn Tech with my very first exposure being the Arduino Uno, and I've stuck with it ever since.
-            
+          <p>I'm a 5th-year engineering student at RIT, with a dual major B.S. in Mechatronics/Electrical Engineering Technology. I'm finished with the Mechatronics curriculum and wanted to learn more, so I pursued a second major in Electrical Engineering Technology.
+            It's a very apt fit for me because I love to work with microcontrollers and I've kinda always been into Mechatronics from the start. I was a Mechatronics &amp; Robotics major in Brooklyn Tech with my very first exposure being the Arduino Uno, and I've stuck with it ever since.
           </p>
         </div>
       </div>
@@ -3291,6 +3551,13 @@
 
       if (!viewer || !title || !number || !tool || !prev || !next) return;
 
+      // The CAD viewer never uses the mouse wheel.
+      // Wheel input is left entirely to the browser so the page scrolls normally
+      // even while the cursor is directly over the GLB model.
+      viewer.addEventListener('wheel', (event) => {
+        event.stopImmediatePropagation();
+      }, { passive: true, capture: true });
+
       let index = 0;
 
       function showModel(nextIndex) {
@@ -3370,5 +3637,5 @@
   })();
   </script>
 
-  </body>
+</body>
   </html> 
