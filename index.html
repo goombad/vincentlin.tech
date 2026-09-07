@@ -1351,14 +1351,14 @@
     }
 
     /* =========================================================
-       HERO CAD SHOWCASE
-       Full-bleed interactive model presentation — intentionally
-       no cards, panels, or bordered containers.
+       CAD PREVIEW + INTRO HERO
+       The CAD viewer is a compact interactive preview. The actual
+       landing-page message sits directly beneath it.
        ========================================================= */
     .hero.hero-cad {
-      min-height: 100vh;
-      height: 100vh;
-      padding: 96px 48px 34px;
+      min-height: 0;
+      height: auto;
+      padding: 92px 48px 28px;
       justify-content: flex-start;
       overflow: hidden;
       text-align: left;
@@ -1366,16 +1366,17 @@
 
     .hero-cad .hero-tag {
       flex: 0 0 auto;
-      margin: 0 auto 4px;
+      margin: 0 auto 8px;
       max-width: 1400px;
       text-align: center;
     }
 
     .hero-cad-stage {
       position: relative;
-      flex: 1 1 auto;
+      flex: none;
       width: 100%;
       max-width: 1500px;
+      height: clamp(300px, 38vh, 430px);
       min-height: 0;
       margin: 0 auto;
       display: flex;
@@ -1384,9 +1385,9 @@
     }
 
     .hero-cad-viewer {
-      width: min(88vw, 1260px);
+      width: min(76vw, 1080px);
       height: 100%;
-      min-height: 420px;
+      min-height: 0;
       display: block;
       background: transparent;
       --poster-color: transparent;
@@ -1406,7 +1407,7 @@
       transform: translateY(-50%);
       z-index: 4;
       width: 52px;
-      height: 88px;
+      height: 72px;
       padding: 0;
       border: 0;
       background: transparent;
@@ -1419,72 +1420,61 @@
     }
 
     .hero-cad-arrow svg {
-      width: 24px;
-      height: 24px;
+      width: 22px;
+      height: 22px;
       display: block;
     }
 
     .hero-cad-prev { left: 0; }
     .hero-cad-next { right: 0; }
 
-    .hero-cad-arrow:hover {
-      color: var(--ink);
-    }
-
-    .hero-cad-prev:hover {
-      transform: translate(-4px, -50%);
-    }
-
-    .hero-cad-next:hover {
-      transform: translate(4px, -50%);
-    }
+    .hero-cad-arrow:hover { color: var(--ink); }
+    .hero-cad-prev:hover { transform: translate(-4px, -50%); }
+    .hero-cad-next:hover { transform: translate(4px, -50%); }
 
     .hero-cad-footer {
       flex: 0 0 auto;
       width: 100%;
       max-width: 1400px;
-      margin: 0 auto;
+      margin: 2px auto 0;
       display: grid;
       grid-template-columns: minmax(0, 1fr) auto;
       gap: 32px;
       align-items: end;
     }
 
-    .hero-cad-info {
-      min-width: 0;
-    }
+    .hero-cad-info { min-width: 0; }
 
     .hero-cad-kicker {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 10px;
+      font-size: 9px;
       letter-spacing: 2px;
       color: var(--mid);
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
 
-    h1.hero-cad-title {
+    .hero-cad-title {
       margin: 0;
       max-width: 900px;
-      font-size: clamp(24px, 3vw, 42px);
+      font-size: clamp(20px, 2.2vw, 30px);
       font-weight: 600;
-      letter-spacing: -0.025em;
+      letter-spacing: -0.02em;
       line-height: 1.08;
       color: var(--ink);
       text-align: left;
-      perspective: none;
     }
 
     .hero-cad-controls {
       display: flex;
       flex-direction: column;
       align-items: flex-end;
-      gap: 12px;
-      padding-bottom: 2px;
+      gap: 9px;
+      padding-bottom: 1px;
     }
 
     .hero-cad-hint {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 9px;
+      font-size: 8px;
       letter-spacing: 1.5px;
       color: var(--mid-2);
       white-space: nowrap;
@@ -1503,7 +1493,7 @@
       background: transparent;
       color: var(--mid-2);
       font-family: 'JetBrains Mono', monospace;
-      font-size: 10px;
+      font-size: 9px;
       letter-spacing: 1.5px;
       cursor: pointer;
       transition: color 0.2s;
@@ -1527,25 +1517,115 @@
       color: var(--ink);
     }
 
-    .hero-cad-index-btn.active::after {
-      transform: scaleX(1);
+    .hero-cad-index-btn.active::after { transform: scaleX(1); }
+
+    /* Main landing message beneath the CAD preview */
+    .landing-intro {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 58px 48px 92px;
+      border-top: 1px solid var(--line);
+    }
+
+    .landing-intro-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 3px;
+      color: var(--mid);
+      margin-bottom: 28px;
+    }
+
+    .landing-intro-title {
+      max-width: 1050px;
+      margin: 0;
+      font-size: clamp(52px, 6.4vw, 92px);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 0.98;
+      color: var(--ink);
+      text-align: left;
+    }
+
+    .landing-intro-title .title-outline {
+      color: transparent;
+      -webkit-text-stroke: 1.5px var(--ink);
+    }
+
+    .landing-intro-bottom {
+      margin-top: 38px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 48px;
+    }
+
+    .landing-intro-copy {
+      max-width: 680px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      line-height: 1.75;
+      color: var(--ink-soft);
+    }
+
+    .landing-intro-copy strong {
+      color: var(--ink);
+      font-weight: 500;
+    }
+
+    .landing-intro-actions {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      flex-shrink: 0;
+    }
+
+    .landing-intro-link {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 7px 0;
+      color: var(--ink);
+      text-decoration: none;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 1.6px;
+    }
+
+    .landing-intro-link::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 2px;
+      height: 1px;
+      background: var(--ink);
+      transform: scaleX(0);
+      transform-origin: left center;
+      transition: transform 0.25s ease;
+    }
+
+    .landing-intro-link:hover::after { transform: scaleX(1); }
+
+    .landing-intro-link .arrow {
+      transition: transform 0.2s;
+    }
+
+    .landing-intro-link:hover .arrow {
+      transform: translateX(3px);
     }
 
     @media (max-width: 1000px) {
       .hero.hero-cad {
-        height: auto;
-        min-height: 100svh;
-        padding: 90px 24px 32px;
+        padding: 84px 24px 24px;
       }
 
       .hero-cad-stage {
-        height: min(62svh, 620px);
-        flex: none;
+        height: clamp(300px, 44vh, 420px);
       }
 
       .hero-cad-viewer {
         width: 100%;
-        min-height: 360px;
       }
 
       .hero-cad-prev { left: -12px; }
@@ -1553,47 +1633,61 @@
 
       .hero-cad-footer {
         grid-template-columns: 1fr;
-        gap: 18px;
+        gap: 14px;
       }
 
       .hero-cad-controls {
         align-items: flex-start;
       }
+
+      .landing-intro {
+        padding: 52px 24px 72px;
+      }
+
+      .landing-intro-bottom {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 26px;
+      }
     }
 
     @media (max-width: 620px) {
       .hero.hero-cad {
-        padding: 82px 18px 26px;
-      }
-
-      .hero-cad .hero-tag {
-        margin-bottom: 8px;
+        padding: 78px 18px 22px;
       }
 
       .hero-cad-stage {
-        height: 56svh;
-        min-height: 390px;
-      }
-
-      .hero-cad-viewer {
-        min-height: 390px;
+        height: 330px;
       }
 
       .hero-cad-arrow {
-        width: 42px;
-        height: 68px;
+        width: 40px;
+        height: 60px;
       }
 
       .hero-cad-prev { left: -14px; }
       .hero-cad-next { right: -14px; }
 
-      h1.hero-cad-title {
-        font-size: clamp(24px, 8vw, 34px);
-      }
-
       .hero-cad-hint {
         white-space: normal;
         line-height: 1.5;
+      }
+
+      .landing-intro {
+        padding: 44px 18px 64px;
+      }
+
+      .landing-intro-tag {
+        margin-bottom: 22px;
+      }
+
+      .landing-intro-title {
+        font-size: clamp(42px, 14vw, 64px);
+      }
+
+      .landing-intro-actions {
+        gap: 22px;
+        flex-wrap: wrap;
       }
     }
 
@@ -1723,7 +1817,7 @@
           <span aria-hidden="true"> / </span>
           <span id="hero-cad-tool">SOLIDWORKS</span>
         </p>
-        <h1 class="hero-cad-title" id="hero-cad-title">LoomLogic Camera Workstation</h1>
+        <h2 class="hero-cad-title" id="hero-cad-title">LoomLogic Camera Workstation</h2>
       </div>
 
       <div class="hero-cad-controls">
@@ -1734,6 +1828,32 @@
           <button type="button" class="hero-cad-index-btn" data-cad-index="2" aria-label="Show CAD model 3">03</button>
           <button type="button" class="hero-cad-index-btn" data-cad-index="3" aria-label="Show CAD model 4">04</button>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LANDING INTRO -->
+  <div class="landing-intro">
+    <p class="landing-intro-tag anim d2">[ MECHATRONICS / COMPUTER ENGINEERING ]</p>
+
+    <h1 class="landing-intro-title anim d3">
+      Engineering<br />
+      <span class="title-outline">systems that move.</span>
+    </h1>
+
+    <div class="landing-intro-bottom anim d4">
+      <p class="landing-intro-copy">
+        <strong>Mechatronics &amp; Embedded Systems Engineer</strong> based in Brooklyn, NY.
+        Focused on robotic systems, computer vision, and physical AI.
+      </p>
+
+      <div class="landing-intro-actions">
+        <a href="#projects" class="landing-intro-link">
+          Selected work <span class="arrow">↓</span>
+        </a>
+        <a href="Vincent_Lin_Resume.pdf" class="landing-intro-link" target="_blank" rel="noopener">
+          Resume <span class="arrow">↗</span>
+        </a>
       </div>
     </div>
   </div>
