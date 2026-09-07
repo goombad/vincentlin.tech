@@ -1691,6 +1691,266 @@
       }
     }
 
+
+    /* COMPACT NAME + CONTACT / RESUME INTRO */
+    .landing-intro {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 42px 48px 64px;
+      border-top: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 40px;
+    }
+
+    .landing-name {
+      margin: 0;
+      font-size: clamp(42px, 5vw, 72px);
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      color: var(--ink);
+      text-align: left;
+      perspective: none;
+    }
+
+    .landing-intro-actions {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-shrink: 0;
+      margin: 0;
+    }
+
+    .landing-intro-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      min-width: 118px;
+      padding: 12px 18px;
+      border: 1px solid var(--line-strong);
+      background: transparent;
+      color: var(--ink);
+      text-decoration: none;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 1.7px;
+      text-transform: uppercase;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+    }
+
+    .landing-intro-button:hover {
+      background: var(--ink);
+      color: var(--bg);
+      border-color: var(--ink);
+    }
+
+    .landing-intro-button .arrow {
+      transition: transform 0.2s;
+    }
+
+    .landing-intro-button:hover .arrow {
+      transform: translateX(3px);
+    }
+
+    @media (max-width: 760px) {
+      .landing-intro {
+        padding: 36px 24px 54px;
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 24px;
+      }
+
+      .landing-intro-actions {
+        width: 100%;
+      }
+
+      .landing-intro-button {
+        flex: 1;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .landing-intro {
+        padding: 32px 18px 48px;
+      }
+
+      .landing-name {
+        font-size: clamp(38px, 13vw, 56px);
+      }
+    }
+
+
+    /* FINAL COMPACT LANDING INTRO:
+       centered hero-style name + original two CTA buttons only */
+    .landing-intro {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 64px 48px 82px;
+      border-top: 1px solid var(--line);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 38px;
+      text-align: center;
+    }
+
+    .landing-name {
+      margin: 0;
+      width: 100%;
+      font-size: clamp(64px, 8vw, 118px);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 0.92;
+      color: var(--ink);
+      text-align: center;
+      perspective: none;
+    }
+
+    .landing-name-solid {
+      color: var(--ink);
+    }
+
+    .landing-name-outline {
+      color: transparent;
+      -webkit-text-stroke: 1.5px var(--ink);
+    }
+
+    .landing-intro-actions {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      margin: 0;
+      flex-wrap: wrap;
+    }
+
+    /* Use the same bordered CTA treatment as the original hero. */
+    .landing-intro .hero-cta {
+      min-width: 150px;
+      justify-content: center;
+    }
+
+    @media (max-width: 760px) {
+      .landing-intro {
+        padding: 52px 24px 68px;
+        gap: 30px;
+      }
+
+      .landing-name {
+        font-size: clamp(54px, 15vw, 84px);
+      }
+    }
+
+    @media (max-width: 520px) {
+      .landing-intro {
+        padding: 46px 18px 58px;
+      }
+
+      .landing-intro-actions {
+        width: 100%;
+      }
+
+      .landing-intro .hero-cta {
+        flex: 1 1 0;
+        min-width: 0;
+      }
+    }
+
+
+    /* FINAL LANDING INTRO: one-line name, bio, then the two CTAs */
+    .landing-intro {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 64px 48px 82px;
+      border-top: 1px solid var(--line);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 26px;
+      text-align: center;
+    }
+
+    .landing-name {
+      margin: 0;
+      width: 100%;
+      font-size: clamp(64px, 8vw, 118px);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 0.96;
+      color: var(--ink);
+      text-align: center;
+      white-space: nowrap;
+      perspective: none;
+    }
+
+    .landing-intro-copy {
+      max-width: 760px;
+      margin: 0;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      line-height: 1.75;
+      color: var(--ink-soft);
+      text-align: center;
+    }
+
+    .landing-intro-copy strong {
+      color: var(--ink);
+      font-weight: 500;
+    }
+
+    .landing-intro-actions {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      margin-top: 6px;
+      flex-wrap: wrap;
+    }
+
+    .landing-intro .hero-cta {
+      min-width: 150px;
+      justify-content: center;
+    }
+
+    @media (max-width: 760px) {
+      .landing-intro {
+        padding: 52px 24px 68px;
+        gap: 22px;
+      }
+
+      .landing-name {
+        font-size: clamp(50px, 13vw, 78px);
+      }
+
+      .landing-intro-copy {
+        font-size: 12px;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .landing-intro {
+        padding: 44px 18px 58px;
+      }
+
+      .landing-name {
+        white-space: normal;
+      }
+
+      .landing-intro-actions {
+        width: 100%;
+      }
+
+      .landing-intro .hero-cta {
+        flex: 1 1 0;
+        min-width: 0;
+      }
+    }
+
   </style>
   <script defer src="/_vercel/insights/script.js"></script>
 
@@ -1832,29 +2092,22 @@
     </div>
   </div>
 
-  <!-- LANDING INTRO -->
+  <!-- COMPACT INTRO -->
   <div class="landing-intro">
-    <p class="landing-intro-tag anim d2">[ MECHATRONICS / COMPUTER ENGINEERING ]</p>
+    <h1 class="landing-name anim d2">Vincent Lin</h1>
 
-    <h1 class="landing-intro-title anim d3">
-      Engineering<br />
-      <span class="title-outline">systems that move.</span>
-    </h1>
+    <p class="landing-intro-copy anim d3">
+      <strong>Mechatronics &amp; Embedded Systems Engineer</strong> based in Brooklyn, NY.<br />
+      Focused on robotic systems, computer vision, and physical AI.
+    </p>
 
-    <div class="landing-intro-bottom anim d4">
-      <p class="landing-intro-copy">
-        <strong>Mechatronics &amp; Embedded Systems Engineer</strong> based in Brooklyn, NY.
-        Focused on robotic systems, computer vision, and physical AI.
-      </p>
-
-      <div class="landing-intro-actions">
-        <a href="#projects" class="landing-intro-link">
-          Selected work <span class="arrow">↓</span>
-        </a>
-        <a href="Vincent_Lin_Resume.pdf" class="landing-intro-link" target="_blank" rel="noopener">
-          Resume <span class="arrow">↗</span>
-        </a>
-      </div>
+    <div class="landing-intro-actions anim d4">
+      <a href="#contact" class="hero-cta">
+        Contact <span class="arrow">↓</span>
+      </a>
+      <a href="Vincent_Lin_Resume.pdf" class="hero-cta" target="_blank" rel="noopener">
+        Resume <span class="arrow">↗</span>
+      </a>
     </div>
   </div>
 
@@ -2651,7 +2904,7 @@
 
 
   <!-- FOOTER - bottom-left contact, edit URLs to your real profiles -->
-  <footer class="footer">
+  <footer class="footer" id="contact">
     <div class="footer-contact">
       <a href="https://github.com/goombad" target="_blank" rel="noopener" aria-label="GitHub">
         <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
