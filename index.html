@@ -1349,6 +1349,247 @@
     @media (prefers-reduced-motion: reduce) {
       .anim { animation-duration: 0.001ms; animation-delay: 0ms; }
     }
+
+    /* =========================================================
+       HERO CAD SHOWCASE
+       Full-bleed interactive model presentation — intentionally
+       no cards, panels, or bordered containers.
+       ========================================================= */
+    .hero.hero-cad {
+      min-height: 100vh;
+      height: 100vh;
+      padding: 96px 48px 34px;
+      justify-content: flex-start;
+      overflow: hidden;
+      text-align: left;
+    }
+
+    .hero-cad .hero-tag {
+      flex: 0 0 auto;
+      margin: 0 auto 4px;
+      max-width: 1400px;
+      text-align: center;
+    }
+
+    .hero-cad-stage {
+      position: relative;
+      flex: 1 1 auto;
+      width: 100%;
+      max-width: 1500px;
+      min-height: 0;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-cad-viewer {
+      width: min(88vw, 1260px);
+      height: 100%;
+      min-height: 420px;
+      display: block;
+      background: transparent;
+      --poster-color: transparent;
+      outline: none;
+    }
+
+    .hero-cad-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 4;
+      width: 52px;
+      height: 88px;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      color: var(--mid);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: color 0.2s, transform 0.25s, opacity 0.2s;
+    }
+
+    .hero-cad-arrow svg {
+      width: 24px;
+      height: 24px;
+      display: block;
+    }
+
+    .hero-cad-prev { left: 0; }
+    .hero-cad-next { right: 0; }
+
+    .hero-cad-arrow:hover {
+      color: var(--ink);
+    }
+
+    .hero-cad-prev:hover {
+      transform: translate(-4px, -50%);
+    }
+
+    .hero-cad-next:hover {
+      transform: translate(4px, -50%);
+    }
+
+    .hero-cad-footer {
+      flex: 0 0 auto;
+      width: 100%;
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 32px;
+      align-items: end;
+    }
+
+    .hero-cad-info {
+      min-width: 0;
+    }
+
+    .hero-cad-kicker {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 2px;
+      color: var(--mid);
+      margin-bottom: 8px;
+    }
+
+    h1.hero-cad-title {
+      margin: 0;
+      max-width: 900px;
+      font-size: clamp(24px, 3vw, 42px);
+      font-weight: 600;
+      letter-spacing: -0.025em;
+      line-height: 1.08;
+      color: var(--ink);
+      text-align: left;
+      perspective: none;
+    }
+
+    .hero-cad-controls {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 12px;
+      padding-bottom: 2px;
+    }
+
+    .hero-cad-hint {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 1.5px;
+      color: var(--mid-2);
+      white-space: nowrap;
+    }
+
+    .hero-cad-index {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .hero-cad-index-btn {
+      position: relative;
+      padding: 4px 0;
+      border: 0;
+      background: transparent;
+      color: var(--mid-2);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .hero-cad-index-btn::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 1px;
+      background: currentColor;
+      transform: scaleX(0);
+      transform-origin: left center;
+      transition: transform 0.25s ease;
+    }
+
+    .hero-cad-index-btn:hover,
+    .hero-cad-index-btn.active {
+      color: var(--ink);
+    }
+
+    .hero-cad-index-btn.active::after {
+      transform: scaleX(1);
+    }
+
+    @media (max-width: 1000px) {
+      .hero.hero-cad {
+        height: auto;
+        min-height: 100svh;
+        padding: 90px 24px 32px;
+      }
+
+      .hero-cad-stage {
+        height: min(62svh, 620px);
+        flex: none;
+      }
+
+      .hero-cad-viewer {
+        width: 100%;
+        min-height: 360px;
+      }
+
+      .hero-cad-prev { left: -12px; }
+      .hero-cad-next { right: -12px; }
+
+      .hero-cad-footer {
+        grid-template-columns: 1fr;
+        gap: 18px;
+      }
+
+      .hero-cad-controls {
+        align-items: flex-start;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .hero.hero-cad {
+        padding: 82px 18px 26px;
+      }
+
+      .hero-cad .hero-tag {
+        margin-bottom: 8px;
+      }
+
+      .hero-cad-stage {
+        height: 56svh;
+        min-height: 390px;
+      }
+
+      .hero-cad-viewer {
+        min-height: 390px;
+      }
+
+      .hero-cad-arrow {
+        width: 42px;
+        height: 68px;
+      }
+
+      .hero-cad-prev { left: -14px; }
+      .hero-cad-next { right: -14px; }
+
+      h1.hero-cad-title {
+        font-size: clamp(24px, 8vw, 34px);
+      }
+
+      .hero-cad-hint {
+        white-space: normal;
+        line-height: 1.5;
+      }
+    }
+
   </style>
   <script defer src="/_vercel/insights/script.js"></script>
 
@@ -1436,69 +1677,57 @@
     </div>
   </nav>
 
-  <!-- HERO -->
-  <div class="hero">
-    <aside class="hero-imu" aria-hidden="true">
-      <div class="imu-row">
-        <span class="imu-label">TILT_X</span>
-        <div class="imu-bar"><div class="imu-fill" data-axis="x"></div></div>
-      </div>
-      <div class="imu-row">
-        <span class="imu-label">TILT_Y</span>
-        <div class="imu-bar"><div class="imu-fill" data-axis="y"></div></div>
-      </div>
-    </aside>
+  <!-- HERO / INTERACTIVE CAD PORTFOLIO -->
+  <div class="hero hero-cad" id="cad">
+    <p class="hero-tag anim d1">[ CAD / INTERACTIVE ASSEMBLIES ]</p>
 
-    <div class="hero-corner">
-      <svg class="hero-trace" viewBox="0 0 200 50" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <!-- Component pad (left) -->
-        <rect x="4" y="22" width="8" height="8" fill="none" stroke="currentColor" stroke-width="0.8" />
-        <!-- Trace: outer thick stroke creates the trace body -->
-        <path d="M 12 26 L 66 26 L 76 36 L 160 36" stroke="currentColor" stroke-width="3" fill="none" stroke-linejoin="miter" />
-        <!-- Trace: inner stroke in bg color creates the double-line outline effect -->
-        <path d="M 12 26 L 66 26 L 76 36 L 160 36" stroke="var(--bg)" stroke-width="1.5" fill="none" stroke-linejoin="miter" />
-        <!-- Test-point crosshair (right) -->
-        <circle cx="172" cy="36" r="6" fill="none" stroke="currentColor" stroke-width="0.8" />
-        <line x1="164" y1="36" x2="180" y2="36" stroke="currentColor" stroke-width="0.6" />
-        <line x1="172" y1="28" x2="172" y2="44" stroke="currentColor" stroke-width="0.6" />
-      </svg>
-      <span class="key">/loc/origin</span>TYO<br />
-      <span class="key">/loc/relay</span>ATL<br />
-      <span class="key">/loc/host</span>NYC
+    <div class="hero-cad-stage anim d2">
+      <button class="hero-cad-arrow hero-cad-prev" type="button" aria-label="Previous CAD model">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <polyline points="15 18 9 12 15 6" />
+        </svg>
+      </button>
+
+      <model-viewer
+        id="hero-cad-model"
+        class="hero-cad-viewer"
+        src="models/Workstation-Assembly.glb"
+        alt="Interactive 3D model of the LoomLogic Camera Workstation"
+        camera-controls
+        auto-rotate
+        auto-rotate-delay="500"
+        rotation-per-second="18deg"
+        interaction-prompt="none"
+        environment-image="neutral"
+        shadow-intensity="0.8"
+        exposure="1"
+        touch-action="pan-y">
+      </model-viewer>
+
+      <button class="hero-cad-arrow hero-cad-next" type="button" aria-label="Next CAD model">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <polyline points="9 18 15 12 9 6" />
+        </svg>
+      </button>
     </div>
 
-    <div class="hero-corner hero-corner-r">
-      <svg class="hero-trace" viewBox="0 0 200 50" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <!-- Component pad (left) -->
-        <rect x="4" y="22" width="8" height="8" fill="none" stroke="currentColor" stroke-width="0.8" />
-        <!-- Trace: outer thick stroke creates the trace body -->
-        <path d="M 12 26 L 66 26 L 76 36 L 160 36" stroke="currentColor" stroke-width="3" fill="none" stroke-linejoin="miter" />
-        <!-- Trace: inner stroke in bg color creates the double-line outline effect -->
-        <path d="M 12 26 L 66 26 L 76 36 L 160 36" stroke="var(--bg)" stroke-width="1.5" fill="none" stroke-linejoin="miter" />
-        <!-- Test-point crosshair (right) -->
-        <circle cx="172" cy="36" r="6" fill="none" stroke="currentColor" stroke-width="0.8" />
-        <line x1="164" y1="36" x2="180" y2="36" stroke="currentColor" stroke-width="0.6" />
-        <line x1="172" y1="28" x2="172" y2="44" stroke="currentColor" stroke-width="0.6" />
-      </svg>
-      <span class="key">/sys/build</span>v2026<br />
-      <span class="key">/sys/uptime</span>∞<br />
-      <span class="key">/sys/state</span>ACTIVE
-    </div>
-
-    <p class="hero-tag anim d1">[ MECHATRONICS / COMPUTER ENGINEERING ]</p>
-
-    <div class="hero-main">
-      <h1 class="anim d2"><span class="title-inner">Engineering<br /><span class="title-outline">systems that move.</span></span></h1>
-
-      <div class="hero-bio anim d3">
-        <p>
-          <strong>Mechatronics &amp; Embedded Systems Engineer</strong> based in Brooklyn, NY. <br />
-          Focused on robotic systems, computer vision, and physical AI. <br />
+    <div class="hero-cad-footer anim d3">
+      <div class="hero-cad-info">
+        <p class="hero-cad-kicker">
+          <span id="hero-cad-number">CAD 01</span>
+          <span aria-hidden="true"> / </span>
+          <span id="hero-cad-tool">SOLIDWORKS</span>
         </p>
+        <h1 class="hero-cad-title" id="hero-cad-title">LoomLogic Camera Workstation</h1>
+      </div>
 
-        <div class="hero-actions">
-          <a href="#about" class="hero-cta">Read full bio <span class="arrow">→</span></a>
-          <a href="Vincent_Lin_Resume.pdf" class="hero-cta" target="_blank" rel="noopener">Resume <span class="arrow">↓</span></a>
+      <div class="hero-cad-controls">
+        <p class="hero-cad-hint">DRAG TO ORBIT · SCROLL TO ZOOM</p>
+        <div class="hero-cad-index" aria-label="Choose CAD model">
+          <button type="button" class="hero-cad-index-btn active" data-cad-index="0" aria-label="Show CAD model 1">01</button>
+          <button type="button" class="hero-cad-index-btn" data-cad-index="1" aria-label="Show CAD model 2">02</button>
+          <button type="button" class="hero-cad-index-btn" data-cad-index="2" aria-label="Show CAD model 3">03</button>
+          <button type="button" class="hero-cad-index-btn" data-cad-index="3" aria-label="Show CAD model 4">04</button>
         </div>
       </div>
     </div>
@@ -2225,152 +2454,6 @@
     </div>
   </section>
 
-  <!-- CAD / PORTFOLIO -->
-  <section id="cad" class="cad">
-    <p class="section-label">CAD / PORTFOLIO</p>
-
-    <div class="cad-bar">
-      <p class="section-eyebrow">[ 002 / INTERACTIVE ASSEMBLIES ]</p>
-      <div class="cad-arrows">
-        <button class="cad-arrow" type="button" data-dir="-1" aria-label="Previous model">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6" /></svg>
-        </button>
-        <button class="cad-arrow" type="button" data-dir="1" aria-label="Next model">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6" /></svg>
-        </button>
-      </div>
-    </div>
-
-    <div class="cad-scroller">
-      <div class="cad-track">
-
-        <!-- CAD 01 -->
-        <div class="cad-card">
-          <div class="cad-viewer">
-            <model-viewer
-              src="models/Workstation-Assembly.glb"
-              alt="Interactive 3D model of the camera workstation assembly"
-              camera-controls
-              auto-rotate
-              auto-rotate-delay="500"
-              rotation-per-second="18deg"
-              interaction-prompt="none"
-              environment-image="neutral"
-              shadow-intensity="0.8"
-              exposure="1"
-              touch-action="pan-y"
-              loading="lazy">
-            </model-viewer>
-          </div>
-          <div class="cad-meta">
-            <p class="cad-num">CAD 01</p>
-            <h3 class="cad-title">LoomLogic Camera Workstation</h3>
-            <div class="cad-specs">
-              <span class="cad-spec">SOLIDWORKS</span>
-              
-            </div>
-            <p class="cad-hint">⊹ DRAG TO ORBIT · SCROLL TO ZOOM</p>
-          </div>
-        </div>
-
-        <!-- CAD 02 -->
-        <div class="cad-card">
-          <div class="cad-viewer">
-            <model-viewer
-              src="models/blast-gate-assembly.glb"
-              alt="Interactive 3D model of the Automated Blast Gate assembly"
-              camera-controls
-              auto-rotate
-              auto-rotate-delay="500"
-              rotation-per-second="18deg"
-              interaction-prompt="none"
-              environment-image="neutral"
-              shadow-intensity="0.8"
-              exposure="1"
-              touch-action="pan-y"
-              loading="lazy">
-            </model-viewer>
-          </div>
-          <div class="cad-meta">
-            <p class="cad-num">CAD 02</p>
-            <h3 class="cad-title">Automated Blast Gate</h3>
-            <div class="cad-specs">
-              <span class="cad-spec">SOLIDWORKS</span>
-              
-            </div>
-            <p class="cad-hint">⊹ DRAG TO ORBIT · SCROLL TO ZOOM</p>
-          </div>
-        </div>
-
-        <!-- CAD 03 -->
-        <div class="cad-card">
-          <div class="cad-viewer">
-            <model-viewer
-              src="models/v6-twin-turbo.glb"
-              alt="Interactive 3D model of the V6 twin turbo engine assembly"
-              camera-controls
-              auto-rotate
-              auto-rotate-delay="500"
-              rotation-per-second="18deg"
-              interaction-prompt="none"
-              environment-image="neutral"
-              shadow-intensity="0.8"
-              exposure="1"
-              touch-action="pan-y"
-              loading="lazy">
-            </model-viewer>
-          </div>
-          <div class="cad-meta">
-            <p class="cad-num">CAD 03</p>
-            <h3 class="cad-title">V6 Twin Turbo Engine</h3>
-            <div class="cad-specs">
-              <span class="cad-spec">INVENTOR</span>
-              
-            </div>
-            <p class="cad-hint">⊹ DRAG TO ORBIT · SCROLL TO ZOOM</p>
-          </div>
-        </div>
-
-        <!-- CAD 04 -->
-        <div class="cad-card">
-          <div class="cad-viewer">
-            <model-viewer
-              src="models/drone-model.glb"
-              alt="Interactive 3D model of the drone model"
-              camera-controls
-              auto-rotate
-              auto-rotate-delay="500"
-              rotation-per-second="18deg"
-              interaction-prompt="none"
-              environment-image="neutral"
-              shadow-intensity="0.8"
-              exposure="1"
-              touch-action="pan-y"
-              loading="lazy">
-            </model-viewer>
-          </div>
-          <div class="cad-meta">
-            <p class="cad-num">CAD 04</p>
-            <h3 class="cad-title">Drone Assembly</h3>
-            <div class="cad-specs">
-              
-              <span class="cad-spec">INVENTOR</span>
-            </div>
-            <p class="cad-hint">⊹ DRAG TO ORBIT · SCROLL TO ZOOM</p>
-          </div>
-        </div>
-
-        <!--
-          TO ADD ANOTHER MODEL: copy one .cad-card block, then
-            1. drop the new .glb into the /models folder
-            2. change the model-viewer src to "models/your-new-file.glb"
-            3. update CAD 0N, the title, and the spec chips
-          The scroller and arrows update automatically as you add cards.
-        -->
-
-      </div>
-    </div>
-  </section>
 
   <!-- EXPERIENCE -->
   <section id="experience" class="experience">
@@ -2776,7 +2859,7 @@
     // Gate any inline 3D viewers' auto-rotate on the motion toggle (the modal
     // viewer is handled separately in openModal since it's cloned on open).
     function setModelRotation(enabled) {
-      document.querySelectorAll('.cad-viewer model-viewer').forEach(mv => {
+      document.querySelectorAll('.cad-viewer model-viewer, .hero-cad-viewer').forEach(mv => {
         mv.toggleAttribute('auto-rotate', enabled);
       });
     }
@@ -2790,7 +2873,78 @@
       motionToggle.addEventListener('click', () => applyMotion(!animationsEnabled));
     }
 
-    // CAD PORTFOLIO - horizontal card scroller with prev/next arrows.
+
+    // HERO CAD PORTFOLIO - one large interactive model, switched without cards.
+    (function () {
+      const models = [
+        {
+          src: 'models/Workstation-Assembly.glb',
+          title: 'LoomLogic Camera Workstation',
+          tool: 'SOLIDWORKS',
+          alt: 'Interactive 3D model of the LoomLogic Camera Workstation'
+        },
+        {
+          src: 'models/blast-gate-assembly.glb',
+          title: 'Automated Blast Gate',
+          tool: 'SOLIDWORKS',
+          alt: 'Interactive 3D model of the Automated Blast Gate assembly'
+        },
+        {
+          src: 'models/v6-twin-turbo.glb',
+          title: 'V6 Twin Turbo Engine',
+          tool: 'INVENTOR',
+          alt: 'Interactive 3D model of the V6 twin turbo engine assembly'
+        },
+        {
+          src: 'models/drone-model.glb',
+          title: 'Drone Assembly',
+          tool: 'INVENTOR',
+          alt: 'Interactive 3D model of the drone assembly'
+        }
+      ];
+
+      const viewer = document.getElementById('hero-cad-model');
+      const title = document.getElementById('hero-cad-title');
+      const number = document.getElementById('hero-cad-number');
+      const tool = document.getElementById('hero-cad-tool');
+      const prev = document.querySelector('.hero-cad-prev');
+      const next = document.querySelector('.hero-cad-next');
+      const indexButtons = Array.from(document.querySelectorAll('.hero-cad-index-btn'));
+
+      if (!viewer || !title || !number || !tool || !prev || !next) return;
+
+      let index = 0;
+
+      function showModel(nextIndex) {
+        index = (nextIndex + models.length) % models.length;
+        const model = models[index];
+
+        viewer.setAttribute('src', model.src);
+        viewer.setAttribute('alt', model.alt);
+        viewer.toggleAttribute('auto-rotate', animationsEnabled);
+
+        title.textContent = model.title;
+        number.textContent = `CAD ${String(index + 1).padStart(2, '0')}`;
+        tool.textContent = model.tool;
+
+        indexButtons.forEach((button, i) => {
+          const active = i === index;
+          button.classList.toggle('active', active);
+          button.setAttribute('aria-current', active ? 'true' : 'false');
+        });
+      }
+
+      prev.addEventListener('click', () => showModel(index - 1));
+      next.addEventListener('click', () => showModel(index + 1));
+
+      indexButtons.forEach((button, i) => {
+        button.addEventListener('click', () => showModel(i));
+      });
+
+      showModel(0);
+    })();
+
+        // CAD PORTFOLIO - horizontal card scroller with prev/next arrows.
     // Dragging on a card orbits its model, so the arrows (and native
     // trackpad/scrollbar) are how you move between cards.
     (function () {
