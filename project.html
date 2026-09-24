@@ -11,7 +11,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.3.1/model-viewer.min.js" type="module"></script>
 <style>
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; scroll-padding-top: 92px; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 body {
   margin: 0;
   background: #fff;
@@ -34,6 +34,14 @@ nav {
   justify-content: space-between;
   gap: 28px;
   border-bottom: 1px solid #cfcfcf;
+}
+.nav-backdrop {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.78);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
 }
 .logo {
   color: #111;
@@ -203,7 +211,7 @@ nav {
   display: block;
 }
 .detail-feature model-viewer { min-height: 520px; }
-.modal-figure { margin-top: 18px; }
+.modal-figure { margin: 18px 0 0; min-width: 0; }
 .modal-figure img, .modal-figure video { width: 100%; height: auto; display: block; }
 .modal-figure-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 .modal-figure figcaption { margin-top: 8px; color: #777; font-size: 12px; }
@@ -213,24 +221,40 @@ nav {
   .project-page { padding-top: 30px; }
   .project-meta { grid-template-columns: 1fr; gap: 18px; }
   .project-cover { aspect-ratio: 4 / 3; margin-top: 36px; }
-  .project-content { padding-top: 38px; }
+  .project-content { padding-top: 32px; overflow-wrap: anywhere; }
+  .project-header { padding-bottom: 28px; }
+  .project-title { font-size: clamp(32px, 7vw, 48px); line-height: 1.1; overflow-wrap: anywhere; }
+  .project-description { font-size: 18px; }
+  .project-meta { padding: 24px 0; }
+  .meta-value { overflow-wrap: anywhere; }
+  .project-cover.cover-contain img { padding: 16px; }
+  .detail-feature { margin-bottom: 32px; }
+  .project-content .modal-action { min-height: 44px; }
   .modal-figure-row { grid-template-columns: 1fr; }
-  .detail-feature model-viewer { min-height: 360px; }
+  .detail-feature model-viewer { min-height: 0; height: clamp(260px, 80vw, 420px); }
 }
 @media (max-width: 620px) {
-  nav { width: min(100% - 32px, 1120px); min-height: 68px; align-items: flex-start; padding: 18px 0; flex-direction: column; gap: 12px; }
-  .nav-links { gap: 14px 18px; }
+  nav { width: calc(100% - 32px); min-height: 68px; align-items: center; padding: 0; flex-direction: row; gap: 12px; }
+  html { scroll-padding-top: 84px; }
+  .nav-links { flex-wrap: nowrap; gap: clamp(12px, 3vw, 18px); }
+  .nav-links a { display: inline-flex; align-items: center; min-height: 44px; font-size: 12px; white-space: nowrap; }
+  .logo { display: inline-flex; align-items: center; min-height: 44px; }
+}
+a:focus-visible, button:focus-visible { outline: 2px solid #0057d9; outline-offset: 4px; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition: none !important; }
 }
 </style>
 </head>
 <body>
-<nav>
+<header class="nav-backdrop"><nav aria-label="Main navigation">
   <a class="logo" href="/">V. LIN</a>
   <div class="nav-links">
     <a href="/#projects">PROJECTS</a>
     <a href="/#experience">EXPERIENCE</a>
   </div>
-</nav>
+</nav></header>
 
 <main class="project-page">
   <header class="project-header">

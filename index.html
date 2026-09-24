@@ -2,7 +2,7 @@
 
 <html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><title>Vincent Lin Personal Portfolio</title><link href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cg fill='%230A0A0A'%3E%3Ccircle cx='16' cy='16' r='10'/%3E%3Crect x='13.5' y='2' width='5' height='8'/%3E%3Crect x='13.5' y='2' width='5' height='8' transform='rotate(45 16 16)'/%3E%3Crect x='13.5' y='2' width='5' height='8' transform='rotate(90 16 16)'/%3E%3Crect x='13.5' y='2' width='5' height='8' transform='rotate(135 16 16)'/%3E%3Crect x='13.5' y='2' width='5' height='8' transform='rotate(180 16 16)'/%3E%3Crect x='13.5' y='2' width='5' height='8' transform='rotate(225 16 16)'/%3E%3Crect x='13.5' y='2' width='5' height='8' transform='rotate(270 16 16)'/%3E%3Crect x='13.5' y='2' width='5' height='8' transform='rotate(315 16 16)'/%3E%3C/g%3E%3Ccircle cx='16' cy='16' r='3.5' fill='%23FAFAF8'/%3E%3C/svg%3E" rel="icon" type="image/svg+xml"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/><style>
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; scroll-padding-top: 92px; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 body {
   margin: 0;
   background: #fff;
@@ -18,7 +18,7 @@ img, svg, video, model-viewer { max-width: 100%; }
 
 .site-shell { width: min(1120px, calc(100% - 48px)); margin: 0 auto; }
 
-/* Header: simple, static, and text-led like a classic portfolio site. */
+/* Header stays visible while scrolling. */
 nav {
   line-height: 1.6;
   width: min(1120px, calc(100% - 48px));
@@ -29,6 +29,14 @@ nav {
   justify-content: space-between;
   gap: 28px;
   border-bottom: 1px solid #cfcfcf;
+}
+.nav-backdrop {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.78);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
 }
 .logo {
   color: #111;
@@ -95,6 +103,7 @@ nav {
   font-weight: 500;
 }
 .hero-cta:hover { opacity: .58; }
+.hero-cta .arrow-external { display: inline-block; transform: rotate(-135deg); }
 
 .hero.hero-cad {
   min-height: 0;
@@ -483,36 +492,56 @@ section {
 @media (max-width: 880px) {
   .hero-home { grid-template-columns: 1fr; gap: 30px; padding: 38px 0 40px; }
   .hero-cad-stage { height: 320px; }
-  .project-image { aspect-ratio: 16 / 10; }
+  .project-card, .project-card.full-width { min-height: 0; }
   .exp-item { grid-template-columns: 130px 1fr; gap: 8px 24px; }
   .exp-company { grid-column: 2; }
   .exp-tag { grid-column: 2; text-align: left; }
 }
 
 @media (max-width: 620px) {
-  .site-shell, nav, .hero-home, section, .footer { width: min(100% - 32px, 1120px); }
-  nav { min-height: 68px; align-items: flex-start; padding: 18px 0; flex-direction: column; gap: 12px; }
-  .nav-links { gap: 14px 18px; }
+  .site-shell, .hero-home, section, .footer { width: min(100% - 32px, 1120px); }
+  nav { width: calc(100% - 32px); min-height: 68px; align-items: center; padding: 0; flex-direction: row; gap: 12px; }
+  html { scroll-padding-top: 84px; }
+  .nav-links { flex-wrap: nowrap; gap: clamp(12px, 3vw, 18px); }
+  .nav-links a { display: inline-flex; align-items: center; min-height: 44px; font-size: 12px; white-space: nowrap; }
+  .logo { display: inline-flex; align-items: center; min-height: 44px; }
   .hero-home { padding: 34px 0 38px; }
-  .landing-name { font-size: clamp(42px, 14vw, 60px); }
-  .hero-cad-stage { height: 260px; }
-  .hero-cad-footer { align-items: flex-start; flex-direction: column; }
+  .landing-name { font-size: clamp(40px, 11.5vw, 60px); line-height: 1.05; margin-bottom: 16px; }
+  .hero-cad-stage { height: auto; aspect-ratio: 4 / 3; border-radius: 18px; }
+  .hero-cad-footer { align-items: flex-start; flex-direction: column; gap: 8px; }
   .hero-cad-controls { align-items: flex-start; }
   section { padding: 48px 0 56px; }
   .projects-section { padding-top: 36px; }
   .projects-grid { padding-top: 22px; }
   .exp-list { padding-top: 10px; }
   .section-eyebrow { margin-bottom: 28px; }
-  .project-image { aspect-ratio: 4 / 3; }
+  .hero-cta { min-height: 44px; }
+  .hero-cad-arrow { width: 44px; height: 48px; }
+  .hero-cad-prev { left: 8px; }
+  .hero-cad-next { right: 8px; }
+  .project-title { font-size: clamp(24px, 6vw, 30px); line-height: 1.15; }
+  .project-cover.cover-contain img { padding: 16px; }
   .exp-item { grid-template-columns: 1fr; gap: 4px; }
   .exp-company, .exp-tag { grid-column: 1; }
-  .footer-contact { flex-wrap: wrap; }
+  .footer-contact { flex-wrap: wrap; gap: 20px; }
+  .footer-socials { gap: 8px; }
+  .footer-socials a { min-width: 44px; min-height: 44px; }
+  .footer-certs { gap: 12px; }
   .footer-certs { margin-left: auto; }
-  .modal-body { padding: 30px 22px 40px; }
-  .modal-title { font-size: 28px; }
-  .modal-figure-row { grid-template-columns: 1fr; }
+  .landing-intro, .hero-cad, .hero-cad-info, .exp-item > * { min-width: 0; overflow-wrap: anywhere; }
+
+
 }
-</style><script src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.3.1/model-viewer.min.js" type="module"></script></head><body id="top"><nav><a class="logo" href="/">V. LIN</a><div class="nav-links"><a href="#projects">PROJECTS</a><a href="#experience">EXPERIENCE</a></div></nav><main class="hero-home"><div class="landing-intro">
+a:focus-visible, button:focus-visible { outline: 2px solid #0057d9; outline-offset: 4px; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition: none !important; }
+}
+@media (hover: none) {
+  .project-card:hover { transform: none; box-shadow: none; }
+  .footer-contact a:hover { transform: none; }
+}
+</style><script src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.3.1/model-viewer.min.js" type="module"></script></head><body id="top"><header class="nav-backdrop"><nav aria-label="Main navigation"><a class="logo" href="/">V. LIN</a><div class="nav-links"><a href="#projects">PROJECTS</a><a href="#experience">EXPERIENCE</a></div></nav></header><main class="hero-home"><div class="landing-intro">
 <h1 class="landing-name">Vincent Lin</h1>
 <p class="landing-intro-copy">
   Embedded Systems, Robotics, and Electro-Mechanical Design<br/>
@@ -524,7 +553,7 @@ section {
         Contact <span class="arrow">↓</span>
 </a>
 <a class="hero-cta" href="Vincent_Lin_Resume.pdf" rel="noopener" target="_blank">
-        Resume <span class="arrow">↗</span>
+        Resume <span class="arrow arrow-external" aria-hidden="true">&#8595;</span>
 </a>
 </div>
 </div><div class="hero hero-cad" id="cad">
