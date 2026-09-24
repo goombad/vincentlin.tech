@@ -1,3641 +1,1184 @@
-  <!DOCTYPE html>
-  <html lang="en">
-  <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vincent Lin Personal Portfolio</title>
-  <!-- FAVICON - inline SVG gear -->
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cg fill='%230A0A0A'%3E%3Ccircle cx='16' cy='16' r='10'/%3E%3Crect x='13.5' y='2' width='5' height='8'/%3E%3Crect x='13.5' y='2' width='5' height='8' transform='rotate(45 16 16)'/%3E%3Crect x='13.5' y='2' width='5' height='8' transform='rotate(90 16 16)'/%3E%3Crect x='13.5' y='2' width='5' height='8' transform='rotate(135 16 16)'/%3E%3Crect x='13.5' y='2' width='5' height='8' transform='rotate(180 16 16)'/%3E%3Crect x='13.5' y='2' width='5' height='8' transform='rotate(225 16 16)'/%3E%3Crect x='13.5' y='2' width='5' height='8' transform='rotate(270 16 16)'/%3E%3Crect x='13.5' y='2' width='5' height='8' transform='rotate(315 16 16)'/%3E%3C/g%3E%3Ccircle cx='16' cy='16' r='3.5' fill='%23FAFAF8'/%3E%3C/svg%3E" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --bg: #FAFAF8;
-      --panel: #FFFFFF;
-      --ink: #0A0A0A;
-      --ink-soft: #1A1A1A;
-      --mid: #8C8C8C;
-      --mid-2: #B8B8B8;
-      --line: #E6E4DF;
-      --line-strong: #D4D2CC;
-      --accent: #22C55E;
-      --cover-bg: #F0EFEB;
-      --nav-bg: rgba(250, 250, 248, 0.78);
-    }
-
-    [data-theme="dark"] {
-      --bg: #1A1A18;
-      --panel: #242421;
-      --ink: #FAFAF8;
-      --ink-soft: #D4D2CC;
-      --mid: #8C8C8C;
-      --mid-2: #5A5A56;
-      --line: #2E2E2A;
-      --line-strong: #3E3E3A;
-      --cover-bg: #262622;
-      --nav-bg: rgba(26, 26, 24, 0.78);
-    }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      font-family: 'Inter', sans-serif;
-      background: var(--bg);
-      color: var(--ink);
-      font-weight: 400;
-      letter-spacing: -0.005em;
-      line-height: 1.5;
-      -webkit-font-smoothing: antialiased;
-      overflow-x: hidden;
-    }
-
-    .mono {
-      font-family: 'JetBrains Mono', monospace;
-      font-weight: 400;
-      letter-spacing: 0;
-    }
-
-    /* NAV */
-    nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 50;
-      background: var(--nav-bg);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--line);
-      padding: 18px 48px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .logo {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 12px;
-      font-weight: 500;
-      letter-spacing: 1px;
-      color: var(--ink);
-      text-decoration: none;
-      white-space: nowrap;
-      flex-shrink: 0;
-    }
-
-    .nav-links { display: flex; gap: 56px; }
-
-    .nav-links a {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
-      letter-spacing: 2px;
-      color: var(--ink);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-
-    .nav-links a:hover { color: var(--mid); }
-
-    /* NAV HEX-BUFFER HOVER - monochrome: churning buffer reads high-contrast,
-      locked letters resolve into the grey hover color so there's no pop on settle */
-    .nav-links a .hx { color: var(--ink); }
-    .nav-links a .lk { color: var(--mid); }
-
-    /* HERO */
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: stretch;
-      justify-content: center;
-      padding: 120px 48px 120px;
-      text-align: center;
-      position: relative;
-    }
-
-    .hero-tag {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
-      letter-spacing: 3px;
-      color: var(--mid);
-      margin: 0 auto 56px;
-      width: 100%;
-      max-width: 1300px;
-    }
-
-    .hero-main {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 48px;
-      width: 100%;
-      max-width: 1300px;
-      margin: 0 auto;
-    }
-
-    h1 {
-      font-size: clamp(48px, 7vw, 96px);
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      line-height: 1.02;
-      color: var(--ink);
-      margin: 0;
-      text-align: center;
-      perspective: 1200px;
-    }
-
-    .title-inner {
-      display: inline-block;
-      will-change: transform;
-    }
-
-    .title-outline {
-      color: transparent;
-      -webkit-text-stroke: 1.5px var(--ink);
-    }
-
-    .hero-bio {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 24px;
-      max-width: 720px;
-      text-align: center;
-    }
-
-    .hero-bio p {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 14px;
-      line-height: 1.75;
-      color: var(--ink-soft);
-      margin: 0;
-      text-align: center;
-    }
-
-    .hero-bio p strong {
-      color: var(--ink);
-      font-weight: 500;
-    }
-
-    .hero-cta {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
-      letter-spacing: 2px;
-      color: var(--ink);
-      text-decoration: none;
-      padding: 12px 20px;
-      border: 1px solid var(--line-strong);
-      transition: background 0.2s, color 0.2s, border-color 0.2s;
-    }
-
-    .hero-cta:hover {
-      background: var(--ink);
-      color: var(--bg);
-      border-color: var(--ink);
-    }
-
-    .hero-cta .arrow { transition: transform 0.2s; }
-    .hero-cta:hover .arrow { transform: translateX(3px); }
-
-    /* Groups the "Read full bio" + "Resume" CTAs; wraps cleanly on narrow screens */
-    .hero-actions { display: flex; flex-wrap: wrap; gap: 14px; }
-
-    .hero-sub {
-      font-size: 17px;
-      line-height: 1.55;
-      color: var(--mid);
-      max-width: 540px;
-      font-weight: 400;
-    }
-
-    .hero-corner {
-      position: absolute;
-      bottom: 56px;
-      left: 48px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10px;
-      letter-spacing: 1.5px;
-      color: var(--mid-2);
-      line-height: 1.7;
-      text-align: left;
-    }
-
-    .hero-corner-r {
-      left: auto;
-      right: 48px;
-      text-align: right;
-    }
-
-    .hero-trace {
-      display: block;
-      width: 200px;
-      height: 50px;
-      margin-bottom: 18px;
-    }
-
-    .hero-corner-r .hero-trace {
-      margin-left: auto;
-      transform: scaleX(-1);
-    }
-
-    .hero-corner .key {
-      display: inline-block;
-      min-width: 100px;
-      color: var(--mid);
-    }
-
-    .hero-corner-r .key {
-      text-align: right;
-    }
-
-    /* HERO IMU PANEL - left-side accelerometer-style readout that tracks cursor */
-    .hero-imu {
-      position: absolute;
-      top: 50%;
-      left: 48px;
-      transform: translateY(-50%);
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
-      z-index: 2;
-      pointer-events: none;
-    }
-
-    .imu-row {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .imu-label {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 9px;
-      letter-spacing: 1.5px;
-      color: var(--mid-2);
-    }
-
-    .imu-bar {
-      width: 100px;
-      height: 3px;
-      background: var(--line);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .imu-fill {
-      position: absolute;
-      top: 0;
-      height: 100%;
-      width: 0;
-      left: 50%;
-      background: var(--ink);
-    }
-
-    /* SECTION SHELL */
-    section {
-      padding: 100px 48px;
-      max-width: 1440px;
-      margin: 0 auto;
-    }
-
-    .section-label {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
-      letter-spacing: 3px;
-      color: var(--ink);
-      margin-bottom: 56px;
-    }
-
-    .section-eyebrow {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10px;
-      letter-spacing: 2px;
-      color: var(--mid);
-      margin-bottom: 32px;
-    }
-
-    /* PROJECTS */
-    .projects-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 24px;
-    }
-
-    .project-card {
-      background: var(--panel);
-      border: 1px solid var(--line);
-      padding: 48px 48px 40px;
-      display: flex;
-      flex-direction: column;
-      transition: border-color 0.3s, transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
-    }
-
-    .project-card:hover {
-      border-color: var(--line-strong);
-      transform: translateY(-2px);
-    }
-
-    .project-card.full-width {
-      grid-column: 1 / -1;
-      display: grid;
-      grid-template-columns: 1fr 1.2fr;
-      gap: 56px;
-      padding: 48px;
-    }
-
-    .project-num {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10px;
-      letter-spacing: 2px;
-      color: var(--mid);
-      margin-bottom: 28px;
-    }
-
-    .project-title {
-      font-size: 26px;
-      font-weight: 600;
-      letter-spacing: -0.02em;
-      line-height: 1.2;
-      margin-bottom: 16px;
-    }
-
-    .project-desc {
-      font-size: 14.5px;
-      color: var(--mid);
-      line-height: 1.55;
-      margin-bottom: 32px;
-      max-width: 460px;
-    }
-
-    .project-card.full-width .project-desc { margin-bottom: 36px; }
-
-    .project-image {
-      width: 100%;
-      aspect-ratio: 4 / 3;
-      background: var(--cover-bg);
-      margin-bottom: 32px;
-      overflow: hidden;
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .project-card.full-width .project-image {
-      margin-bottom: 0;
-      aspect-ratio: 3 / 2;
-      min-height: 320px;
-    }
-
-    .project-image svg {
-      width: 100%;
-      height: 100%;
-      display: block;
-    }
-
-    .project-image img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
-    .project-expand {
-      margin-top: 24px;
-      padding: 12px 20px;
-      background: transparent;
-      border: 1px solid var(--line-strong);
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
-      letter-spacing: 1.5px;
-      color: var(--ink);
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      align-self: flex-start;
-      transition: background 0.2s, color 0.2s, border-color 0.2s;
-    }
-
-    .project-expand:hover {
-      background: var(--ink);
-      color: var(--bg);
-      border-color: var(--ink);
-    }
-
-    .project-expand .arrow { transition: transform 0.2s; }
-    .project-expand:hover .arrow { transform: translateX(3px); }
-
-    .project-extended { display: none; }
-
-    /* AUTO-FILL LAST ROW
-      The projects grid is two columns. If the regular (non-full-width) cards come out
-      to an odd number, the final one would sit alone with an empty slot beside it. When
-      that happens, stretch that lone card across both columns and switch it to the same
-      horizontal text-and-image layout as the featured card, so the last row is always
-      full. It re-evaluates automatically as projects are added or removed.
-      (Desktop only — on narrow screens every card is already full width, so no gap.) */
-    @media (min-width: 1001px) {
-      .projects-grid > .project-card:not(.full-width):nth-child(odd of .project-card:not(.full-width)):nth-last-child(1 of .project-card:not(.full-width)) {
-        grid-column: 1 / -1;
-        display: grid;
-        grid-template-columns: 1fr 1.2fr;
-        column-gap: 56px;
-        align-content: start;
-        padding: 48px;
-      }
-
-      /* text stacks down the left column in source order... */
-      .projects-grid > .project-card:not(.full-width):nth-child(odd of .project-card:not(.full-width)):nth-last-child(1 of .project-card:not(.full-width)) > :not(.project-image) {
-        grid-column: 1;
-        margin-top: 0;
-      }
-
-      .projects-grid > .project-card:not(.full-width):nth-child(odd of .project-card:not(.full-width)):nth-last-child(1 of .project-card:not(.full-width)) > .project-stats {
-        margin-top: 24px;
-      }
-
-      /* keep the bordered "Learn more" button at its natural width, not stretched */
-      .projects-grid > .project-card:not(.full-width):nth-child(odd of .project-card:not(.full-width)):nth-last-child(1 of .project-card:not(.full-width)) > .project-expand {
-        justify-self: start;
-      }
-
-      /* ...and the image fills the right column for the full height of the card */
-      .projects-grid > .project-card:not(.full-width):nth-child(odd of .project-card:not(.full-width)):nth-last-child(1 of .project-card:not(.full-width)) > .project-image {
-        grid-column: 2;
-        grid-row: 1 / span 30;
-        align-self: stretch;
-        margin: 0;
-        aspect-ratio: auto;
-        min-height: 320px;
-      }
-    }
-
-    /* MODAL */
-    .modal-backdrop {
-      position: fixed;
-      inset: 0;
-      background: rgba(10, 10, 10, 0.55);
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
-      z-index: 100;
-      display: flex;
-      align-items: flex-start;
-      justify-content: center;
-      padding: 56px 24px;
-      overflow-y: auto;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease;
-    }
-
-    .modal-backdrop.open {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .modal-panel {
-      background: var(--bg);
-      max-width: 920px;
-      width: 100%;
-      margin: auto;
-      position: relative;
-      border: 1px solid var(--line);
-      transform: translateY(20px);
-      opacity: 0;
-      transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.3s;
-    }
-
-    .modal-backdrop.open .modal-panel {
-      transform: translateY(0);
-      opacity: 1;
-    }
-
-    .modal-close {
-      position: absolute;
-      top: 16px;
-      right: 16px;
-      width: 36px;
-      height: 36px;
-      border: 1px solid var(--line);
-      background: var(--panel);
-      font-family: 'Inter', sans-serif;
-      font-size: 18px;
-      color: var(--ink);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background 0.2s, color 0.2s, transform 0.25s;
-      z-index: 2;
-    }
-
-    .modal-close:hover {
-      background: var(--ink);
-      color: var(--bg);
-      transform: rotate(90deg);
-    }
-
-    .modal-hero-img {
-      width: 100%;
-      aspect-ratio: 16 / 9;
-      background: var(--cover-bg);
-      overflow: hidden;
-      border-bottom: 1px solid var(--line);
-    }
-
-
-    .modal-hero-img video {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
-    .modal-hero-img img,
-    .modal-hero-img svg {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
-    /* Let a wide image show in full instead of cropping */
-    .modal-hero-img.fit {
-      aspect-ratio: auto;
-    }
-
-    .modal-hero-img.fit img {
-      height: auto;
-      object-fit: contain;
-    }
-
-    /* Interactive 3D model inside a modal hero (model-viewer) */
-    .modal-hero-img model-viewer {
-      width: 100%;
-      height: 100%;
-      display: block;
-      background: var(--cover-bg);
-      --poster-color: transparent;
-    }
-
-    .modal-body { padding: 48px 56px 56px; }
-
-    .modal-num {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10px;
-      letter-spacing: 2px;
-      color: var(--mid);
-      margin-bottom: 14px;
-    }
-
-    .modal-title {
-      font-size: clamp(28px, 4vw, 42px);
-      font-weight: 600;
-      letter-spacing: -0.025em;
-      line-height: 1.1;
-      margin-bottom: 16px;
-    }
-
-    .modal-tagline {
-      font-size: 16px;
-      color: var(--mid);
-      line-height: 1.6;
-      margin-bottom: 40px;
-      max-width: 640px;
-    }
-
-    .modal-section { margin-bottom: 36px; }
-
-    .modal-section h4 {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10px;
-      letter-spacing: 2px;
-      color: var(--ink);
-      margin-bottom: 16px;
-      padding-bottom: 12px;
-      border-bottom: 1px solid var(--line);
-    }
-
-    .modal-section p {
-      font-size: 15px;
-      line-height: 1.65;
-      color: var(--ink-soft);
-      margin-bottom: 12px;
-    }
-
-    .modal-section ul {
-      list-style: none;
-      padding: 0;
-    }
-
-    .modal-section li {
-      font-size: 14.5px;
-      line-height: 1.6;
-      color: var(--ink-soft);
-      padding-left: 18px;
-      position: relative;
-      margin-bottom: 10px;
-    }
-
-    .modal-section li::before {
-      content: '→';
-      position: absolute;
-      left: 0;
-      color: var(--mid);
-      font-family: 'JetBrains Mono', monospace;
-    }
-
-    /* Image inside a modal section - every section image renders at the same size */
-    .modal-figure {
-      margin: 4px 0 0;
-      border: 1px solid var(--line);
-      background: var(--cover-bg);
-      overflow: hidden;
-    }
-
-
-    .modal-figure.video-small {
-      width: 60%;
-      margin: 4px auto 0;
-    }
-
-    .modal-figure.video-small video {
-      width: 100%;
-      height: auto;
-      aspect-ratio: auto;
-      display: block;
-    }
-
-    .modal-figure img {
-      width: 100%;
-      aspect-ratio: 16 / 9;
-      object-fit: cover;
-      display: block;
-    }
-
-    /* Diagrams/schematics: show the whole thing inside the same frame */
-    .modal-figure.contain img {
-      object-fit: contain;
-    }
-
-    /* Two images side by side - occupies the SAME 16:9 frame as one section image */
-    .modal-figure-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1px;
-      background: var(--line);
-      aspect-ratio: 16 / 9;
-    }
-
-    .modal-figure-row img {
-      width: 100%;
-      height: 100%;
-      aspect-ratio: auto;
-      object-fit: cover;
-      margin: 0;
-    }
-
-    .modal-figure figcaption {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10px;
-      letter-spacing: 1px;
-      color: var(--mid);
-      padding: 12px 16px;
-      border-top: 1px solid var(--line);
-    }
-
-    .modal-actions {
-      display: flex;
-      gap: 12px;
-      margin-top: 40px;
-      flex-wrap: wrap;
-    }
-
-    .modal-action {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 12px 20px;
-      border: 1px solid var(--line-strong);
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
-      letter-spacing: 1.5px;
-      color: var(--ink);
-      text-decoration: none;
-      transition: background 0.2s, color 0.2s, border-color 0.2s;
-    }
-
-    .modal-action:hover {
-      background: var(--ink);
-      color: var(--bg);
-      border-color: var(--ink);
-    }
-
-    body.modal-open { overflow: hidden; }
-
-    .project-stats {
-      margin-top: auto;
-      padding-top: 24px;
-      border-top: 1px solid var(--line);
-    }
-
-    .stat-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 6px 0;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
-      letter-spacing: 1.5px;
-    }
-
-    .stat-row .label { color: var(--mid); }
-    .stat-row .value { color: var(--ink); }
-
-    /* EXPERIENCE */
-    .experience {
-      border-top: 1px solid var(--line);
-      padding-top: 100px;
-    }
-
-    .exp-list {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .exp-item {
-      display: grid;
-      grid-template-columns: 140px 1fr 1fr 180px;
-      gap: 40px;
-      padding: 36px 0;
-      border-bottom: 1px solid var(--line);
-      align-items: baseline;
-      transition: transform 0.3s;
-    }
-
-    .exp-item:first-child { border-top: 1px solid var(--line); }
-    .exp-item:hover { transform: translateX(16px); }
-
-    .exp-date {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
-      letter-spacing: 1px;
-      color: var(--mid);
-    }
-
-    .exp-role {
-      font-size: 18px;
-      font-weight: 600;
-      letter-spacing: -0.01em;
-      color: var(--ink);
-    }
-
-    .exp-company {
-      font-size: 14.5px;
-      color: var(--mid);
-      font-style: italic;
-    }
-
-    .exp-tag {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10px;
-      letter-spacing: 1.5px;
-      color: var(--mid);
-      text-align: right;
-    }
-
-    /* ABOUT / PROFILE */
-    .about {
-      border-top: 1px solid var(--line);
-      padding-top: 100px;
-    }
-
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1.35fr 1fr;
-      gap: 96px;
-      align-items: start;
-    }
-
-    .about-left {
-      padding: 16px 8px 0 0;
-    }
-
-    .about-headline {
-      font-size: clamp(28px, 3vw, 38px);
-      font-weight: 600;
-      letter-spacing: -0.025em;
-      line-height: 1.15;
-      color: var(--ink);
-      margin-bottom: 32px;
-    }
-
-    .about-headline em {
-      font-family: 'Inter', sans-serif;
-      font-style: italic;
-      font-weight: 400;
-      color: var(--mid);
-    }
-
-    .about-body p {
-      font-size: 15.5px;
-      line-height: 1.65;
-      color: var(--ink-soft);
-      margin-bottom: 18px;
-      max-width: 560px;
-    }
-
-    .about-body p:last-child { margin-bottom: 0; }
-
-    /* ABOUT - WORKFLOW */
-    .about-workflow {
-      margin-top: 16px;
-      padding-top: 0;
-      border-top: none;
-      max-width: none;
-    }
-
-    .workflow-heading {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10px;
-      letter-spacing: 2px;
-      color: var(--ink);
-      margin-bottom: 28px;
-    }
-
-    .workflow-list {
-      list-style: none;
-      padding: 0;
-    }
-
-    .workflow-list li {
-      display: grid;
-      grid-template-columns: 42px 1fr;
-      gap: 18px;
-      padding: 18px 0;
-      border-bottom: 1px solid var(--line);
-      align-items: baseline;
-      transition: transform 0.3s;
-    }
-
-    .workflow-list li:hover {
-      transform: translateX(16px);
-    }
-
-    .workflow-list li:first-child {
-      border-top: 1px solid var(--line);
-    }
-
-    .workflow-list li:last-child {
-      border-bottom: none;
-    }
-
-    .workflow-num {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10px;
-      letter-spacing: 1.5px;
-      color: var(--mid);
-    }
-
-    .workflow-step {
-      font-size: 14.5px;
-      line-height: 1.6;
-      color: var(--ink-soft);
-    }
-
-    .workflow-step strong {
-      color: var(--ink);
-      font-weight: 600;
-    }
-
-    /* CAD - interactive 3D model portfolio (horizontal scroller) */
-    .cad {
-      border-top: 1px solid var(--line);
-      padding-top: 100px;
-    }
-
-    .cad-bar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      margin-bottom: 32px;
-    }
-
-    .cad-bar .section-eyebrow { margin-bottom: 0; }
-
-    .cad-arrows {
-      display: flex;
-      gap: 10px;
-      flex-shrink: 0;
-    }
-
-    .cad-arrow {
-      width: 38px;
-      height: 38px;
-      padding: 0;
-      background: transparent;
-      border: 1px solid var(--line-strong);
-      color: var(--ink);
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      transition: background 0.2s, color 0.2s, border-color 0.2s, opacity 0.2s;
-    }
-
-    .cad-arrow:hover {
-      background: var(--ink);
-      color: var(--bg);
-      border-color: var(--ink);
-    }
-
-    .cad-arrow svg { width: 15px; height: 15px; display: block; }
-
-    .cad-arrow:disabled {
-      opacity: 0.3;
-      cursor: default;
-    }
-
-    .cad-arrow:disabled:hover {
-      background: transparent;
-      color: var(--ink);
-      border-color: var(--line-strong);
-    }
-
-    .cad-scroller {
-      overflow-x: auto;
-      overflow-y: hidden;
-      scroll-snap-type: x mandatory;
-      scroll-behavior: smooth;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: thin;
-      scrollbar-color: var(--line-strong) transparent;
-    }
-
-    .cad-scroller::-webkit-scrollbar { height: 8px; }
-    .cad-scroller::-webkit-scrollbar-thumb { background: var(--line-strong); }
-    .cad-scroller::-webkit-scrollbar-track { background: transparent; }
-
-    .cad-track {
-      display: flex;
-      gap: 24px;
-      width: max-content;
-      padding: 4px 0 14px;
-    }
-
-    .cad-card {
-      flex: 0 0 380px;
-      scroll-snap-align: start;
-      background: var(--panel);
-      border: 1px solid var(--line);
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-      transition: border-color 0.3s, transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
-    }
-
-    .cad-card:hover {
-      border-color: var(--line-strong);
-      transform: translateY(-2px);
-    }
-
-    .cad-viewer {
-      width: 100%;
-      aspect-ratio: 4 / 3;
-      background: var(--cover-bg);
-      border-bottom: 1px solid var(--line);
-    }
-
-    .cad-viewer model-viewer {
-      width: 100%;
-      height: 100%;
-      display: block;
-      background: var(--cover-bg);
-      --poster-color: transparent;
-    }
-
-    .cad-meta {
-      padding: 24px 28px 28px;
-    }
-
-    .cad-num {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10px;
-      letter-spacing: 2px;
-      color: var(--mid);
-      margin-bottom: 12px;
-    }
-
-    .cad-title {
-      font-size: 20px;
-      font-weight: 600;
-      letter-spacing: -0.01em;
-      color: var(--ink);
-      margin-bottom: 16px;
-    }
-
-    .cad-specs {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .cad-spec {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10px;
-      letter-spacing: 1px;
-      color: var(--mid);
-      border: 1px solid var(--line);
-      padding: 5px 10px;
-    }
-
-    .cad-hint {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10px;
-      letter-spacing: 1.5px;
-      color: var(--mid-2);
-      margin-top: 18px;
-    }
-
-    /* FOOTER - bottom-left contact */
-    .footer {
-      padding: 80px 48px 48px;
-    }
-
-    .footer-contact {
-      display: flex;
-      gap: 22px;
-      align-items: center;
-    }
-
-    .footer-contact a {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--ink);
-      text-decoration: none;
-      transition: color 0.2s, transform 0.2s;
-    }
-
-    .footer-contact a:hover {
-      color: var(--mid);
-      transform: translateY(-2px);
-    }
-
-    .footer-contact svg {
-      width: 20px;
-      height: 20px;
-      display: block;
-    }
-
-    /* ANIM */
-    @keyframes fadeUp {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .anim {
-      animation: fadeUp 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) both;
-    }
-
-    .d1 { animation-delay: 0.1s; }
-    .d2 { animation-delay: 0.25s; }
-    .d3 { animation-delay: 0.4s; }
-    .d4 { animation-delay: 0.55s; }
-
-    @media (max-width: 1000px) {
-      nav { padding: 16px 24px; }
-
-      .nav-links { gap: 18px; }
-
-      .nav-right { gap: 14px; }
-
-      .nav-divider { display: none; }
-
-      .nav-links a:nth-child(n+5) { display: none; }
-
-      .hero { padding: 100px 24px; }
-
-      .hero-corner {
-        left: 24px;
-        bottom: 24px;
-      }
-
-      .hero-corner-r { right: 24px; }
-
-      .hero-imu { display: none; }
-
-      .hero-main { gap: 36px; }
-
-      section { padding: 64px 24px; }
-
-      .projects-grid { grid-template-columns: 1fr; }
-
-      .cad-card { flex-basis: 80vw; }
-
-      .project-card.full-width {
-        grid-template-columns: 1fr;
-        gap: 32px;
-        padding: 32px;
-      }
-
-      .project-card { padding: 32px; }
-
-      .project-card.full-width .project-image {
-        min-height: 240px;
-        order: -1;
-      }
-
-      .exp-item {
-        grid-template-columns: 1fr;
-        gap: 8px;
-        padding: 24px 0;
-      }
-
-      .exp-tag { text-align: left; }
-
-      .about-grid {
-        grid-template-columns: 1fr;
-        gap: 56px;
-      }
-
-      .about-workflow {
-        margin-top: 0;
-        padding-top: 36px;
-        border-top: 1px solid var(--line);
-      }
-
-      .modal-body { padding: 32px 24px 40px; }
-
-      /* Stack the pair on mobile; each image keeps its own 16:9 frame */
-      .modal-figure-row {
-        grid-template-columns: 1fr;
-        aspect-ratio: auto;
-      }
-
-      .modal-figure-row img {
-        height: auto;
-        aspect-ratio: 16 / 9;
-      }
-
-      .modal-backdrop { padding: 24px 12px; }
-
-      .footer { padding: 60px 24px 32px; }
-    }
-
-    /* PHONE NAV - collapse the inline links into a dropdown behind a hamburger */
-    @media (max-width: 720px) {
-      .nav-toggle { display: inline-flex; }
-
-      .nav-right { gap: 10px; }
-
-      /* full-bleed dropdown anchored under the bar; padding-independent centering */
-      .nav-links {
-        position: absolute;
-        top: 100%;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 100vw;
-        flex-direction: column;
-        gap: 0;
-        display: none;
-        padding: 4px 24px 14px;
-        background: var(--nav-bg);
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
-        border-bottom: 1px solid var(--line);
-      }
-
-      nav.menu-open .nav-links { display: flex; }
-
-      .nav-links a {
-        padding: 15px 2px;
-        font-size: 12px;
-        border-bottom: 1px solid var(--line);
-      }
-
-      .nav-links a:last-child { border-bottom: none; }
-
-      /* the desktop rule hides the 5th+ link; inside the dropdown, show them all */
-      .nav-links a:nth-child(n+5) { display: block; }
-    }
-
-    /* DARK MODE - override the hardcoded fills inside the inline SVG illustrations */
-    [data-theme="dark"] svg [fill="#F0EFEB"] { fill: var(--cover-bg); }
-    [data-theme="dark"] svg [fill="#FAFAF8"] { fill: var(--panel); }
-    [data-theme="dark"] svg [fill="#1A1A1A"] { fill: var(--ink); }
-    [data-theme="dark"] svg [stroke="#1A1A1A"] { stroke: var(--ink); }
-    [data-theme="dark"] svg [fill="#9A9A9A"] { fill: var(--mid); }
-    [data-theme="dark"] svg [stroke="#9A9A9A"] { stroke: var(--mid); }
-
-    /* THEME + MOTION TOGGLES */
-    /* NAV RIGHT - links, a hairline divider, then the two icon toggles as a cluster */
-    .nav-right {
-      display: flex;
-      align-items: center;
-      gap: 28px;
-    }
-
-    /* Hairline separator so the toggles read as controls, not another nav link */
-    .nav-divider {
-      width: 1px;
-      height: 20px;
-      background: var(--line);
-      flex-shrink: 0;
-    }
-
-    /* Keep the two icon toggles tucked together as one control cluster */
-    .nav-controls {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .theme-toggle,
-    .motion-toggle {
-      background: transparent;
-      border: 1px solid var(--line);
-      width: 32px;
-      height: 32px;
-      padding: 0;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--ink);
-      cursor: pointer;
-      transition: background 0.2s, color 0.2s, border-color 0.2s;
-    }
-
-    .theme-toggle:hover,
-    .motion-toggle:hover {
-      background: var(--ink);
-      color: var(--bg);
-      border-color: var(--ink);
-    }
-
-    .theme-toggle svg,
-    .motion-toggle svg {
-      width: 14px;
-      height: 14px;
-      display: block;
-    }
-
-    .theme-toggle .icon-sun { display: none; }
-    [data-theme="dark"] .theme-toggle .icon-moon { display: none; }
-    [data-theme="dark"] .theme-toggle .icon-sun { display: block; }
-
-    /* MOTION TOGGLE - pulse icon when animations are on, slashed/flat when off */
-    .motion-toggle .icon-motion-off { display: none; }
-    [data-motion="off"] .motion-toggle .icon-motion { display: none; }
-    [data-motion="off"] .motion-toggle .icon-motion-off { display: block; }
-
-    /* MOBILE MENU TOGGLE - hidden on desktop; matches the icon-toggle styling */
-    .nav-toggle {
-      display: none;
-      background: transparent;
-      border: 1px solid var(--line);
-      width: 32px;
-      height: 32px;
-      padding: 0;
-      align-items: center;
-      justify-content: center;
-      color: var(--ink);
-      cursor: pointer;
-      transition: background 0.2s, color 0.2s, border-color 0.2s;
-    }
-
-    .nav-toggle:hover {
-      background: var(--ink);
-      color: var(--bg);
-      border-color: var(--ink);
-    }
-
-    .nav-toggle svg { width: 15px; height: 15px; display: block; }
-    .nav-toggle .icon-close { display: none; }
-    nav.menu-open .nav-toggle .icon-menu { display: none; }
-    nav.menu-open .nav-toggle .icon-close { display: block; }
-
-    /* REDUCED MOTION - applied when the user toggles animations off (data-motion="off").
-      Near-zero durations keep final keyframe states (e.g. fade-ins land visible)
-      while removing the motion itself. SMIL + the cursor-driven hero are handled in JS. */
-    [data-motion="off"] { scroll-behavior: auto; }
-
-    [data-motion="off"] *,
-    [data-motion="off"] *::before,
-    [data-motion="off"] *::after {
-      animation-duration: 0.001ms !important;
-      animation-delay: 0ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: 0.001ms !important;
-    }
-
-    /* Always respect a true reduced-motion OS preference for the looping SVG/keyframes,
-      even before JS runs */
-    @media (prefers-reduced-motion: reduce) {
-      .anim { animation-duration: 0.001ms; animation-delay: 0ms; }
-    }
-
-    /* =========================================================
-       CAD PREVIEW + INTRO HERO
-       The CAD viewer is a compact interactive preview. The actual
-       landing-page message sits directly beneath it.
-       ========================================================= */
-    .hero.hero-cad {
-      min-height: 0;
-      height: auto;
-      padding: 92px 48px 28px;
-      justify-content: flex-start;
-      overflow: hidden;
-      text-align: left;
-    }
-
-    .hero-cad .hero-tag {
-      flex: 0 0 auto;
-      margin: 0 auto 8px;
-      max-width: 1400px;
-      text-align: center;
-    }
-
-    .hero-cad-stage {
-      position: relative;
-      flex: none;
-      width: 100%;
-      max-width: 1500px;
-      height: clamp(300px, 38vh, 430px);
-      min-height: 0;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .hero-cad-viewer {
-      width: min(76vw, 1080px);
-      height: 100%;
-      min-height: 0;
-      display: block;
-      background: transparent;
-      --poster-color: transparent;
-      --progress-bar-height: 0px;
-      --progress-bar-color: transparent;
-      outline: none;
-    }
-
-    /* Hide model-viewer's built-in loading bar when switching CAD models. */
-    .hero-cad-viewer::part(default-progress-bar) {
-      display: none;
-    }
-
-    .hero-cad-arrow {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      z-index: 4;
-      width: 52px;
-      height: 72px;
-      padding: 0;
-      border: 0;
-      background: transparent;
-      color: var(--mid);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: color 0.2s, transform 0.25s, opacity 0.2s;
-    }
-
-    .hero-cad-arrow svg {
-      width: 22px;
-      height: 22px;
-      display: block;
-    }
-
-    .hero-cad-prev { left: 0; }
-    .hero-cad-next { right: 0; }
-
-    .hero-cad-arrow:hover { color: var(--ink); }
-    .hero-cad-prev:hover { transform: translate(-4px, -50%); }
-    .hero-cad-next:hover { transform: translate(4px, -50%); }
-
-    .hero-cad-footer {
-      flex: 0 0 auto;
-      width: 100%;
-      max-width: 1400px;
-      margin: 2px auto 0;
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) auto;
-      gap: 32px;
-      align-items: end;
-    }
-
-    .hero-cad-info { min-width: 0; }
-
-    .hero-cad-kicker {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 9px;
-      letter-spacing: 2px;
-      color: var(--mid);
-      margin-bottom: 6px;
-    }
-
-    .hero-cad-title {
-      margin: 0;
-      max-width: 900px;
-      font-size: clamp(20px, 2.2vw, 30px);
-      font-weight: 600;
-      letter-spacing: -0.02em;
-      line-height: 1.08;
-      color: var(--ink);
-      text-align: left;
-    }
-
-    .hero-cad-controls {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 9px;
-      padding-bottom: 1px;
-    }
-
-    .hero-cad-hint {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 8px;
-      letter-spacing: 1.5px;
-      color: var(--mid-2);
-      white-space: nowrap;
-    }
-
-    .hero-cad-index {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-
-    .hero-cad-index-btn {
-      position: relative;
-      padding: 4px 0;
-      border: 0;
-      background: transparent;
-      color: var(--mid-2);
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 9px;
-      letter-spacing: 1.5px;
-      cursor: pointer;
-      transition: color 0.2s;
-    }
-
-    .hero-cad-index-btn::after {
-      content: '';
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      height: 1px;
-      background: currentColor;
-      transform: scaleX(0);
-      transform-origin: left center;
-      transition: transform 0.25s ease;
-    }
-
-    .hero-cad-index-btn:hover,
-    .hero-cad-index-btn.active {
-      color: var(--ink);
-    }
-
-    .hero-cad-index-btn.active::after { transform: scaleX(1); }
-
-    /* Main landing message beneath the CAD preview */
-    .landing-intro {
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 58px 48px 92px;
-      border-top: 1px solid var(--line);
-    }
-
-    .landing-intro-tag {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10px;
-      letter-spacing: 3px;
-      color: var(--mid);
-      margin-bottom: 28px;
-    }
-
-    .landing-intro-title {
-      max-width: 1050px;
-      margin: 0;
-      font-size: clamp(52px, 6.4vw, 92px);
-      font-weight: 800;
-      letter-spacing: -0.04em;
-      line-height: 0.98;
-      color: var(--ink);
-      text-align: left;
-    }
-
-    .landing-intro-title .title-outline {
-      color: transparent;
-      -webkit-text-stroke: 1.5px var(--ink);
-    }
-
-    .landing-intro-bottom {
-      margin-top: 38px;
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      gap: 48px;
-    }
-
-    .landing-intro-copy {
-      max-width: 680px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 13px;
-      line-height: 1.75;
-      color: var(--ink-soft);
-    }
-
-    .landing-intro-copy strong {
-      color: var(--ink);
-      font-weight: 500;
-    }
-
-    .landing-intro-actions {
-      display: flex;
-      align-items: center;
-      gap: 28px;
-      flex-shrink: 0;
-    }
-
-    .landing-intro-link {
-      position: relative;
-      display: inline-flex;
-      align-items: center;
-      gap: 9px;
-      padding: 7px 0;
-      color: var(--ink);
-      text-decoration: none;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10px;
-      letter-spacing: 1.6px;
-    }
-
-    .landing-intro-link::after {
-      content: '';
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 2px;
-      height: 1px;
-      background: var(--ink);
-      transform: scaleX(0);
-      transform-origin: left center;
-      transition: transform 0.25s ease;
-    }
-
-    .landing-intro-link:hover::after { transform: scaleX(1); }
-
-    .landing-intro-link .arrow {
-      transition: transform 0.2s;
-    }
-
-    .landing-intro-link:hover .arrow {
-      transform: translateX(3px);
-    }
-
-    @media (max-width: 1000px) {
-      .hero.hero-cad {
-        padding: 84px 24px 24px;
-      }
-
-      .hero-cad-stage {
-        height: clamp(300px, 44vh, 420px);
-      }
-
-      .hero-cad-viewer {
-        width: 100%;
-      }
-
-      .hero-cad-prev { left: -12px; }
-      .hero-cad-next { right: -12px; }
-
-      .hero-cad-footer {
-        grid-template-columns: 1fr;
-        gap: 14px;
-      }
-
-      .hero-cad-controls {
-        align-items: flex-start;
-      }
-
-      .landing-intro {
-        padding: 52px 24px 72px;
-      }
-
-      .landing-intro-bottom {
-        align-items: flex-start;
-        flex-direction: column;
-        gap: 26px;
-      }
-    }
-
-    @media (max-width: 620px) {
-      .hero.hero-cad {
-        padding: 78px 18px 22px;
-      }
-
-      .hero-cad-stage {
-        height: 330px;
-      }
-
-      .hero-cad-arrow {
-        width: 40px;
-        height: 60px;
-      }
-
-      .hero-cad-prev { left: -14px; }
-      .hero-cad-next { right: -14px; }
-
-      .hero-cad-hint {
-        white-space: normal;
-        line-height: 1.5;
-      }
-
-      .landing-intro {
-        padding: 44px 18px 64px;
-      }
-
-      .landing-intro-tag {
-        margin-bottom: 22px;
-      }
-
-      .landing-intro-title {
-        font-size: clamp(42px, 14vw, 64px);
-      }
-
-      .landing-intro-actions {
-        gap: 22px;
-        flex-wrap: wrap;
-      }
-    }
-
-
-    /* COMPACT NAME + CONTACT / RESUME INTRO */
-    .landing-intro {
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 42px 48px 64px;
-      border-top: 1px solid var(--line);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 40px;
-    }
-
-    .landing-name {
-      margin: 0;
-      font-size: clamp(42px, 5vw, 72px);
-      font-weight: 700;
-      letter-spacing: -0.04em;
-      line-height: 1;
-      color: var(--ink);
-      text-align: left;
-      perspective: none;
-    }
-
-    .landing-intro-actions {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      flex-shrink: 0;
-      margin: 0;
-    }
-
-    .landing-intro-button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 9px;
-      min-width: 118px;
-      padding: 12px 18px;
-      border: 1px solid var(--line-strong);
-      background: transparent;
-      color: var(--ink);
-      text-decoration: none;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10px;
-      letter-spacing: 1.7px;
-      text-transform: uppercase;
-      transition: background 0.2s, color 0.2s, border-color 0.2s;
-    }
-
-    .landing-intro-button:hover {
-      background: var(--ink);
-      color: var(--bg);
-      border-color: var(--ink);
-    }
-
-    .landing-intro-button .arrow {
-      transition: transform 0.2s;
-    }
-
-    .landing-intro-button:hover .arrow {
-      transform: translateX(3px);
-    }
-
-    @media (max-width: 760px) {
-      .landing-intro {
-        padding: 36px 24px 54px;
-        align-items: flex-start;
-        flex-direction: column;
-        gap: 24px;
-      }
-
-      .landing-intro-actions {
-        width: 100%;
-      }
-
-      .landing-intro-button {
-        flex: 1;
-      }
-    }
-
-    @media (max-width: 620px) {
-      .landing-intro {
-        padding: 32px 18px 48px;
-      }
-
-      .landing-name {
-        font-size: clamp(38px, 13vw, 56px);
-      }
-    }
-
-
-    /* FINAL COMPACT LANDING INTRO:
-       centered hero-style name + original two CTA buttons only */
-    .landing-intro {
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 64px 48px 82px;
-      border-top: 1px solid var(--line);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 38px;
-      text-align: center;
-    }
-
-    .landing-name {
-      margin: 0;
-      width: 100%;
-      font-size: clamp(64px, 8vw, 118px);
-      font-weight: 800;
-      letter-spacing: -0.04em;
-      line-height: 0.92;
-      color: var(--ink);
-      text-align: center;
-      perspective: none;
-    }
-
-    .landing-name-solid {
-      color: var(--ink);
-    }
-
-    .landing-name-outline {
-      color: transparent;
-      -webkit-text-stroke: 1.5px var(--ink);
-    }
-
-    .landing-intro-actions {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 14px;
-      margin: 0;
-      flex-wrap: wrap;
-    }
-
-    /* Use the same bordered CTA treatment as the original hero. */
-    .landing-intro .hero-cta {
-      min-width: 150px;
-      justify-content: center;
-    }
-
-    @media (max-width: 760px) {
-      .landing-intro {
-        padding: 52px 24px 68px;
-        gap: 30px;
-      }
-
-      .landing-name {
-        font-size: clamp(54px, 15vw, 84px);
-      }
-    }
-
-    @media (max-width: 520px) {
-      .landing-intro {
-        padding: 46px 18px 58px;
-      }
-
-      .landing-intro-actions {
-        width: 100%;
-      }
-
-      .landing-intro .hero-cta {
-        flex: 1 1 0;
-        min-width: 0;
-      }
-    }
-
-
-    /* FINAL LANDING INTRO: one-line name, bio, then the two CTAs */
-    .landing-intro {
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 64px 48px 82px;
-      border-top: 1px solid var(--line);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 26px;
-      text-align: center;
-    }
-
-    .landing-name {
-      margin: 0;
-      width: 100%;
-      font-size: clamp(64px, 8vw, 118px);
-      font-weight: 800;
-      letter-spacing: -0.04em;
-      line-height: 0.96;
-      color: var(--ink);
-      text-align: center;
-      white-space: nowrap;
-      perspective: none;
-    }
-
-    .landing-intro-copy {
-      max-width: 760px;
-      margin: 0;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 13px;
-      line-height: 1.75;
-      color: var(--ink-soft);
-      text-align: center;
-    }
-
-    .landing-intro-copy strong {
-      color: var(--ink);
-      font-weight: 500;
-    }
-
-    .landing-intro-actions {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 14px;
-      margin-top: 6px;
-      flex-wrap: wrap;
-    }
-
-    .landing-intro .hero-cta {
-      min-width: 150px;
-      justify-content: center;
-    }
-
-    @media (max-width: 760px) {
-      .landing-intro {
-        padding: 52px 24px 68px;
-        gap: 22px;
-      }
-
-      .landing-name {
-        font-size: clamp(50px, 13vw, 78px);
-      }
-
-      .landing-intro-copy {
-        font-size: 12px;
-      }
-    }
-
-    @media (max-width: 520px) {
-      .landing-intro {
-        padding: 44px 18px 58px;
-      }
-
-      .landing-name {
-        white-space: normal;
-      }
-
-      .landing-intro-actions {
-        width: 100%;
-      }
-
-      .landing-intro .hero-cta {
-        flex: 1 1 0;
-        min-width: 0;
-      }
-    }
-
-
-    /* ORDER UPDATE: intro first, CAD preview directly below it */
-    .landing-intro {
-      border-top: 0;
-      padding-top: 130px;
-      padding-bottom: 72px;
-    }
-
-    .hero.hero-cad {
-      border-top: none;
-      padding-top: 58px;
-      padding-bottom: 34px;
-    }
-
-    @media (max-width: 760px) {
-      .landing-intro {
-        padding-top: 110px;
-        padding-bottom: 58px;
-      }
-
-      .hero.hero-cad {
-        padding-top: 46px;
-      }
-    }
-
-
-    /* ABOUT — wider copy + project photo gallery */
-    .about-grid {
-      grid-template-columns: minmax(420px, 0.95fr) minmax(0, 1.35fr);
-      gap: 64px;
-      align-items: start;
-    }
-
-    .about-left {
-      padding: 10px 0 0;
-    }
-
-    .about-body p {
-      max-width: 650px;
-      font-size: 16px;
-      line-height: 1.72;
-    }
-
-    .about-gallery {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      grid-auto-flow: dense;
-      grid-auto-rows: 118px;
-      gap: 12px;
-      width: 100%;
-    }
-
-    .about-gallery-item {
-      display: block;
-      min-width: 0;
-      grid-row: span 2;
-      overflow: hidden;
-      background: var(--cover-bg);
-      text-decoration: none;
-    }
-
-    .about-gallery-item.tall {
-      grid-row: span 3;
-    }
-
-    .about-gallery-item.wide {
-      grid-column: 1 / -1;
-      grid-row: span 2;
-    }
-
-    .about-gallery-item img {
-      width: 100%;
-      height: 100%;
-      display: block;
-      object-fit: cover;
-      transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1),
-                  opacity 0.25s ease;
-    }
-
-    .about-gallery-item:hover img {
-      transform: scale(1.025);
-      opacity: 0.92;
-    }
-
-    @media (max-width: 1100px) {
-      .about-grid {
-        grid-template-columns: 1fr;
-        gap: 48px;
-      }
-
-      .about-body p {
-        max-width: 760px;
-      }
-
-      .about-gallery {
-        grid-auto-rows: 130px;
-      }
-    }
-
-    @media (max-width: 620px) {
-      .about-gallery {
-        gap: 8px;
-        grid-auto-rows: 92px;
-      }
-
-      .about-gallery-item,
-      .about-gallery-item.tall {
-        grid-row: span 2;
-      }
-
-      .about-gallery-item.wide {
-        grid-column: 1 / -1;
-        grid-row: span 2;
-      }
-    }
-
-
-    /* ABOUT — single rotating image canvas */
-    .about-grid {
-      grid-template-columns: minmax(420px, 0.95fr) minmax(0, 1.35fr);
-      gap: 72px;
-      align-items: center;
-    }
-
-    .about-slideshow {
-      width: 100%;
-      min-width: 0;
-    }
-
-    .about-slideshow-stage {
-      position: relative;
-      width: 100%;
-      aspect-ratio: 4 / 3;
-      overflow: hidden;
-      background: var(--cover-bg);
-    }
-
-    .about-slideshow-stage img {
-      width: 100%;
-      height: 100%;
-      display: block;
-      object-fit: cover;
-      opacity: 1;
-      transform: scale(1);
-      transition:
-        opacity 0.38s ease,
-        transform 0.55s cubic-bezier(0.2, 0.8, 0.2, 1);
-    }
-
-    .about-slideshow-stage.is-changing img {
-      opacity: 0;
-      transform: scale(1.01);
-    }
-
-    .about-slide-arrow {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 44px;
-      height: 68px;
-      padding: 0;
-      border: 0;
-      background: rgba(10, 10, 10, 0.22);
-      color: #fff;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      transition: opacity 0.2s, background 0.2s, transform 0.2s;
-      backdrop-filter: blur(4px);
-      -webkit-backdrop-filter: blur(4px);
-    }
-
-    .about-slideshow-stage:hover .about-slide-arrow,
-    .about-slide-arrow:focus-visible {
-      opacity: 1;
-    }
-
-    .about-slide-arrow:hover {
-      background: rgba(10, 10, 10, 0.5);
-    }
-
-    .about-slide-arrow svg {
-      width: 20px;
-      height: 20px;
-      display: block;
-    }
-
-    .about-slide-prev { left: 0; }
-    .about-slide-next { right: 0; }
-
-    .about-slide-prev:hover {
-      transform: translate(-3px, -50%);
-    }
-
-    .about-slide-next:hover {
-      transform: translate(3px, -50%);
-    }
-
-    .about-slideshow-meta {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 20px;
-      padding-top: 12px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 9px;
-      letter-spacing: 1.6px;
-      color: var(--mid);
-    }
-
-    @media (max-width: 1100px) {
-      .about-grid {
-        grid-template-columns: 1fr;
-        gap: 44px;
-        align-items: start;
-      }
-
-      .about-slideshow-stage {
-        aspect-ratio: 16 / 10;
-      }
-    }
-
-    @media (max-width: 620px) {
-      .about-slideshow-stage {
-        aspect-ratio: 4 / 3;
-      }
-
-      .about-slide-arrow {
-        width: 38px;
-        height: 58px;
-        opacity: 0.9;
-      }
-    }
-
-
-    /* ABOUT — remove slideshow/gallery and let the bio breathe */
-    .about-grid {
-      grid-template-columns: 1fr;
-      gap: 0;
-      align-items: start;
-    }
-
-    .about-left {
-      max-width: 920px;
-      padding: 10px 0 0;
-    }
-
-    .about-body p {
-      max-width: 900px;
-      font-size: 16px;
-      line-height: 1.72;
-    }
-
-    .about-slideshow,
-    .about-gallery {
-      display: none !important;
-    }
-
-  </style>
-  <script defer src="/_vercel/insights/script.js"></script>
-
-  <script>
-    window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };
-  </script>
-  <script defer src="/_vercel/speed-insights/script.js"></script>
-
-  <script>
-    // Set initial theme before first paint to avoid flash
-    (function () {
-      try {
-        var stored = localStorage.getItem('theme');
-        var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        var theme = stored || (prefersDark ? 'dark' : 'light');
-        if (theme === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
-      } catch (e) {}
-    })();
-
-    // Set initial motion preference before first paint to avoid an animation flash.
-    // Default: respect the OS "reduce motion" setting unless the user has chosen explicitly.
-    (function () {
-      try {
-        var storedMotion = localStorage.getItem('motion');
-        var prefersReduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        var motionOff = storedMotion ? storedMotion === 'off' : prefersReduce;
-        if (motionOff) document.documentElement.setAttribute('data-motion', 'off');
-      } catch (e) {}
-    })();
-  </script>
-
-  <!-- model-viewer - interactive 3D (GLB) viewer for the SolidWorks assembly -->
-  <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.3.1/model-viewer.min.js"></script>
-  </head>
-  <body>
-
-  <nav>
-    <a href="#about" class="logo">V. LIN</a>
-
-    <div class="nav-right">
-      <div class="nav-links" id="nav-links">
-        <a href="#projects">PROJECTS</a>
-        <a href="#cad">CAD</a>
-        <a href="#experience">EXPERIENCE</a>
-        <a href="#about">ABOUT</a>
-      </div>
-
-      <span class="nav-divider" aria-hidden="true"></span>
-
-      <div class="nav-controls">
-        <button class="theme-toggle" type="button" aria-label="Toggle color theme">
-          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-          </svg>
-          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <circle cx="12" cy="12" r="4" />
-            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
-          </svg>
-        </button>
-
-        <button class="motion-toggle" type="button" aria-label="Toggle animations" aria-pressed="false" title="Toggle animations">
-          <!-- animations ON: activity pulse -->
-          <svg class="icon-motion" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
-          </svg>
-          <!-- animations OFF: dimmed pulse + slash -->
-          <svg class="icon-motion-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" opacity="0.4" />
-            <line x1="3" y1="3" x2="21" y2="21" />
-          </svg>
-        </button>
-
-        <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">
-          <svg class="icon-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <line x1="3" y1="6" x2="21" y2="6" />
-            <line x1="3" y1="12" x2="21" y2="12" />
-            <line x1="3" y1="18" x2="21" y2="18" />
-          </svg>
-          <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <line x1="5" y1="5" x2="19" y2="19" />
-            <line x1="19" y1="5" x2="5" y2="19" />
-          </svg>
-        </button>
-      </div>
-    </div>
-  </nav>
-
-  <!-- COMPACT INTRO -->
-  <div class="landing-intro">
-    <h1 class="landing-name anim d2">Vincent Lin</h1>
-
-    <p class="landing-intro-copy anim d3">
-      <strong>Mechatronics &amp; Electrical Engineer</strong> based in Brooklyn, NY.<br />
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><title>Vincent Lin Personal Portfolio</title><link href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cg fill='%230A0A0A'%3E%3Ccircle cx='16' cy='16' r='10'/%3E%3Crect x='13.5' y='2' width='5' height='8'/%3E%3Crect x='13.5' y='2' width='5' height='8' transform='rotate(45 16 16)'/%3E%3Crect x='13.5' y='2' width='5' height='8' transform='rotate(90 16 16)'/%3E%3Crect x='13.5' y='2' width='5' height='8' transform='rotate(135 16 16)'/%3E%3Crect x='13.5' y='2' width='5' height='8' transform='rotate(180 16 16)'/%3E%3Crect x='13.5' y='2' width='5' height='8' transform='rotate(225 16 16)'/%3E%3Crect x='13.5' y='2' width='5' height='8' transform='rotate(270 16 16)'/%3E%3Crect x='13.5' y='2' width='5' height='8' transform='rotate(315 16 16)'/%3E%3C/g%3E%3Ccircle cx='16' cy='16' r='3.5' fill='%23FAFAF8'/%3E%3C/svg%3E" rel="icon" type="image/svg+xml"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/><style>
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: #fff;
+  color: #111;
+  font-family: "Inter", Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; }
+button, input, textarea, select { font: inherit; }
+img, svg, video, model-viewer { max-width: 100%; }
+
+.site-shell { width: min(1120px, calc(100% - 48px)); margin: 0 auto; }
+
+/* Header: simple, static, and text-led like a classic portfolio site. */
+nav {
+  width: min(1120px, calc(100% - 48px));
+  margin: 0 auto;
+  min-height: 76px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+  border-bottom: 1px solid #cfcfcf;
+}
+.logo {
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+.nav-links { display: flex; flex-wrap: wrap; gap: 24px; }
+.nav-links a {
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+}
+.nav-links a:hover { text-decoration: underline; text-underline-offset: 4px; }
+
+/* Hero: original copy on the left, original GLB portfolio on the right. */
+.hero-home {
+  width: min(1120px, calc(100% - 48px));
+  margin: 0 auto;
+  padding: 72px 0 64px;
+  display: grid;
+  grid-template-columns: minmax(0, .9fr) minmax(420px, 1.1fr);
+  gap: 72px;
+  align-items: center;
+  border-bottom: 1px solid #cfcfcf;
+}
+.landing-intro {
+  padding: 0;
+  margin: 0;
+  display: block;
+  text-align: left;
+}
+.landing-name {
+  margin: 0 0 24px;
+  font-size: clamp(48px, 6.4vw, 82px);
+  line-height: .96;
+  letter-spacing: -0.055em;
+  font-weight: 700;
+  white-space: normal;
+}
+.landing-intro-copy {
+  margin: 0 0 26px;
+  max-width: 520px;
+  font-family: "Inter", Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.65;
+  color: #444;
+}
+.landing-intro-copy strong { color: #111; font-weight: 600; }
+.landing-intro-actions { display: flex; flex-wrap: wrap; gap: 22px; }
+.hero-cta {
+  display: inline-flex;
+  gap: 7px;
+  align-items: center;
+  padding: 0 0 3px;
+  border: 0;
+  border-bottom: 1px solid currentColor;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+}
+.hero-cta:hover { opacity: .58; }
+
+.hero.hero-cad {
+  min-height: 0;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+  position: relative;
+}
+.hero-cad-stage {
+  position: relative;
+  width: 100%;
+  height: 420px;
+  background: #f4f4f2;
+  overflow: hidden;
+}
+.hero-cad-media {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.hero-cad-viewer,
+.hero-cad-image {
+  width: 100%;
+  height: 100%;
+  display: block;
+  background: transparent;
+}
+.hero-cad-viewer {
+  --poster-color: transparent;
+  --progress-bar-height: 0px;
+}
+.hero-cad-image {
+  object-fit: contain;
+}
+.hero-cad-viewer::part(default-progress-bar) { display: none; }
+.hero-cad-arrow {
+  position: absolute;
+  z-index: 3;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 52px;
+  border: 0;
+  background: rgba(255,255,255,.82);
+  color: #111;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+}
+.hero-cad-arrow svg { width: 18px; height: 18px; }
+.hero-cad-prev { left: 12px; }
+.hero-cad-next { right: 12px; }
+.hero-cad-footer {
+  margin-top: 14px;
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  align-items: end;
+}
+.hero-cad-kicker,
+.hero-cad-hint,
+.hero-cad-index-btn {
+  margin: 0;
+  font-size: 11px;
+  line-height: 1.4;
+  letter-spacing: .08em;
+  color: #777;
+  font-family: "Inter", Arial, sans-serif;
+}
+.hero-cad-title {
+  margin: 5px 0 0;
+  font-size: 18px;
+  line-height: 1.25;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+.hero-cad-controls { display: flex; flex-direction: column; align-items: end; gap: 7px; }
+.hero-cad-index { display: flex; gap: 10px; }
+.hero-cad-index-btn {
+  border: 0;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+}
+.hero-cad-index-btn.active { color: #111; text-decoration: underline; text-underline-offset: 4px; }
+
+/* Shared section language: simple divider, heading, content. */
+section {
+  width: min(1120px, calc(100% - 48px));
+  margin: 0 auto;
+  padding: 64px 0 72px;
+  border-bottom: 1px solid #cfcfcf;
+}
+.section-label {
+  margin: 0;
+  font-size: 28px;
+  line-height: 1.15;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+.section-eyebrow {
+  margin: 7px 0 36px;
+  font-size: 12px;
+  color: #777;
+}
+
+/* Projects become plain portfolio rows instead of boxed UI cards. */
+.projects-grid { display: block; }
+.project-card,
+.project-card.full-width {
+  display: grid;
+  grid-template-columns: minmax(240px, .85fr) minmax(0, 1.15fr);
+  gap: 42px;
+  padding: 34px 0;
+  border: 0;
+  border-top: 1px solid #e0e0e0;
+  background: transparent;
+}
+.project-card:first-child { border-top-color: #bdbdbd; }
+.project-card > div:first-child { order: 2; }
+.project-card > .project-image { order: 1; }
+.project-card:not(.full-width) > .project-num,
+.project-card:not(.full-width) > .project-title,
+.project-card:not(.full-width) > .project-image,
+.project-card:not(.full-width) > .project-stats,
+.project-card:not(.full-width) > .project-expand { grid-column: auto; }
+.project-card:not(.full-width) > .project-num,
+.project-card:not(.full-width) > .project-title,
+.project-card:not(.full-width) > .project-stats,
+.project-card:not(.full-width) > .project-expand { grid-column: 2; }
+.project-card:not(.full-width) > .project-image { grid-column: 1; grid-row: 1 / span 8; }
+.project-num {
+  margin: 0 0 6px;
+  font-size: 11px;
+  color: #777;
+  letter-spacing: .06em;
+}
+.project-title {
+  margin: 0 0 12px;
+  font-size: 24px;
+  line-height: 1.2;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+.project-desc { margin: 0 0 22px; color: #444; max-width: 600px; }
+.project-image {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  margin: 0;
+  overflow: hidden;
+  background: #f4f4f2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.project-image img,
+.project-image svg,
+.project-image model-viewer { width: 100%; height: 100%; display: block; object-fit: cover; }
+.project-stats {
+  margin-top: 0;
+  padding-top: 12px;
+  border-top: 1px solid #e4e4e4;
+}
+.stat-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 5px 0;
+  font-size: 11px;
+}
+.stat-row .label { color: #777; }
+.project-expand {
+  width: fit-content;
+  margin-top: 18px;
+  padding: 0 0 2px;
+  border: 0;
+  border-bottom: 1px solid #111;
+  background: transparent;
+  cursor: pointer;
+  font-size: 14px;
+  color: #111;
+}
+.project-extended { display: none; }
+
+/* Experience: plain work-history rows. */
+.exp-list { border-top: 1px solid #bdbdbd; }
+.exp-item {
+  display: grid;
+  grid-template-columns: 150px 1.2fr 1fr 110px;
+  gap: 28px;
+  padding: 22px 0;
+  border-bottom: 1px solid #e0e0e0;
+  align-items: baseline;
+}
+.exp-date, .exp-tag { font-size: 11px; color: #777; }
+.exp-role { font-size: 16px; font-weight: 600; }
+.exp-company { font-size: 14px; color: #555; }
+.exp-tag { text-align: right; }
+
+/* About: text only, intentionally sparse. */
+.about-grid { display: block; }
+.about-left { max-width: 760px; padding: 0; }
+.about-headline {
+  margin: 0 0 24px;
+  font-size: clamp(30px, 4vw, 48px);
+  line-height: 1.1;
+  font-weight: 600;
+  letter-spacing: -0.035em;
+}
+.about-headline em { font-weight: 400; color: #777; }
+.about-body p { margin: 0; font-size: 16px; line-height: 1.75; color: #333; max-width: 760px; }
+.about-slideshow, .about-gallery { display: none !important; }
+
+/* Footer keeps the original GitHub + LinkedIn icons. */
+.footer {
+  width: min(1120px, calc(100% - 48px));
+  margin: 0 auto;
+  padding: 34px 0 56px;
+}
+.footer-contact { display: flex; gap: 18px; align-items: center; }
+.footer-contact a { display: inline-flex; color: #111; text-decoration: none; }
+.footer-contact a:hover { opacity: .55; }
+.footer-contact svg { width: 20px; height: 20px; }
+
+/* Project details remain available, but the modal is visually plain. */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  padding: 32px 20px;
+  overflow-y: auto;
+  background: rgba(0,0,0,.48);
+  display: none;
+}
+.modal-backdrop.open { display: block; }
+.modal-panel {
+  position: relative;
+  width: min(900px, 100%);
+  margin: 0 auto;
+  background: #fff;
+  border: 1px solid #bbb;
+}
+.modal-close {
+  position: sticky;
+  top: 10px;
+  float: right;
+  z-index: 3;
+  margin: 12px 12px 0 0;
+  width: 36px;
+  height: 36px;
+  border: 1px solid #aaa;
+  background: #fff;
+  cursor: pointer;
+  font-size: 20px;
+}
+.modal-content { clear: both; }
+.modal-hero-img { width: 100%; background: #f4f4f2; overflow: hidden; }
+.modal-hero-img img, .modal-hero-img svg, .modal-hero-img video, .modal-hero-img model-viewer {
+  width: 100%; height: auto; display: block; object-fit: contain;
+}
+.modal-hero-img model-viewer { min-height: 460px; }
+.modal-body { padding: 40px 48px 52px; }
+.modal-num { margin: 0 0 8px; font-size: 11px; color: #777; }
+.modal-title { margin: 0 0 10px; font-size: 34px; line-height: 1.1; letter-spacing: -0.03em; }
+.modal-tagline { margin: 0 0 38px; color: #555; }
+.modal-section { margin: 34px 0 0; }
+.modal-section h4 { margin: 0 0 12px; font-size: 13px; }
+.modal-section p { margin: 0; color: #333; }
+.modal-section ul { margin: 0; padding-left: 20px; }
+.modal-section li { margin: 7px 0; }
+.modal-figure { margin-top: 14px; }
+.modal-figure img, .modal-figure video { width: 100%; height: auto; display: block; }
+.modal-figure-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.modal-figure figcaption { margin-top: 8px; font-size: 12px; color: #777; }
+.modal-actions { margin-top: 30px; }
+.modal-action { text-decoration: underline; text-underline-offset: 4px; }
+body.modal-open { overflow: hidden; }
+
+@media (max-width: 880px) {
+  .hero-home { grid-template-columns: 1fr; gap: 44px; padding-top: 54px; }
+  .hero-cad-stage { height: 380px; }
+  .project-card, .project-card.full-width { grid-template-columns: 1fr; gap: 22px; }
+  .project-card > div:first-child { order: initial; }
+  .project-card > .project-image { order: initial; }
+  .project-card:not(.full-width) > .project-num,
+  .project-card:not(.full-width) > .project-title,
+  .project-card:not(.full-width) > .project-image,
+  .project-card:not(.full-width) > .project-stats,
+  .project-card:not(.full-width) > .project-expand { grid-column: 1; }
+  .project-card:not(.full-width) > .project-image { grid-row: auto; }
+  .project-image { aspect-ratio: 16 / 10; }
+  .exp-item { grid-template-columns: 130px 1fr; gap: 8px 24px; }
+  .exp-company { grid-column: 2; }
+  .exp-tag { grid-column: 2; text-align: left; }
+}
+
+@media (max-width: 620px) {
+  .site-shell, nav, .hero-home, section, .footer { width: min(100% - 32px, 1120px); }
+  nav { min-height: 68px; align-items: flex-start; padding: 18px 0; flex-direction: column; gap: 12px; }
+  .nav-links { gap: 14px 18px; }
+  .hero-home { padding: 48px 0 52px; }
+  .landing-name { font-size: clamp(46px, 15vw, 68px); }
+  .hero-cad-stage { height: 310px; }
+  .hero-cad-footer { align-items: flex-start; flex-direction: column; }
+  .hero-cad-controls { align-items: flex-start; }
+  section { padding: 48px 0 56px; }
+  .section-eyebrow { margin-bottom: 28px; }
+  .project-card, .project-card.full-width { padding: 28px 0; }
+  .project-image { aspect-ratio: 4 / 3; }
+  .exp-item { grid-template-columns: 1fr; gap: 4px; }
+  .exp-company, .exp-tag { grid-column: 1; }
+  .modal-body { padding: 30px 22px 40px; }
+  .modal-title { font-size: 28px; }
+  .modal-figure-row { grid-template-columns: 1fr; }
+}
+</style><script src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.3.1/model-viewer.min.js" type="module"></script></head><body><nav><a class="logo" href="#about">V. LIN</a><div class="nav-links"><a href="#projects">PROJECTS</a><a href="#cad">CAD</a><a href="#experience">EXPERIENCE</a><a href="#about">ABOUT</a></div></nav><main class="hero-home"><div class="landing-intro">
+<h1 class="landing-name">Vincent Lin</h1>
+<p class="landing-intro-copy">
+<strong>Mechatronics &amp; Electrical Engineer</strong> based in Brooklyn, NY.<br/>
       Fascinated by robotic systems, computer vision, and physical AI.
     </p>
-
-    <div class="landing-intro-actions anim d4">
-      <a href="#contact" class="hero-cta">
+<div class="landing-intro-actions">
+<a class="hero-cta" href="#contact">
         Contact <span class="arrow">↓</span>
-      </a>
-      <a href="Vincent_Lin_Resume.pdf" class="hero-cta" target="_blank" rel="noopener">
+</a>
+<a class="hero-cta" href="Vincent_Lin_Resume.pdf" rel="noopener" target="_blank">
         Resume <span class="arrow">↗</span>
-      </a>
-    </div>
-  </div>
-
-  <!-- HERO / INTERACTIVE CAD PORTFOLIO -->
-  <div class="hero hero-cad" id="cad">
-    <div class="hero-cad-stage anim d2">
-      <button class="hero-cad-arrow hero-cad-prev" type="button" aria-label="Previous CAD model">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <polyline points="15 18 9 12 15 6" />
-        </svg>
-      </button>
-
-      <model-viewer
-        id="hero-cad-model"
-        class="hero-cad-viewer"
-        src="models/Workstation-Assembly.glb"
-        alt="Interactive 3D model of the LoomLogic Camera Workstation"
-        camera-controls
-        disable-zoom
-        auto-rotate
-        auto-rotate-delay="500"
-        rotation-per-second="18deg"
-        interaction-prompt="none"
-        environment-image="neutral"
-        shadow-intensity="0.8"
-        exposure="1"
-        touch-action="pan-y">
-      </model-viewer>
-
-      <button class="hero-cad-arrow hero-cad-next" type="button" aria-label="Next CAD model">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <polyline points="9 18 15 12 9 6" />
-        </svg>
-      </button>
-    </div>
-
-    <div class="hero-cad-footer anim d3">
-      <div class="hero-cad-info">
-        <p class="hero-cad-kicker">
-          <span id="hero-cad-number">CAD 01</span>
-          <span aria-hidden="true"> / </span>
-          <span id="hero-cad-tool">SOLIDWORKS</span>
-        </p>
-        <h2 class="hero-cad-title" id="hero-cad-title">LoomLogic Camera Workstation</h2>
-      </div>
-
-      <div class="hero-cad-controls">
-        <p class="hero-cad-hint">DRAG TO ORBIT</p>
-        <div class="hero-cad-index" aria-label="Choose CAD model">
-          <button type="button" class="hero-cad-index-btn active" data-cad-index="0" aria-label="Show CAD model 1">01</button>
-          <button type="button" class="hero-cad-index-btn" data-cad-index="1" aria-label="Show CAD model 2">02</button>
-          <button type="button" class="hero-cad-index-btn" data-cad-index="2" aria-label="Show CAD model 3">03</button>
-          <button type="button" class="hero-cad-index-btn" data-cad-index="3" aria-label="Show CAD model 4">04</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- PROJECTS -->
-  <section id="projects">
-    <p class="section-label">PROJECTS</p>
-    <p class="section-eyebrow">[ 001 ]</p>
-
-    <div class="projects-grid">
-
-      <!-- 01 (NEW) -->
-      <div class="project-card full-width" data-project="01">
-        <div>
-          <p class="project-num">PROJECT 01</p>
-          <h3 class="project-title">LifeStory - Memory Record Player</h3>
-          <p class="project-desc">UncommonHacks '26 1st Place Winner using both Meta's DINOv2 embedding model and ORB feature matching algorithm.</p>
-
-          <div class="project-stats">
-            <div class="stat-row"><span class="label">STACK</span><span class="value">DINOv2 · ORB · ESP32-S3</span></div>
-            <div class="stat-row"><span class="label">STATUS</span><span class="value">COMPLETED · MAY 2026</span></div>
-            <div class="stat-row"><span class="label">DOMAIN</span><span class="value">COMPUTER VISION</span></div>
-          </div>
-
-          <button class="project-expand">Learn more <span class="arrow">→</span></button>
-        </div>
-
-        <div class="project-image">
-          <img src="images/uncommonhacks_image.jpg" alt="LifeStory team at Uncommon Hacks 2026 Closing Ceremony" />
-        </div>
-
-        <div class="project-extended">
-          <div class="modal-hero-img fit">
-            <img src="images/matches_photo7.jpg" alt="ORB feature matches between physical and digital photo" />
-          </div>
-
-          <div class="modal-body">
-            <p class="modal-num">PROJECT 01 · MAY 2026</p>
-            <h2 class="modal-title">Physical to Digital Photo Match</h2>
-            <p class="modal-tagline">A physical feature that allows Alzheimers patients to identify and interact with digital images of their memories.</p>
-
-            <div class="modal-section">
-              <h4>OVERVIEW</h4>
-              <p>LifeStory is a web-app diary that allows Alzheimer's patients to remember their past experiences through interactive voice-narrated digital memories.
+</a>
+</div>
+</div><div class="hero hero-cad" id="cad">
+<div class="hero-cad-stage">
+<button aria-label="Previous CAD model" class="hero-cad-arrow hero-cad-prev" type="button">
+<svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewbox="0 0 24 24">
+<polyline points="15 18 9 12 15 6"></polyline>
+</svg>
+</button>
+<div class="hero-cad-media">
+<model-viewer alt="Interactive 3D model of the LoomLogic Camera Workstation" auto-rotate="" auto-rotate-delay="500" camera-controls="" class="hero-cad-viewer" disable-zoom="" environment-image="neutral" exposure="1" id="hero-cad-model" interaction-prompt="none" rotation-per-second="18deg" shadow-intensity="0.8" src="models/Workstation-Assembly.glb" touch-action="pan-y">
+</model-viewer>
+<img alt="" class="hero-cad-image" hidden="" id="hero-cad-image" src=""/>
+</div>
+<button aria-label="Next CAD model" class="hero-cad-arrow hero-cad-next" type="button">
+<svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewbox="0 0 24 24">
+<polyline points="9 18 15 12 9 6"></polyline>
+</svg>
+</button>
+</div>
+<div class="hero-cad-footer">
+<div class="hero-cad-info">
+<p class="hero-cad-kicker">
+<span id="hero-cad-tool">SOLIDWORKS</span>
+</p>
+<h2 class="hero-cad-title" id="hero-cad-title">LoomLogic Camera Workstation</h2>
+</div>
+<div class="hero-cad-controls">
+<p class="hero-cad-hint" id="hero-cad-hint">DRAG TO ORBIT</p>
+</div>
+</div>
+</div></main><section id="projects">
+<p class="section-label">PROJECTS</p>
+<div class="projects-grid">
+<!-- 01 (NEW) -->
+<div class="project-card full-width" data-project="01">
+<div>
+<h3 class="project-title">LifeStory - Memory Record Player</h3>
+<p class="project-desc">UncommonHacks '26 1st Place Winner using both Meta's DINOv2 embedding model and ORB feature matching algorithm.</p>
+<div class="project-stats">
+<div class="stat-row"><span class="label">STACK</span><span class="value">DINOv2 · ORB · ESP32-S3</span></div>
+<div class="stat-row"><span class="label">STATUS</span><span class="value">COMPLETED · MAY 2026</span></div>
+<div class="stat-row"><span class="label">DOMAIN</span><span class="value">COMPUTER VISION</span></div>
+</div>
+<button class="project-expand">Learn more <span class="arrow">→</span></button>
+</div>
+<div class="project-image">
+<img alt="LifeStory team at Uncommon Hacks 2026 Closing Ceremony" src="images/uncommonhacks_image.jpg"/>
+</div>
+<div class="project-extended">
+<div class="modal-hero-img fit">
+<img alt="ORB feature matches between physical and digital photo" src="images/matches_photo7.jpg"/>
+</div>
+<div class="modal-body">
+<p class="modal-num">MAY 2026</p>
+<h2 class="modal-title">Physical to Digital Photo Match</h2>
+<p class="modal-tagline">A physical feature that allows Alzheimers patients to identify and interact with digital images of their memories.</p>
+<div class="modal-section">
+<h4>OVERVIEW</h4>
+<p>LifeStory is a web-app diary that allows Alzheimer's patients to remember their past experiences through interactive voice-narrated digital memories.
                 But a caretaker needs to upload, select, and replay those memories for them. What if patients could directly interact with it? With no technical literacy needed?
-                What if we took something they're used to, like a physical photo album and made it a portal to their digital memories.<br />
-                <br />
+                What if we took something they're used to, like a physical photo album and made it a portal to their digital memories.<br/>
+<br/>
                 Take a photo from your album, slide it underneathe a camera, and memories start flooding back. Like a record player, but for your life story.
               </p>
-            </div>
-
-            <div class="modal-section">
-              <h4>SYSTEM ARCHITECTURE</h4>
-              <ul>
-                <li>Family members upload digital photos and biographies through the LifeStory web app</li>
-                <li>Each memory is stored in a chapter with context and voice narration</li>
-                <li>A caretaker manages the digital memories and selects appropriate ones for the patient</li>
-                <li>An ESP32-S3 CAM microcontroller acts as the physical album scanner, providing a direct interface</li>
-                <li>Patient takes a picture from an old album, and slides it under the camera</li>
-                <li>System runs through the uploaded digital memories to find the best match using DINOv2 and ORB</li>
-                <li>Once a match is found, the corresponding chapter with voice narration is played back to the patient</li>
-              </ul>
-            </div>
-
-            <div class="modal-section">
-              <h4>IMAGE MATCHING PIPELINE</h4>
-              <ul>
-                <li>ESP32-S3 hosts a live camera web server at full 2MP resolution to capture images</li>
-                <li>Python script continuously pulls jpeg frames from web server</li>
-                <li>Generate DINOv2 embeddings to rank visually similar digital images to physical photo</li>
-                <li>Shortlists candidates above </li>
-                <li>Detect ORB keypoints and compute binary descriptors for physical image and each digital candidate</li>
-                <li>Calculate brute-force hamming distance between descriptors to find top feature matches</li>
-                <li>Use Lowe’s ratio of 0.80 and RANSAC homography for outlier rejection</li>
-                <li>Return highest ORB/RANSAC match, then output keypoint matches, inlier counts, and DINOv2 similarity</li>
-              </ul>
-            </div>
-
-            <div class="modal-section">
-              <h4>TOOLCHAIN</h4>
-              <ul>
-                <li>Python for image processing pipeline</li>
-                <li>Arduino IDE for ESP32-S3 development</li>
-              </ul>
-            </div>
-            
-            <div class="modal-section">
-              <h4>TECH STACK</h4>
-              <ul>
-              <li>ESP32-S3 CAM · DINOv2 · ORB · OpenCV · PyTorch · NumPy · Wi-Fi </li>
-              </ul>
-            </div>
-
-            <div class="modal-section">
-              <h4>DEVPOST</h4>
-              <ul>
-                <li>Full Devpost can be found here: <a href="https://devpost.com/software/lifestory" target="_blank">https://devpost.com/software/lifestory</a></li>
-              </ul>
-            </div>
-
-            <div class="modal-actions">
-              <a href="https://github.com/JzJoker/uncommonhacks-life-story/tree/main/memory%20record%20player" target="_blank" class="modal-action">GitHub <span>→</span></a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 02 -->
-      <div class="project-card" data-project="02">
-        <p class="project-num">PROJECT 02</p>
-        <h3 class="project-title">WIP</h3>
-
-        <div class="project-image">
-          <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
-            <rect width="400" height="300" fill="#F0EFEB" />
-
-            <g transform="rotate(-16 72 150)">
-              <rect x="42" y="124" width="64" height="46" rx="3" fill="#F0EFEB" stroke="#1A1A1A" stroke-width="1.2" />
-              <rect x="60" y="138" width="28" height="18" rx="2" fill="#1A1A1A" />
-              <text x="63" y="151" font-family="JetBrains Mono" font-size="7" fill="#FAFAF8">IMU</text>
-              <g stroke="#1A1A1A" stroke-width="0.9">
-                <line x1="50" y1="170" x2="50" y2="176" />
-                <line x1="58" y1="170" x2="58" y2="176" />
-                <line x1="66" y1="170" x2="66" y2="176" />
-                <line x1="74" y1="170" x2="74" y2="176" />
-              </g>
-              <g stroke="#9A9A9A" stroke-width="0.9">
-                <line x1="96" y1="132" x2="116" y2="132" />
-                <line x1="96" y1="132" x2="96" y2="112" />
-              </g>
-            </g>
-            <text x="40" y="196" font-family="JetBrains Mono" font-size="8" fill="#1A1A1A">MPU6050 · 0x68</text>
-            <text x="40" y="209" font-family="JetBrains Mono" font-size="7" fill="#9A9A9A">I²C · ESP32</text>
-
-            <g stroke="#9A9A9A" stroke-width="0.8" stroke-dasharray="3 3" fill="none"><path d="M 132 150 L 166 150" /></g>
-            <path d="M 166 150 l -6 -3.5 l 0 7 z" fill="#9A9A9A" />
-
-            <rect x="172" y="126" width="96" height="48" rx="2" fill="#F0EFEB" stroke="#1A1A1A" stroke-width="1.1" />
-            <text x="181" y="149" font-family="JetBrains Mono" font-size="9" fill="#1A1A1A">/imu_node</text>
-            <text x="181" y="164" font-family="JetBrains Mono" font-size="7" fill="#9A9A9A">tilt → /cmd_vel</text>
-
-            <g stroke="#9A9A9A" stroke-width="0.9" fill="none">
-              <path d="M 276 140 a 10 10 0 0 1 18 0" />
-              <path d="M 280 133 a 16 16 0 0 1 26 0" />
-            </g>
-
-            <g stroke="#9A9A9A" stroke-width="0.8" stroke-dasharray="3 3" fill="none"><path d="M 268 162 L 300 162" /></g>
-            <path d="M 300 162 l -6 -3.5 l 0 7 z" fill="#9A9A9A" />
-
-            <rect x="300" y="92" width="84" height="120" fill="#FAFAF8" stroke="#1A1A1A" stroke-width="1.1" />
-            <text x="306" y="107" font-family="JetBrains Mono" font-size="8" fill="#1A1A1A">RViz2</text>
-            <g stroke="#9A9A9A" stroke-width="0.5">
-              <line x1="306" y1="182" x2="378" y2="182" />
-              <line x1="312" y1="196" x2="372" y2="196" />
-              <line x1="320" y1="208" x2="364" y2="208" />
-              <line x1="334" y1="180" x2="326" y2="209" />
-              <line x1="346" y1="180" x2="346" y2="209" />
-              <line x1="358" y1="180" x2="366" y2="209" />
-            </g>
-            <g transform="translate(342 168)">
-              <rect x="-16" y="-10" width="32" height="19" rx="2" fill="#1A1A1A" />
-              <ellipse cx="-10" cy="10" rx="6" ry="3" fill="#1A1A1A" />
-              <ellipse cx="10" cy="10" rx="6" ry="3" fill="#1A1A1A" />
-              <g stroke="#22C55E" stroke-width="1.4">
-                <line x1="0" y1="0" x2="16" y2="-4" />
-                <line x1="0" y1="0" x2="1" y2="-16" />
-              </g>
-            </g>
-
-            <text x="20" y="284" font-family="JetBrains Mono" font-size="7" fill="#9A9A9A">ESP32 · COMPLEMENTARY FILTER</text>
-            <text x="380" y="284" text-anchor="end" font-family="JetBrains Mono" font-size="7" fill="#9A9A9A">ROS2 · MICRO-ROS</text>
-          </svg>
-        </div>
-
-        <div class="project-stats">
-          <div class="stat-row"><span class="label">STACK</span><span class="value">ESP32 · MICRO-ROS · ROS2</span></div>
-          <div class="stat-row"><span class="label">STATUS</span><span class="value">IN PROGRESS · 2026</span></div>
-          <div class="stat-row"><span class="label">DOMAIN</span><span class="value">ROBOTICS</span></div>
-        </div>
-
-        <button class="project-expand">Learn more <span class="arrow">→</span></button>
-
-        <div class="project-extended">
-
-          <div class="modal-hero-img">
-          <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
-            <rect width="400" height="300" fill="#F0EFEB" />
-
-            <g transform="rotate(-16 72 150)">
-              <rect x="42" y="124" width="64" height="46" rx="3" fill="#F0EFEB" stroke="#1A1A1A" stroke-width="1.2" />
-              <rect x="60" y="138" width="28" height="18" rx="2" fill="#1A1A1A" />
-              <text x="63" y="151" font-family="JetBrains Mono" font-size="7" fill="#FAFAF8">IMU</text>
-              <g stroke="#1A1A1A" stroke-width="0.9">
-                <line x1="50" y1="170" x2="50" y2="176" />
-                <line x1="58" y1="170" x2="58" y2="176" />
-                <line x1="66" y1="170" x2="66" y2="176" />
-                <line x1="74" y1="170" x2="74" y2="176" />
-              </g>
-              <g stroke="#9A9A9A" stroke-width="0.9">
-                <line x1="96" y1="132" x2="116" y2="132" />
-                <line x1="96" y1="132" x2="96" y2="112" />
-              </g>
-            </g>
-            <text x="40" y="196" font-family="JetBrains Mono" font-size="8" fill="#1A1A1A">MPU6050 · 0x68</text>
-            <text x="40" y="209" font-family="JetBrains Mono" font-size="7" fill="#9A9A9A">I²C · ESP32</text>
-
-            <g stroke="#9A9A9A" stroke-width="0.8" stroke-dasharray="3 3" fill="none"><path d="M 132 150 L 166 150" /></g>
-            <path d="M 166 150 l -6 -3.5 l 0 7 z" fill="#9A9A9A" />
-
-            <rect x="172" y="126" width="96" height="48" rx="2" fill="#F0EFEB" stroke="#1A1A1A" stroke-width="1.1" />
-            <text x="181" y="149" font-family="JetBrains Mono" font-size="9" fill="#1A1A1A">/imu_node</text>
-            <text x="181" y="164" font-family="JetBrains Mono" font-size="7" fill="#9A9A9A">tilt → /cmd_vel</text>
-
-            <g stroke="#9A9A9A" stroke-width="0.9" fill="none">
-              <path d="M 276 140 a 10 10 0 0 1 18 0" />
-              <path d="M 280 133 a 16 16 0 0 1 26 0" />
-            </g>
-
-            <g stroke="#9A9A9A" stroke-width="0.8" stroke-dasharray="3 3" fill="none"><path d="M 268 162 L 300 162" /></g>
-            <path d="M 300 162 l -6 -3.5 l 0 7 z" fill="#9A9A9A" />
-
-            <rect x="300" y="92" width="84" height="120" fill="#FAFAF8" stroke="#1A1A1A" stroke-width="1.1" />
-            <text x="306" y="107" font-family="JetBrains Mono" font-size="8" fill="#1A1A1A">RViz2</text>
-            <g stroke="#9A9A9A" stroke-width="0.5">
-              <line x1="306" y1="182" x2="378" y2="182" />
-              <line x1="312" y1="196" x2="372" y2="196" />
-              <line x1="320" y1="208" x2="364" y2="208" />
-              <line x1="334" y1="180" x2="326" y2="209" />
-              <line x1="346" y1="180" x2="346" y2="209" />
-              <line x1="358" y1="180" x2="366" y2="209" />
-            </g>
-            <g transform="translate(342 168)">
-              <rect x="-16" y="-10" width="32" height="19" rx="2" fill="#1A1A1A" />
-              <ellipse cx="-10" cy="10" rx="6" ry="3" fill="#1A1A1A" />
-              <ellipse cx="10" cy="10" rx="6" ry="3" fill="#1A1A1A" />
-              <g stroke="#22C55E" stroke-width="1.4">
-                <line x1="0" y1="0" x2="16" y2="-4" />
-                <line x1="0" y1="0" x2="1" y2="-16" />
-              </g>
-            </g>
-
-            <text x="20" y="284" font-family="JetBrains Mono" font-size="7" fill="#9A9A9A">ESP32 · COMPLEMENTARY FILTER</text>
-            <text x="380" y="284" text-anchor="end" font-family="JetBrains Mono" font-size="7" fill="#9A9A9A">ROS2 · MICRO-ROS</text>
-          </svg>
-        </div>
-
-
-          <div class="modal-body">
-            <p class="modal-num">PROJECT 02 · 2026</p>
-            <h2 class="modal-title">MPU6050 Motion Controller → ROS2</h2>
-            <p class="modal-tagline">Tilt a physical IMU in your hand and a virtual robot mirrors it live in RViz2 - a complete hardware-to-middleware loop, from raw I²C samples to ROS2 topics.</p>
+</div>
 <div class="modal-section">
-              <h4>OVERVIEW</h4>
-              <p>This project turns a $3 MPU6050 into a motion controller for a robot that only exists in simulation. An ESP32 samples the IMU over I²C, runs a complementary filter to recover stable roll/pitch/yaw from noisy accelerometer and gyro data, and maps that orientation onto velocity commands. Those commands enter the ROS2 graph through micro-ROS, drive a robot model published by robot_state_publisher, and the whole thing is visualized live in RViz2. Tilt the board forward and the robot drives forward; roll it and the robot turns.</p>
-            </div>
-
-            <div class="modal-section">
-              <h4>SYSTEM ARCHITECTURE</h4>
-              <ul>
-                <li>ESP32 reads the MPU6050's 6-axis data (accel + gyro) over I²C at address 0x68</li>
-                <li>A complementary filter fuses accelerometer tilt with gyro rate into drift-resistant orientation</li>
-                <li>Tilt angles map to a geometry_msgs/Twist - pitch → linear.x, roll → angular.z</li>
-                <li>micro-ROS runs on the ESP32 and publishes over Wi-Fi (UDP) to the micro-ROS Agent on the host</li>
-                <li>On the host, robot_state_publisher broadcasts TF from a URDF as the commands arrive</li>
-                <li>RViz2 renders the robot model and updates it in real time as the board moves</li>
-              </ul>
-            </div>
-
-            <div class="modal-section">
-              <h4>MOTION PIPELINE</h4>
-              <ul>
-                <li>Sample accel/gyro, then calibrate and subtract per-axis bias</li>
-                <li>Complementary filter (α ≈ 0.98) blends gyro integration with the accelerometer reference</li>
-                <li>Deadband + scaling so a level board commands zero velocity</li>
-                <li>Publish sensor_msgs/Imu for visualization and geometry_msgs/Twist for control</li>
-                <li>The micro-ROS Agent bridges the ESP32's XRCE-DDS traffic into the full ROS2 graph</li>
-              </ul>
-            </div>
-
-            <div class="modal-section">
-              <h4>STACK</h4>
-              <ul>
-                <li>ESP32 · MPU6050 (I²C) · complementary filter</li>
-                <li>micro-ROS · ROS2 (Humble / Jazzy) · rclpy</li>
-                <li>robot_state_publisher · URDF · RViz2</li>
-              </ul>
-            </div>
-
-            <div class="modal-section">
-              <h4>TOOLCHAIN</h4>
-              <ul>
-                <li>PlatformIO / Arduino IDE with micro_ros_arduino</li>
-                <li>ROS2 + micro_ros_agent</li>
-                <li>RViz2 for live visualization</li>
-              </ul>
-            </div>
-
-            
-            <div class="modal-section">
-              <h4>DEMO</h4>
-              <div class="modal-figure video-small">
-                <video controls muted loop playsinline preload="metadata">
-                  <source src="MPU6050ROS.mp4" type="video/mp4">
-                </video>
-              </div>
-            </div>
-
+<h4>SYSTEM ARCHITECTURE</h4>
+<ul>
+<li>Family members upload digital photos and biographies through the LifeStory web app</li>
+<li>Each memory is stored in a chapter with context and voice narration</li>
+<li>A caretaker manages the digital memories and selects appropriate ones for the patient</li>
+<li>An ESP32-S3 CAM microcontroller acts as the physical album scanner, providing a direct interface</li>
+<li>Patient takes a picture from an old album, and slides it under the camera</li>
+<li>System runs through the uploaded digital memories to find the best match using DINOv2 and ORB</li>
+<li>Once a match is found, the corresponding chapter with voice narration is played back to the patient</li>
+</ul>
+</div>
+<div class="modal-section">
+<h4>IMAGE MATCHING PIPELINE</h4>
+<ul>
+<li>ESP32-S3 hosts a live camera web server at full 2MP resolution to capture images</li>
+<li>Python script continuously pulls jpeg frames from web server</li>
+<li>Generate DINOv2 embeddings to rank visually similar digital images to physical photo</li>
+<li>Shortlists candidates above </li>
+<li>Detect ORB keypoints and compute binary descriptors for physical image and each digital candidate</li>
+<li>Calculate brute-force hamming distance between descriptors to find top feature matches</li>
+<li>Use Lowe’s ratio of 0.80 and RANSAC homography for outlier rejection</li>
+<li>Return highest ORB/RANSAC match, then output keypoint matches, inlier counts, and DINOv2 similarity</li>
+</ul>
+</div>
+<div class="modal-section">
+<h4>TOOLCHAIN</h4>
+<ul>
+<li>Python for image processing pipeline</li>
+<li>Arduino IDE for ESP32-S3 development</li>
+</ul>
+</div>
+<div class="modal-section">
+<h4>TECH STACK</h4>
+<ul>
+<li>ESP32-S3 CAM · DINOv2 · ORB · OpenCV · PyTorch · NumPy · Wi-Fi </li>
+</ul>
+</div>
+<div class="modal-section">
+<h4>DEVPOST</h4>
+<ul>
+<li>Full Devpost can be found here: <a href="https://devpost.com/software/lifestory" target="_blank">https://devpost.com/software/lifestory</a></li>
+</ul>
+</div>
 <div class="modal-actions">
-              <a href="https://github.com/goombad/imu-ros2-controller" target="_blank" class="modal-action">GitHub <span>→</span></a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 03 -->
-      <div class="project-card" data-project="03">
-        <p class="project-num">PROJECT 03</p>
-        <h3 class="project-title">WIP</h3>
-
-        <div class="project-image">
-          <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
-            <rect width="400" height="300" fill="#F0EFEB" />
-
-            <g transform="translate(200 150)" fill="none" stroke="#9A9A9A" stroke-width="0.6">
-              <circle r="110" />
-              <circle r="92" />
-              <circle r="74" />
-              <circle r="56" />
-              <circle r="38" />
-              <circle r="20" />
-              <path d="M 0 -110 A 110 110 0 1 1 -0.1 -110" stroke="#1A1A1A" stroke-width="0.8" stroke-dasharray="600" stroke-dashoffset="0">
-                <animate attributeName="stroke-dashoffset" from="600" to="0" dur="6s" repeatCount="indefinite" />
-              </path>
-            </g>
-
-            <g transform="translate(200 150)" fill="none" stroke="#1A1A1A" stroke-width="0.7">
-              <path d="M -100 0 C -60 -80, 60 80, 100 0 C 60 -80, -60 80, -100 0 Z" opacity="0.7" />
-              <path d="M -70 0 C -42 -56, 42 56, 70 0 C 42 -56, -42 56, -70 0 Z" opacity="0.5" />
-              <path d="M -40 0 C -24 -32, 24 32, 40 0 C 24 -32, -24 32, -40 0 Z" opacity="0.35" />
-            </g>
-
-            <circle cx="200" cy="150" r="3" fill="#1A1A1A" />
-          </svg>
-        </div>
-
-        <div class="project-stats">
-          <div class="stat-row"><span class="label">STACK</span><span class="value">ARDUINO NANO · NEMA17 · PYTHON</span></div>
-          <div class="stat-row"><span class="label">STATUS</span><span class="value">IN PROGRESS · 2026</span></div>
-          <div class="stat-row"><span class="label">DOMAIN</span><span class="value">MOTION CONTROL</span></div>
-        </div>
-
-        <button class="project-expand">Learn more <span class="arrow">→</span></button>
-
-        <div class="project-extended">
-          <div class="modal-hero-img">
-            <svg viewBox="0 0 400 225" xmlns="http://www.w3.org/2000/svg">
-              <rect width="400" height="225" fill="#F0EFEB" />
-
-              <g transform="translate(200 112)" fill="none" stroke="#9A9A9A" stroke-width="0.6">
-                <circle r="90" />
-                <circle r="70" />
-                <circle r="50" />
-                <circle r="30" />
-              </g>
-
-              <g transform="translate(200 112)" fill="none" stroke="#1A1A1A" stroke-width="0.7">
-                <path d="M -85 0 C -50 -65, 50 65, 85 0 C 50 -65, -50 65, -85 0 Z" opacity="0.7" />
-                <path d="M -55 0 C -32 -42, 32 42, 55 0 C 32 -42, -32 42, -55 0 Z" opacity="0.45" />
-              </g>
-            </svg>
-          </div>
-
-          <div class="modal-body">
-            <p class="modal-num">PROJECT 03 · MAR 2026 - PRESENT</p>
-            <h2 class="modal-title">Automated SVG Sisyphus Table</h2>
-            <p class="modal-tagline">A polar coordinate CNC machine that draws patterns in sand using a magnetically-coupled steel ball - driven by a fully custom toolchain from SVG to motor torque.</p>
-
-            <div class="modal-section">
-              <h4>OVERVIEW</h4>
-              <p>The Sisyphus table converts vector artwork into mesmerizing sand patterns. I designed the entire system end-to-end: the math that maps an SVG into polar coordinates, the firmware that drives the steppers, and the Python bridge that streams live commands over serial.</p>
-            </div>
-
-            <div class="modal-section">
-              <h4>HIGHLIGHTS</h4>
-              <ul>
-                <li>Built a custom SVG-to-polar coordinate converter using NumPy and coordinate geometry</li>
-                <li>Developed C++ firmware on Arduino Nano to drive NEMA17 steppers</li>
-                <li>Designed and verified the full motor control schematic in CirkitDesigner</li>
-                <li>Python serial bridge streams motor commands live from a terminal</li>
-                <li>NEMA17 steppers move the steel ball to trace out the SVG patterns</li>
-              </ul>
-            </div>
-
-            <div class="modal-section">
-              <h4>STACK</h4>
-              <ul>
-                <li>Arduino Nano · NEMA17 stepper motors</li>
-                <li>C++ firmware · Python serial bridge</li>
-                <li>CirkitDesigner IDE for schematic verification</li>
-              </ul>
-            </div>
-
-            <div class="modal-section">
-              <h4>ELECTRICAL SCHEMATIC</h4>
-              <p>Two NEMA17 steppers run the polar axes - one slides the radial rail, the other rotates theta - each driven by its own A4988 driver off a shared 12V supply, with all step/direction lines fanned out from an Arduino Mega.</p>
-              <figure class="modal-figure contain">
-                <img src="images/sisyphus-schematic.png" alt="CirkitDesigner schematic of the Sisyphus table: two NEMA17 steppers, A4988 drivers, Arduino Mega, and 12V supply" />
-                <figcaption>CIRKITDESIGNER · RAIL + THETA STEPPERS · ARDUINO MEGA · 12V</figcaption>
-              </figure>
-            </div>
-
-            <div class="modal-actions">
-              <a href="https://github.com/goombad/Sisyphus-Table" target="_blank" class="modal-action">GitHub <span>→</span></a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 04 -->
-      <div class="project-card" data-project="04">
-        <p class="project-num">PROJECT 04</p>
-        <h3 class="project-title">WIP</h3>
-
-        <div class="project-image">
-          <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
-            <rect width="400" height="300" fill="#F0EFEB" />
-
-            <g transform="translate(0 50)" stroke="#9A9A9A" stroke-width="0.5" fill="none">
-              <path d="M 40 200 L 360 200" />
-              <path d="M 40 200 L 40 40 L 360 40 L 360 200" />
-              <path d="M 40 80 L 360 80" stroke-dasharray="3 3" />
-              <path d="M 40 120 L 360 120" stroke-dasharray="3 3" />
-              <path d="M 40 160 L 360 160" stroke-dasharray="3 3" />
-            </g>
-
-            <rect x="120" y="180" width="40" height="35" fill="none" stroke="#1A1A1A" stroke-width="1.2" />
-            <text x="123" y="175" font-family="JetBrains Mono" font-size="8" fill="#1A1A1A">cube · 0.94</text>
-
-            <rect x="220" y="195" width="55" height="40" fill="none" stroke="#1A1A1A" stroke-width="1.2" />
-            <text x="223" y="190" font-family="JetBrains Mono" font-size="8" fill="#1A1A1A">cube · 0.88</text>
-
-            <rect x="65" y="200" width="30" height="25" fill="none" stroke="#9A9A9A" stroke-width="1" stroke-dasharray="2 2" />
-
-            <g transform="translate(180 100)">
-              <rect x="-30" y="-15" width="60" height="30" rx="3" fill="#1A1A1A" />
-              <circle cx="-20" cy="20" r="6" fill="#1A1A1A" />
-              <circle cx="20" cy="20" r="6" fill="#1A1A1A" />
-              <rect x="-3" y="-22" width="6" height="10" fill="#1A1A1A" />
-              <circle cx="0" cy="-22" r="3" fill="#9A9A9A" />
-            </g>
-
-            <text x="20" y="280" font-family="JetBrains Mono" font-size="9" fill="#9A9A9A">FRAME · 1242 / FPS 14</text>
-          </svg>
-        </div>
-
-        <div class="project-stats">
-          <div class="stat-row"><span class="label">STACK</span><span class="value">ESP32-S3 · FOMO · MSP432</span></div>
-          <div class="stat-row"><span class="label">STATUS</span><span class="value">PAUSED · 2026</span></div>
-          <div class="stat-row"><span class="label">DOMAIN</span><span class="value">EMBEDDED ML</span></div>
-        </div>
-
-        <button class="project-expand">Learn more <span class="arrow">→</span></button>
-
-        <div class="project-extended">
-          <div class="modal-hero-img">
-            <svg viewBox="0 0 400 225" xmlns="http://www.w3.org/2000/svg">
-              <rect width="400" height="225" fill="#F0EFEB" />
-
-              <g transform="translate(200 112)">
-                <rect x="-40" y="-20" width="80" height="40" rx="4" fill="#1A1A1A" />
-                <circle cx="-25" cy="25" r="8" fill="#1A1A1A" />
-                <circle cx="25" cy="25" r="8" fill="#1A1A1A" />
-                <rect x="-4" y="-30" width="8" height="12" fill="#1A1A1A" />
-                <circle cx="0" cy="-30" r="4" fill="#9A9A9A" />
-              </g>
-
-              <rect x="100" y="140" width="50" height="50" fill="none" stroke="#22C55E" stroke-width="1.5" stroke-dasharray="4 3" />
-              <text x="100" y="135" font-family="JetBrains Mono" font-size="9" fill="#22C55E">cube · 0.94</text>
-            </svg>
-          </div>
-
-          <div class="modal-body">
-            <p class="modal-num">PROJECT 04 · MAR 2026 - PAUSED</p>
-            <h2 class="modal-title">PACK-E</h2>
-            <p class="modal-tagline">Package Acquisition & Collection Kernel Earth-Class. Autonomous object detection and retrieval by squeezing a TinyML pipeline onto a $15 microcontroller.</p>
-
-            <div class="modal-section">
-              <h4>OVERVIEW</h4>
-              <p>PACK-E identifies small target packages from a camera feed, navigates to them, and retrieves them - all without any external processing. The full vision and control loop runs on an ESP32-S3 CAM, while the MSP432 robot chassis handles the motor controls.</p>
-            </div>
-
-            <div class="modal-section">
-              <h4>ARCHITECTURE</h4>
-              <ul>
-                <li>Fine-tuned FOMO model using an optimized TensorFlow Lite Micro inference engine on ESP32-S3 CAM</li>
-                <li>Bare-metal C firmware on MSP432 for motor control, ultrasonic sensing, and UART feedback</li>
-                <li>ESP32 computes error from centroid location to frame center, then sends a navigation command to MSP432 via UART</li>
-                <li>HC-SR04 gauges distance to target and MSP432 adjusts forward velocity accordingly</li>
-                <li>Status: paused - physical chassis is at school</li>
-              </ul>
-            </div>
-
-            <div class="modal-section">
-              <h4>TOOLCHAIN</h4>
-              <ul>
-                <li>Arduino IDE</li>
-                <li>Code Composer Studio</li>
-                <li>Edge Impulse</li>
-              </ul>
-            </div>
-
-            <div class="modal-actions">
-              <a href="https://github.com/goombad/PACK-E" target="_blank" class="modal-action">GitHub <span>→</span></a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 05 -->
-      <div class="project-card" data-project="05">
-        <p class="project-num">PROJECT 05</p>
-        <h3 class="project-title">WIP</h3>
-
-        <div class="project-image">
-          <svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
-            <rect width="600" height="400" fill="#F0EFEB" />
-
-            <g stroke="#9A9A9A" stroke-width="0.5" fill="none">
-              <path d="M 0 200 L 600 200" />
-              <path d="M 100 100 L 100 300" />
-              <path d="M 300 100 L 300 300" />
-              <path d="M 500 100 L 500 300" />
-            </g>
-
-            <g stroke="#1A1A1A" stroke-width="1.2" fill="#F0EFEB">
-              <circle cx="100" cy="200" r="22" />
-              <circle cx="300" cy="200" r="22" />
-              <circle cx="500" cy="200" r="22" />
-              <circle cx="200" cy="100" r="14" />
-              <circle cx="400" cy="100" r="14" />
-              <circle cx="200" cy="300" r="14" />
-              <circle cx="400" cy="300" r="14" />
-            </g>
-
-            <g font-family="JetBrains Mono" font-size="9" fill="#1A1A1A" text-anchor="middle">
-              <text x="100" y="203">N1</text>
-              <text x="300" y="203">N2</text>
-              <text x="500" y="203">N3</text>
-            </g>
-
-            <g stroke="#1A1A1A" stroke-width="0.8" stroke-dasharray="4 3" fill="none">
-              <path d="M 122 200 L 278 200" />
-              <path d="M 322 200 L 478 200" />
-            </g>
-
-            <g font-family="JetBrains Mono" font-size="8" fill="#9A9A9A">
-              <text x="30" y="370">UART BROADCAST · 115200 8N1</text>
-              <text x="430" y="370">FLOW BALANCE · LOCAL</text>
-            </g>
-          </svg>
-        </div>
-
-        <div class="project-stats">
-          <div class="stat-row"><span class="label">STACK</span><span class="value">ESP32 · L298N · UART</span></div>
-          <div class="stat-row"><span class="label">STATUS</span><span class="value">COMPLETED · MAY 2026</span></div>
-          <div class="stat-row"><span class="label">DOMAIN</span><span class="value">CONTROL SYSTEMS</span></div>
-        </div>
-
-        <button class="project-expand">Learn more <span class="arrow">→</span></button>
-
-        <div class="project-extended">
-          <div class="modal-hero-img">
-            <model-viewer
-              src="models/blast-gate-assembly.glb"
-              alt="Interactive 3D model of the Automated Blast Gate Network assembly"
-              camera-controls
-              auto-rotate
-              auto-rotate-delay="500"
-              rotation-per-second="18deg"
-              interaction-prompt="none"
-              environment-image="neutral"
-              shadow-intensity="0.8"
-              exposure="1"
-              touch-action="pan-y"
-              loading="eager">
-            </model-viewer>
-          </div>
-
-          <div class="modal-body">
-            <p class="modal-num">PROJECT 05 · JAN - MAY 2026</p>
-            <h2 class="modal-title">Automated Blast Gate Network</h2>
-            <p class="modal-tagline">A fleet of "smart" blast gates for the RIT SHED Wood Shop - gates that talk to each other and balance vacuum flow with no central controller in the loop.</p>
-
-            <div class="modal-section">
-              <h4>OVERVIEW</h4>
-              <p>I led the electrical and embedded side of this build, designing the closed-loop positioning system, the UART communication protocol between nodes, and the flow-balancing equation that runs locally on each gate. The result: a network where each gate makes its own decisions based on broadcast state.</p>
-            </div>
-
-            <div class="modal-section">
-              <h4>HIGHLIGHTS</h4>
-              <ul>
-                <li>Designed and manufactured smart blast gates to optimize vacuum flow and UX in the Wood Shop</li>
-                <li>Built a closed-loop positioning system using L298N drivers and linear actuator feedback</li>
-                <li>Established Nano-ESP32 communication via 8N1 UART broadcast</li>
-                <li>Devised a single-byte broadcast architecture for distributed flow balancing</li>
-              </ul>
-            </div>
-
-            <div class="modal-section">
-              <h4>STACK</h4>
-              <ul>
-                <li>Arduino Nano · ESP32 · L298N motor drivers</li>
-                <li>Linear actuators with position feedback</li>
-                <li>Custom 8N1 UART broadcast protocol</li>
-              </ul>
-            </div>
-
-            <div class="modal-section">
-              <h4>PRESENTED AT IMAGINE RIT</h4>
-              <p>Our team showcased the Automated Blast Gate Network at Imagine RIT, RIT's annual creativity and innovation festival, demoing the live system to visitors right in the SHED Wood Shop where it runs.</p>
-              <figure class="modal-figure">
-                <div class="modal-figure-row">
-                  <img src="images/imagine rit.jpg" alt="Team presenting the Automated Blast Gate Network at Imagine RIT" />
-                  <img src="images/imagine-rit-poster.jpg" alt="Automated Blast Gate poster and live demo setup at Imagine RIT" />
-                </div>
-                <figcaption>IMAGINE RIT · TEAM &amp; POSTER AT THE SHED WOOD SHOP</figcaption>
-              </figure>
-            </div>
-
-            <div class="modal-section">
-              <h4>INITIAL PROTOTYPES</h4>
-              <p>Before any of the gates were manufactured, I bench-tested a single node end to end: an Arduino Nano driving a linear actuator through an L298N H-bridge, with position feedback closing the loop. This breadboard rig was where the closed-loop positioning and UART messaging were first proven out.</p>
-              <figure class="modal-figure">
-                <img src="images/PXL_20260310_021118050.MP.jpg" alt="Breadboard prototype with Arduino Nano, L298N driver, and linear actuator" />
-                <figcaption>BENCH PROTOTYPE · NANO + L298N + LINEAR ACTUATOR</figcaption>
-              </figure>
-            </div>
-
-            <div class="modal-actions">
-              <a href="https://github.com/goombad/Blast-Gate-Repo" target="_blank" class="modal-action">GitHub <span>→</span></a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 06 -->
-      <div class="project-card" data-project="06">
-        <p class="project-num">PROJECT 06</p>
-        <h3 class="project-title">WIP</h3>
-
-        <div class="project-image">
-          <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
-            <rect width="400" height="300" fill="#F0EFEB" />
-
-            <g stroke="#1A1A1A" stroke-width="1.3" fill="none" transform="translate(120 110)">
-              <rect x="0" y="0" width="160" height="60" />
-              <rect x="20" y="-18" width="120" height="22" />
-              <circle cx="80" cy="-8" r="3" fill="#1A1A1A" />
-              <ellipse cx="20" cy="68" rx="22" ry="11" />
-              <ellipse cx="80" cy="68" rx="22" ry="11" />
-              <ellipse cx="140" cy="68" rx="22" ry="11" />
-              <ellipse cx="50" cy="68" rx="22" ry="11" />
-              <ellipse cx="110" cy="68" rx="22" ry="11" />
-            </g>
-
-            <g stroke="#9A9A9A" stroke-width="0.5" fill="none" stroke-dasharray="2 3">
-              <path d="M 50 250 Q 200 280 350 250" />
-            </g>
-
-            <g font-family="JetBrains Mono" font-size="8" fill="#9A9A9A">
-              <text x="30" y="40">HC-05</text>
-              <text x="320" y="40">H-BRIDGE</text>
-              <text x="320" y="280" text-anchor="end">I²C TELEMETRY</text>
-            </g>
-          </svg>
-        </div>
-
-        <div class="project-stats">
-          <div class="stat-row"><span class="label">STACK</span><span class="value">ARDUINO MEGA · HC-05 · I²C</span></div>
-          <div class="stat-row"><span class="label">STATUS</span><span class="value">COMPLETED · 2022</span></div>
-          <div class="stat-row"><span class="label">DOMAIN</span><span class="value">POWER ELECTRONICS</span></div>
-        </div>
-
-        <button class="project-expand">Learn more <span class="arrow">→</span></button>
-
-        <div class="project-extended">
-          <div class="modal-hero-img">
-            <img src="images/PXL_20220126_164438253.jpg" alt="RC tank chassis with Arduino Mega and breadboard mounted on tracked base" />
-          </div>
-
-          <div class="modal-body">
-            <p class="modal-num">PROJECT 06 · AUG 2021 - MAY 2022</p>
-            <h2 class="modal-title">RC Tank &amp; Bluetooth Bridge</h2>
-            <p class="modal-tagline">My first real mechatronics build. Custom-designed chassis, custom H-bridge driver from discrete MOSFETs, custom controller - every layer from mechanical to firmware was hand-rolled.</p>
-
-            <div class="modal-section">
-              <h4>OVERVIEW</h4>
-              <p>I CADed and 3D-printed the analog joystick controller and the tank chassis, then designed a discrete H-bridge from P-MOS and N-MOS transistors for all four motion states. The two halves talk over HC-05 Bluetooth, and I added I²C telemetry to monitor the tank's state.</p>
-            </div>
-
-            <div class="modal-section">
-              <h4>HIGHLIGHTS</h4>
-              <ul>
-                <li>Designed a custom H-bridge motor driver using P-MOS and N-MOS for coasting, steering, braking, and reversing</li>
-                <li>Modeled and 3D-printed the joystick controller and tank chassis from scratch</li>
-                <li>Programmed the tank in Arduino C, with I²C protocol for sensor data and HC-05 for wireless command</li>
-                <li>First project that mixed mechanical, electrical, and firmware in one system</li>
-              </ul>
-            </div>
-
-            <div class="modal-section">
-              <h4>STACK</h4>
-              <ul>
-                <li>Arduino Mega · Arduino Uno, controller / chassis</li>
-                <li>Discrete P-MOS / N-MOS H-bridge</li>
-                <li>HC-05 Bluetooth module · I²C telemetry</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-
-  <!-- EXPERIENCE -->
-  <section id="experience" class="experience">
-    <p class="section-label">EXPERIENCE</p>
-    <p class="section-eyebrow">[ 002 ]</p>
-
-    <div class="exp-list">
-      <div class="exp-item">
-        <div class="exp-date">JUN - AUG 2026</div>
-        <div class="exp-role">Hardware Design Engineer</div>
-        <div class="exp-company">LoomLogic Inc</div>
-        <div class="exp-tag">[ HARDWARE ]</div>
-      </div>
-
-      <div class="exp-item">
-        <div class="exp-date">SEP - DEC 2025</div>
-        <div class="exp-role">Robotics Automation Field Engineer</div>
-        <div class="exp-company">Retiina / USPS Atlanta RPDC</div>
-        <div class="exp-tag">[ ROBOTICS ]</div>
-      </div>
-
-      <div class="exp-item">
-        <div class="exp-date">MAY - AUG 2025</div>
-        <div class="exp-role">Design &amp; Manufacturing Intern</div>
-        <div class="exp-company">Electronic Hardware Corporation</div>
-        <div class="exp-tag">[ MECHANICAL ]</div>
-      </div>
-
-      <div class="exp-item">
-        <div class="exp-date">JUN - AUG 2024</div>
-        <div class="exp-role">Development Engineer Intern</div>
-        <div class="exp-company">OPmobility · Tokyo Plastic Omnium</div>
-        <div class="exp-tag">[ VALIDATION ]</div>
-      </div>
-
-      <div class="exp-item">
-        <div class="exp-date">2024 - PRESENT</div>
-        <div class="exp-role">Makerspace Lab Assistant</div>
-        <div class="exp-company">RIT SHED</div>
-        <div class="exp-tag">[ TEACHING ]</div>
-      </div>
-
-      <div class="exp-item">
-        <div class="exp-date">2023 - 2026</div>
-        <div class="exp-role">Math &amp; Physics Tutor</div>
-        <div class="exp-company">RIT Academic Success Center</div>
-        <div class="exp-tag">[ TEACHING ]</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ABOUT / PROFILE -->
-  <section id="about" class="about">
-    <p class="section-label">ABOUT </p>
-    <p class="section-eyebrow">[ 003 ]</p>
-
-    <div class="about-grid">
-
-      <div class="about-left">
-        <h3 class="about-headline">Mechatronics from the <em>start</em>. </h3>
-        <div class="about-body">
-          <p>I'm a 5th-year engineering student at RIT, with a dual major B.S. in Mechatronics/Electrical Engineering Technology. I'm finished with the Mechatronics curriculum and wanted to learn more, so I pursued a second major in Electrical Engineering Technology.
+<a class="modal-action" href="https://github.com/JzJoker/uncommonhacks-life-story/tree/main/memory%20record%20player" target="_blank">GitHub <span>→</span></a>
+</div>
+</div>
+</div>
+</div>
+<!-- 02 -->
+<div class="project-card" data-project="02">
+<h3 class="project-title">WIP</h3>
+<div class="project-image">
+<svg viewbox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+<rect fill="#F0EFEB" height="300" width="400"></rect>
+<g transform="rotate(-16 72 150)">
+<rect fill="#F0EFEB" height="46" rx="3" stroke="#1A1A1A" stroke-width="1.2" width="64" x="42" y="124"></rect>
+<rect fill="#1A1A1A" height="18" rx="2" width="28" x="60" y="138"></rect>
+<text fill="#FAFAF8" font-family="JetBrains Mono" font-size="7" x="63" y="151">IMU</text>
+<g stroke="#1A1A1A" stroke-width="0.9">
+<line x1="50" x2="50" y1="170" y2="176"></line>
+<line x1="58" x2="58" y1="170" y2="176"></line>
+<line x1="66" x2="66" y1="170" y2="176"></line>
+<line x1="74" x2="74" y1="170" y2="176"></line>
+</g>
+<g stroke="#9A9A9A" stroke-width="0.9">
+<line x1="96" x2="116" y1="132" y2="132"></line>
+<line x1="96" x2="96" y1="132" y2="112"></line>
+</g>
+</g>
+<text fill="#1A1A1A" font-family="JetBrains Mono" font-size="8" x="40" y="196">MPU6050 · 0x68</text>
+<text fill="#9A9A9A" font-family="JetBrains Mono" font-size="7" x="40" y="209">I²C · ESP32</text>
+<g fill="none" stroke="#9A9A9A" stroke-dasharray="3 3" stroke-width="0.8"><path d="M 132 150 L 166 150"></path></g>
+<path d="M 166 150 l -6 -3.5 l 0 7 z" fill="#9A9A9A"></path>
+<rect fill="#F0EFEB" height="48" rx="2" stroke="#1A1A1A" stroke-width="1.1" width="96" x="172" y="126"></rect>
+<text fill="#1A1A1A" font-family="JetBrains Mono" font-size="9" x="181" y="149">/imu_node</text>
+<text fill="#9A9A9A" font-family="JetBrains Mono" font-size="7" x="181" y="164">tilt → /cmd_vel</text>
+<g fill="none" stroke="#9A9A9A" stroke-width="0.9">
+<path d="M 276 140 a 10 10 0 0 1 18 0"></path>
+<path d="M 280 133 a 16 16 0 0 1 26 0"></path>
+</g>
+<g fill="none" stroke="#9A9A9A" stroke-dasharray="3 3" stroke-width="0.8"><path d="M 268 162 L 300 162"></path></g>
+<path d="M 300 162 l -6 -3.5 l 0 7 z" fill="#9A9A9A"></path>
+<rect fill="#FAFAF8" height="120" stroke="#1A1A1A" stroke-width="1.1" width="84" x="300" y="92"></rect>
+<text fill="#1A1A1A" font-family="JetBrains Mono" font-size="8" x="306" y="107">RViz2</text>
+<g stroke="#9A9A9A" stroke-width="0.5">
+<line x1="306" x2="378" y1="182" y2="182"></line>
+<line x1="312" x2="372" y1="196" y2="196"></line>
+<line x1="320" x2="364" y1="208" y2="208"></line>
+<line x1="334" x2="326" y1="180" y2="209"></line>
+<line x1="346" x2="346" y1="180" y2="209"></line>
+<line x1="358" x2="366" y1="180" y2="209"></line>
+</g>
+<g transform="translate(342 168)">
+<rect fill="#1A1A1A" height="19" rx="2" width="32" x="-16" y="-10"></rect>
+<ellipse cx="-10" cy="10" fill="#1A1A1A" rx="6" ry="3"></ellipse>
+<ellipse cx="10" cy="10" fill="#1A1A1A" rx="6" ry="3"></ellipse>
+<g stroke="#22C55E" stroke-width="1.4">
+<line x1="0" x2="16" y1="0" y2="-4"></line>
+<line x1="0" x2="1" y1="0" y2="-16"></line>
+</g>
+</g>
+<text fill="#9A9A9A" font-family="JetBrains Mono" font-size="7" x="20" y="284">ESP32 · COMPLEMENTARY FILTER</text>
+<text fill="#9A9A9A" font-family="JetBrains Mono" font-size="7" text-anchor="end" x="380" y="284">ROS2 · MICRO-ROS</text>
+</svg>
+</div>
+<div class="project-stats">
+<div class="stat-row"><span class="label">STACK</span><span class="value">ESP32 · MICRO-ROS · ROS2</span></div>
+<div class="stat-row"><span class="label">STATUS</span><span class="value">IN PROGRESS · 2026</span></div>
+<div class="stat-row"><span class="label">DOMAIN</span><span class="value">ROBOTICS</span></div>
+</div>
+<button class="project-expand">Learn more <span class="arrow">→</span></button>
+<div class="project-extended">
+<div class="modal-hero-img">
+<svg viewbox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+<rect fill="#F0EFEB" height="300" width="400"></rect>
+<g transform="rotate(-16 72 150)">
+<rect fill="#F0EFEB" height="46" rx="3" stroke="#1A1A1A" stroke-width="1.2" width="64" x="42" y="124"></rect>
+<rect fill="#1A1A1A" height="18" rx="2" width="28" x="60" y="138"></rect>
+<text fill="#FAFAF8" font-family="JetBrains Mono" font-size="7" x="63" y="151">IMU</text>
+<g stroke="#1A1A1A" stroke-width="0.9">
+<line x1="50" x2="50" y1="170" y2="176"></line>
+<line x1="58" x2="58" y1="170" y2="176"></line>
+<line x1="66" x2="66" y1="170" y2="176"></line>
+<line x1="74" x2="74" y1="170" y2="176"></line>
+</g>
+<g stroke="#9A9A9A" stroke-width="0.9">
+<line x1="96" x2="116" y1="132" y2="132"></line>
+<line x1="96" x2="96" y1="132" y2="112"></line>
+</g>
+</g>
+<text fill="#1A1A1A" font-family="JetBrains Mono" font-size="8" x="40" y="196">MPU6050 · 0x68</text>
+<text fill="#9A9A9A" font-family="JetBrains Mono" font-size="7" x="40" y="209">I²C · ESP32</text>
+<g fill="none" stroke="#9A9A9A" stroke-dasharray="3 3" stroke-width="0.8"><path d="M 132 150 L 166 150"></path></g>
+<path d="M 166 150 l -6 -3.5 l 0 7 z" fill="#9A9A9A"></path>
+<rect fill="#F0EFEB" height="48" rx="2" stroke="#1A1A1A" stroke-width="1.1" width="96" x="172" y="126"></rect>
+<text fill="#1A1A1A" font-family="JetBrains Mono" font-size="9" x="181" y="149">/imu_node</text>
+<text fill="#9A9A9A" font-family="JetBrains Mono" font-size="7" x="181" y="164">tilt → /cmd_vel</text>
+<g fill="none" stroke="#9A9A9A" stroke-width="0.9">
+<path d="M 276 140 a 10 10 0 0 1 18 0"></path>
+<path d="M 280 133 a 16 16 0 0 1 26 0"></path>
+</g>
+<g fill="none" stroke="#9A9A9A" stroke-dasharray="3 3" stroke-width="0.8"><path d="M 268 162 L 300 162"></path></g>
+<path d="M 300 162 l -6 -3.5 l 0 7 z" fill="#9A9A9A"></path>
+<rect fill="#FAFAF8" height="120" stroke="#1A1A1A" stroke-width="1.1" width="84" x="300" y="92"></rect>
+<text fill="#1A1A1A" font-family="JetBrains Mono" font-size="8" x="306" y="107">RViz2</text>
+<g stroke="#9A9A9A" stroke-width="0.5">
+<line x1="306" x2="378" y1="182" y2="182"></line>
+<line x1="312" x2="372" y1="196" y2="196"></line>
+<line x1="320" x2="364" y1="208" y2="208"></line>
+<line x1="334" x2="326" y1="180" y2="209"></line>
+<line x1="346" x2="346" y1="180" y2="209"></line>
+<line x1="358" x2="366" y1="180" y2="209"></line>
+</g>
+<g transform="translate(342 168)">
+<rect fill="#1A1A1A" height="19" rx="2" width="32" x="-16" y="-10"></rect>
+<ellipse cx="-10" cy="10" fill="#1A1A1A" rx="6" ry="3"></ellipse>
+<ellipse cx="10" cy="10" fill="#1A1A1A" rx="6" ry="3"></ellipse>
+<g stroke="#22C55E" stroke-width="1.4">
+<line x1="0" x2="16" y1="0" y2="-4"></line>
+<line x1="0" x2="1" y1="0" y2="-16"></line>
+</g>
+</g>
+<text fill="#9A9A9A" font-family="JetBrains Mono" font-size="7" x="20" y="284">ESP32 · COMPLEMENTARY FILTER</text>
+<text fill="#9A9A9A" font-family="JetBrains Mono" font-size="7" text-anchor="end" x="380" y="284">ROS2 · MICRO-ROS</text>
+</svg>
+</div>
+<div class="modal-body">
+<p class="modal-num">2026</p>
+<h2 class="modal-title">MPU6050 Motion Controller → ROS2</h2>
+<p class="modal-tagline">Tilt a physical IMU in your hand and a virtual robot mirrors it live in RViz2 - a complete hardware-to-middleware loop, from raw I²C samples to ROS2 topics.</p>
+<div class="modal-section">
+<h4>OVERVIEW</h4>
+<p>This project turns a $3 MPU6050 into a motion controller for a robot that only exists in simulation. An ESP32 samples the IMU over I²C, runs a complementary filter to recover stable roll/pitch/yaw from noisy accelerometer and gyro data, and maps that orientation onto velocity commands. Those commands enter the ROS2 graph through micro-ROS, drive a robot model published by robot_state_publisher, and the whole thing is visualized live in RViz2. Tilt the board forward and the robot drives forward; roll it and the robot turns.</p>
+</div>
+<div class="modal-section">
+<h4>SYSTEM ARCHITECTURE</h4>
+<ul>
+<li>ESP32 reads the MPU6050's 6-axis data (accel + gyro) over I²C at address 0x68</li>
+<li>A complementary filter fuses accelerometer tilt with gyro rate into drift-resistant orientation</li>
+<li>Tilt angles map to a geometry_msgs/Twist - pitch → linear.x, roll → angular.z</li>
+<li>micro-ROS runs on the ESP32 and publishes over Wi-Fi (UDP) to the micro-ROS Agent on the host</li>
+<li>On the host, robot_state_publisher broadcasts TF from a URDF as the commands arrive</li>
+<li>RViz2 renders the robot model and updates it in real time as the board moves</li>
+</ul>
+</div>
+<div class="modal-section">
+<h4>MOTION PIPELINE</h4>
+<ul>
+<li>Sample accel/gyro, then calibrate and subtract per-axis bias</li>
+<li>Complementary filter (α ≈ 0.98) blends gyro integration with the accelerometer reference</li>
+<li>Deadband + scaling so a level board commands zero velocity</li>
+<li>Publish sensor_msgs/Imu for visualization and geometry_msgs/Twist for control</li>
+<li>The micro-ROS Agent bridges the ESP32's XRCE-DDS traffic into the full ROS2 graph</li>
+</ul>
+</div>
+<div class="modal-section">
+<h4>STACK</h4>
+<ul>
+<li>ESP32 · MPU6050 (I²C) · complementary filter</li>
+<li>micro-ROS · ROS2 (Humble / Jazzy) · rclpy</li>
+<li>robot_state_publisher · URDF · RViz2</li>
+</ul>
+</div>
+<div class="modal-section">
+<h4>TOOLCHAIN</h4>
+<ul>
+<li>PlatformIO / Arduino IDE with micro_ros_arduino</li>
+<li>ROS2 + micro_ros_agent</li>
+<li>RViz2 for live visualization</li>
+</ul>
+</div>
+<div class="modal-section">
+<h4>DEMO</h4>
+<div class="modal-figure video-small">
+<video controls="" loop="" muted="" playsinline="" preload="metadata">
+<source src="MPU6050ROS.mp4" type="video/mp4"/>
+</video>
+</div>
+</div>
+<div class="modal-actions">
+<a class="modal-action" href="https://github.com/goombad/imu-ros2-controller" target="_blank">GitHub <span>→</span></a>
+</div>
+</div>
+</div>
+</div>
+<!-- 03 -->
+<div class="project-card" data-project="03">
+<h3 class="project-title">WIP</h3>
+<div class="project-image">
+<svg viewbox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+<rect fill="#F0EFEB" height="300" width="400"></rect>
+<g fill="none" stroke="#9A9A9A" stroke-width="0.6" transform="translate(200 150)">
+<circle r="110"></circle>
+<circle r="92"></circle>
+<circle r="74"></circle>
+<circle r="56"></circle>
+<circle r="38"></circle>
+<circle r="20"></circle>
+<path d="M 0 -110 A 110 110 0 1 1 -0.1 -110" stroke="#1A1A1A" stroke-dasharray="600" stroke-dashoffset="0" stroke-width="0.8">
+<animate attributename="stroke-dashoffset" dur="6s" from="600" repeatcount="indefinite" to="0"></animate>
+</path>
+</g>
+<g fill="none" stroke="#1A1A1A" stroke-width="0.7" transform="translate(200 150)">
+<path d="M -100 0 C -60 -80, 60 80, 100 0 C 60 -80, -60 80, -100 0 Z" opacity="0.7"></path>
+<path d="M -70 0 C -42 -56, 42 56, 70 0 C 42 -56, -42 56, -70 0 Z" opacity="0.5"></path>
+<path d="M -40 0 C -24 -32, 24 32, 40 0 C 24 -32, -24 32, -40 0 Z" opacity="0.35"></path>
+</g>
+<circle cx="200" cy="150" fill="#1A1A1A" r="3"></circle>
+</svg>
+</div>
+<div class="project-stats">
+<div class="stat-row"><span class="label">STACK</span><span class="value">ARDUINO NANO · NEMA17 · PYTHON</span></div>
+<div class="stat-row"><span class="label">STATUS</span><span class="value">IN PROGRESS · 2026</span></div>
+<div class="stat-row"><span class="label">DOMAIN</span><span class="value">MOTION CONTROL</span></div>
+</div>
+<button class="project-expand">Learn more <span class="arrow">→</span></button>
+<div class="project-extended">
+<div class="modal-hero-img">
+<svg viewbox="0 0 400 225" xmlns="http://www.w3.org/2000/svg">
+<rect fill="#F0EFEB" height="225" width="400"></rect>
+<g fill="none" stroke="#9A9A9A" stroke-width="0.6" transform="translate(200 112)">
+<circle r="90"></circle>
+<circle r="70"></circle>
+<circle r="50"></circle>
+<circle r="30"></circle>
+</g>
+<g fill="none" stroke="#1A1A1A" stroke-width="0.7" transform="translate(200 112)">
+<path d="M -85 0 C -50 -65, 50 65, 85 0 C 50 -65, -50 65, -85 0 Z" opacity="0.7"></path>
+<path d="M -55 0 C -32 -42, 32 42, 55 0 C 32 -42, -32 42, -55 0 Z" opacity="0.45"></path>
+</g>
+</svg>
+</div>
+<div class="modal-body">
+<p class="modal-num">MAR 2026 - PRESENT</p>
+<h2 class="modal-title">Automated SVG Sisyphus Table</h2>
+<p class="modal-tagline">A polar coordinate CNC machine that draws patterns in sand using a magnetically-coupled steel ball - driven by a fully custom toolchain from SVG to motor torque.</p>
+<div class="modal-section">
+<h4>OVERVIEW</h4>
+<p>The Sisyphus table converts vector artwork into mesmerizing sand patterns. I designed the entire system end-to-end: the math that maps an SVG into polar coordinates, the firmware that drives the steppers, and the Python bridge that streams live commands over serial.</p>
+</div>
+<div class="modal-section">
+<h4>HIGHLIGHTS</h4>
+<ul>
+<li>Built a custom SVG-to-polar coordinate converter using NumPy and coordinate geometry</li>
+<li>Developed C++ firmware on Arduino Nano to drive NEMA17 steppers</li>
+<li>Designed and verified the full motor control schematic in CirkitDesigner</li>
+<li>Python serial bridge streams motor commands live from a terminal</li>
+<li>NEMA17 steppers move the steel ball to trace out the SVG patterns</li>
+</ul>
+</div>
+<div class="modal-section">
+<h4>STACK</h4>
+<ul>
+<li>Arduino Nano · NEMA17 stepper motors</li>
+<li>C++ firmware · Python serial bridge</li>
+<li>CirkitDesigner IDE for schematic verification</li>
+</ul>
+</div>
+<div class="modal-section">
+<h4>ELECTRICAL SCHEMATIC</h4>
+<p>Two NEMA17 steppers run the polar axes - one slides the radial rail, the other rotates theta - each driven by its own A4988 driver off a shared 12V supply, with all step/direction lines fanned out from an Arduino Mega.</p>
+<figure class="modal-figure contain">
+<img alt="CirkitDesigner schematic of the Sisyphus table: two NEMA17 steppers, A4988 drivers, Arduino Mega, and 12V supply" src="images/sisyphus-schematic.png"/>
+<figcaption>CIRKITDESIGNER · RAIL + THETA STEPPERS · ARDUINO MEGA · 12V</figcaption>
+</figure>
+</div>
+<div class="modal-actions">
+<a class="modal-action" href="https://github.com/goombad/Sisyphus-Table" target="_blank">GitHub <span>→</span></a>
+</div>
+</div>
+</div>
+</div>
+<!-- 04 -->
+<div class="project-card" data-project="04">
+<h3 class="project-title">WIP</h3>
+<div class="project-image">
+<svg viewbox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+<rect fill="#F0EFEB" height="300" width="400"></rect>
+<g fill="none" stroke="#9A9A9A" stroke-width="0.5" transform="translate(0 50)">
+<path d="M 40 200 L 360 200"></path>
+<path d="M 40 200 L 40 40 L 360 40 L 360 200"></path>
+<path d="M 40 80 L 360 80" stroke-dasharray="3 3"></path>
+<path d="M 40 120 L 360 120" stroke-dasharray="3 3"></path>
+<path d="M 40 160 L 360 160" stroke-dasharray="3 3"></path>
+</g>
+<rect fill="none" height="35" stroke="#1A1A1A" stroke-width="1.2" width="40" x="120" y="180"></rect>
+<text fill="#1A1A1A" font-family="JetBrains Mono" font-size="8" x="123" y="175">cube · 0.94</text>
+<rect fill="none" height="40" stroke="#1A1A1A" stroke-width="1.2" width="55" x="220" y="195"></rect>
+<text fill="#1A1A1A" font-family="JetBrains Mono" font-size="8" x="223" y="190">cube · 0.88</text>
+<rect fill="none" height="25" stroke="#9A9A9A" stroke-dasharray="2 2" stroke-width="1" width="30" x="65" y="200"></rect>
+<g transform="translate(180 100)">
+<rect fill="#1A1A1A" height="30" rx="3" width="60" x="-30" y="-15"></rect>
+<circle cx="-20" cy="20" fill="#1A1A1A" r="6"></circle>
+<circle cx="20" cy="20" fill="#1A1A1A" r="6"></circle>
+<rect fill="#1A1A1A" height="10" width="6" x="-3" y="-22"></rect>
+<circle cx="0" cy="-22" fill="#9A9A9A" r="3"></circle>
+</g>
+<text fill="#9A9A9A" font-family="JetBrains Mono" font-size="9" x="20" y="280">FRAME · 1242 / FPS 14</text>
+</svg>
+</div>
+<div class="project-stats">
+<div class="stat-row"><span class="label">STACK</span><span class="value">ESP32-S3 · FOMO · MSP432</span></div>
+<div class="stat-row"><span class="label">STATUS</span><span class="value">PAUSED · 2026</span></div>
+<div class="stat-row"><span class="label">DOMAIN</span><span class="value">EMBEDDED ML</span></div>
+</div>
+<button class="project-expand">Learn more <span class="arrow">→</span></button>
+<div class="project-extended">
+<div class="modal-hero-img">
+<svg viewbox="0 0 400 225" xmlns="http://www.w3.org/2000/svg">
+<rect fill="#F0EFEB" height="225" width="400"></rect>
+<g transform="translate(200 112)">
+<rect fill="#1A1A1A" height="40" rx="4" width="80" x="-40" y="-20"></rect>
+<circle cx="-25" cy="25" fill="#1A1A1A" r="8"></circle>
+<circle cx="25" cy="25" fill="#1A1A1A" r="8"></circle>
+<rect fill="#1A1A1A" height="12" width="8" x="-4" y="-30"></rect>
+<circle cx="0" cy="-30" fill="#9A9A9A" r="4"></circle>
+</g>
+<rect fill="none" height="50" stroke="#22C55E" stroke-dasharray="4 3" stroke-width="1.5" width="50" x="100" y="140"></rect>
+<text fill="#22C55E" font-family="JetBrains Mono" font-size="9" x="100" y="135">cube · 0.94</text>
+</svg>
+</div>
+<div class="modal-body">
+<p class="modal-num">MAR 2026 - PAUSED</p>
+<h2 class="modal-title">PACK-E</h2>
+<p class="modal-tagline">Package Acquisition &amp; Collection Kernel Earth-Class. Autonomous object detection and retrieval by squeezing a TinyML pipeline onto a $15 microcontroller.</p>
+<div class="modal-section">
+<h4>OVERVIEW</h4>
+<p>PACK-E identifies small target packages from a camera feed, navigates to them, and retrieves them - all without any external processing. The full vision and control loop runs on an ESP32-S3 CAM, while the MSP432 robot chassis handles the motor controls.</p>
+</div>
+<div class="modal-section">
+<h4>ARCHITECTURE</h4>
+<ul>
+<li>Fine-tuned FOMO model using an optimized TensorFlow Lite Micro inference engine on ESP32-S3 CAM</li>
+<li>Bare-metal C firmware on MSP432 for motor control, ultrasonic sensing, and UART feedback</li>
+<li>ESP32 computes error from centroid location to frame center, then sends a navigation command to MSP432 via UART</li>
+<li>HC-SR04 gauges distance to target and MSP432 adjusts forward velocity accordingly</li>
+<li>Status: paused - physical chassis is at school</li>
+</ul>
+</div>
+<div class="modal-section">
+<h4>TOOLCHAIN</h4>
+<ul>
+<li>Arduino IDE</li>
+<li>Code Composer Studio</li>
+<li>Edge Impulse</li>
+</ul>
+</div>
+<div class="modal-actions">
+<a class="modal-action" href="https://github.com/goombad/PACK-E" target="_blank">GitHub <span>→</span></a>
+</div>
+</div>
+</div>
+</div>
+<!-- 05 -->
+<div class="project-card" data-project="05">
+<h3 class="project-title">WIP</h3>
+<div class="project-image">
+<svg preserveaspectratio="xMidYMid slice" viewbox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
+<rect fill="#F0EFEB" height="400" width="600"></rect>
+<g fill="none" stroke="#9A9A9A" stroke-width="0.5">
+<path d="M 0 200 L 600 200"></path>
+<path d="M 100 100 L 100 300"></path>
+<path d="M 300 100 L 300 300"></path>
+<path d="M 500 100 L 500 300"></path>
+</g>
+<g fill="#F0EFEB" stroke="#1A1A1A" stroke-width="1.2">
+<circle cx="100" cy="200" r="22"></circle>
+<circle cx="300" cy="200" r="22"></circle>
+<circle cx="500" cy="200" r="22"></circle>
+<circle cx="200" cy="100" r="14"></circle>
+<circle cx="400" cy="100" r="14"></circle>
+<circle cx="200" cy="300" r="14"></circle>
+<circle cx="400" cy="300" r="14"></circle>
+</g>
+<g fill="#1A1A1A" font-family="JetBrains Mono" font-size="9" text-anchor="middle">
+<text x="100" y="203">N1</text>
+<text x="300" y="203">N2</text>
+<text x="500" y="203">N3</text>
+</g>
+<g fill="none" stroke="#1A1A1A" stroke-dasharray="4 3" stroke-width="0.8">
+<path d="M 122 200 L 278 200"></path>
+<path d="M 322 200 L 478 200"></path>
+</g>
+<g fill="#9A9A9A" font-family="JetBrains Mono" font-size="8">
+<text x="30" y="370">UART BROADCAST · 115200 8N1</text>
+<text x="430" y="370">FLOW BALANCE · LOCAL</text>
+</g>
+</svg>
+</div>
+<div class="project-stats">
+<div class="stat-row"><span class="label">STACK</span><span class="value">ESP32 · L298N · UART</span></div>
+<div class="stat-row"><span class="label">STATUS</span><span class="value">COMPLETED · MAY 2026</span></div>
+<div class="stat-row"><span class="label">DOMAIN</span><span class="value">CONTROL SYSTEMS</span></div>
+</div>
+<button class="project-expand">Learn more <span class="arrow">→</span></button>
+<div class="project-extended">
+<div class="modal-hero-img">
+<model-viewer alt="Interactive 3D model of the Automated Blast Gate Network assembly" auto-rotate="" auto-rotate-delay="500" camera-controls="" environment-image="neutral" exposure="1" interaction-prompt="none" loading="eager" rotation-per-second="18deg" shadow-intensity="0.8" src="models/blast-gate-assembly.glb" touch-action="pan-y">
+</model-viewer>
+</div>
+<div class="modal-body">
+<p class="modal-num">JAN - MAY 2026</p>
+<h2 class="modal-title">Automated Blast Gate Network</h2>
+<p class="modal-tagline">A fleet of "smart" blast gates for the RIT SHED Wood Shop - gates that talk to each other and balance vacuum flow with no central controller in the loop.</p>
+<div class="modal-section">
+<h4>OVERVIEW</h4>
+<p>I led the electrical and embedded side of this build, designing the closed-loop positioning system, the UART communication protocol between nodes, and the flow-balancing equation that runs locally on each gate. The result: a network where each gate makes its own decisions based on broadcast state.</p>
+</div>
+<div class="modal-section">
+<h4>HIGHLIGHTS</h4>
+<ul>
+<li>Designed and manufactured smart blast gates to optimize vacuum flow and UX in the Wood Shop</li>
+<li>Built a closed-loop positioning system using L298N drivers and linear actuator feedback</li>
+<li>Established Nano-ESP32 communication via 8N1 UART broadcast</li>
+<li>Devised a single-byte broadcast architecture for distributed flow balancing</li>
+</ul>
+</div>
+<div class="modal-section">
+<h4>STACK</h4>
+<ul>
+<li>Arduino Nano · ESP32 · L298N motor drivers</li>
+<li>Linear actuators with position feedback</li>
+<li>Custom 8N1 UART broadcast protocol</li>
+</ul>
+</div>
+<div class="modal-section">
+<h4>PRESENTED AT IMAGINE RIT</h4>
+<p>Our team showcased the Automated Blast Gate Network at Imagine RIT, RIT's annual creativity and innovation festival, demoing the live system to visitors right in the SHED Wood Shop where it runs.</p>
+<figure class="modal-figure">
+<div class="modal-figure-row">
+<img alt="Team presenting the Automated Blast Gate Network at Imagine RIT" src="images/imagine rit.jpg"/>
+<img alt="Automated Blast Gate poster and live demo setup at Imagine RIT" src="images/imagine-rit-poster.jpg"/>
+</div>
+<figcaption>IMAGINE RIT · TEAM &amp; POSTER AT THE SHED WOOD SHOP</figcaption>
+</figure>
+</div>
+<div class="modal-section">
+<h4>INITIAL PROTOTYPES</h4>
+<p>Before any of the gates were manufactured, I bench-tested a single node end to end: an Arduino Nano driving a linear actuator through an L298N H-bridge, with position feedback closing the loop. This breadboard rig was where the closed-loop positioning and UART messaging were first proven out.</p>
+<figure class="modal-figure">
+<img alt="Breadboard prototype with Arduino Nano, L298N driver, and linear actuator" src="images/PXL_20260310_021118050.MP.jpg"/>
+<figcaption>BENCH PROTOTYPE · NANO + L298N + LINEAR ACTUATOR</figcaption>
+</figure>
+</div>
+<div class="modal-actions">
+<a class="modal-action" href="https://github.com/goombad/Blast-Gate-Repo" target="_blank">GitHub <span>→</span></a>
+</div>
+</div>
+</div>
+</div>
+<!-- 06 -->
+<div class="project-card" data-project="06">
+<h3 class="project-title">WIP</h3>
+<div class="project-image">
+<svg viewbox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+<rect fill="#F0EFEB" height="300" width="400"></rect>
+<g fill="none" stroke="#1A1A1A" stroke-width="1.3" transform="translate(120 110)">
+<rect height="60" width="160" x="0" y="0"></rect>
+<rect height="22" width="120" x="20" y="-18"></rect>
+<circle cx="80" cy="-8" fill="#1A1A1A" r="3"></circle>
+<ellipse cx="20" cy="68" rx="22" ry="11"></ellipse>
+<ellipse cx="80" cy="68" rx="22" ry="11"></ellipse>
+<ellipse cx="140" cy="68" rx="22" ry="11"></ellipse>
+<ellipse cx="50" cy="68" rx="22" ry="11"></ellipse>
+<ellipse cx="110" cy="68" rx="22" ry="11"></ellipse>
+</g>
+<g fill="none" stroke="#9A9A9A" stroke-dasharray="2 3" stroke-width="0.5">
+<path d="M 50 250 Q 200 280 350 250"></path>
+</g>
+<g fill="#9A9A9A" font-family="JetBrains Mono" font-size="8">
+<text x="30" y="40">HC-05</text>
+<text x="320" y="40">H-BRIDGE</text>
+<text text-anchor="end" x="320" y="280">I²C TELEMETRY</text>
+</g>
+</svg>
+</div>
+<div class="project-stats">
+<div class="stat-row"><span class="label">STACK</span><span class="value">ARDUINO MEGA · HC-05 · I²C</span></div>
+<div class="stat-row"><span class="label">STATUS</span><span class="value">COMPLETED · 2022</span></div>
+<div class="stat-row"><span class="label">DOMAIN</span><span class="value">POWER ELECTRONICS</span></div>
+</div>
+<button class="project-expand">Learn more <span class="arrow">→</span></button>
+<div class="project-extended">
+<div class="modal-hero-img">
+<img alt="RC tank chassis with Arduino Mega and breadboard mounted on tracked base" src="images/PXL_20220126_164438253.jpg"/>
+</div>
+<div class="modal-body">
+<p class="modal-num">AUG 2021 - MAY 2022</p>
+<h2 class="modal-title">RC Tank &amp; Bluetooth Bridge</h2>
+<p class="modal-tagline">My first real mechatronics build. Custom-designed chassis, custom H-bridge driver from discrete MOSFETs, custom controller - every layer from mechanical to firmware was hand-rolled.</p>
+<div class="modal-section">
+<h4>OVERVIEW</h4>
+<p>I CADed and 3D-printed the analog joystick controller and the tank chassis, then designed a discrete H-bridge from P-MOS and N-MOS transistors for all four motion states. The two halves talk over HC-05 Bluetooth, and I added I²C telemetry to monitor the tank's state.</p>
+</div>
+<div class="modal-section">
+<h4>HIGHLIGHTS</h4>
+<ul>
+<li>Designed a custom H-bridge motor driver using P-MOS and N-MOS for coasting, steering, braking, and reversing</li>
+<li>Modeled and 3D-printed the joystick controller and tank chassis from scratch</li>
+<li>Programmed the tank in Arduino C, with I²C protocol for sensor data and HC-05 for wireless command</li>
+<li>First project that mixed mechanical, electrical, and firmware in one system</li>
+</ul>
+</div>
+<div class="modal-section">
+<h4>STACK</h4>
+<ul>
+<li>Arduino Mega · Arduino Uno, controller / chassis</li>
+<li>Discrete P-MOS / N-MOS H-bridge</li>
+<li>HC-05 Bluetooth module · I²C telemetry</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section><section class="experience" id="experience">
+<p class="section-label">EXPERIENCE</p>
+<div class="exp-list">
+<div class="exp-item">
+<div class="exp-date">JUN - AUG 2026</div>
+<div class="exp-role">Hardware Design Engineer</div>
+<div class="exp-company">LoomLogic Inc</div>
+<div class="exp-tag">[ HARDWARE ]</div>
+</div>
+<div class="exp-item">
+<div class="exp-date">SEP - DEC 2025</div>
+<div class="exp-role">Robotics Automation Field Engineer</div>
+<div class="exp-company">Retiina / USPS Atlanta RPDC</div>
+<div class="exp-tag">[ ROBOTICS ]</div>
+</div>
+<div class="exp-item">
+<div class="exp-date">MAY - AUG 2025</div>
+<div class="exp-role">Design &amp; Manufacturing Intern</div>
+<div class="exp-company">Electronic Hardware Corporation</div>
+<div class="exp-tag">[ MECHANICAL ]</div>
+</div>
+<div class="exp-item">
+<div class="exp-date">JUN - AUG 2024</div>
+<div class="exp-role">Development Engineer Intern</div>
+<div class="exp-company">OPmobility · Tokyo Plastic Omnium</div>
+<div class="exp-tag">[ VALIDATION ]</div>
+</div>
+<div class="exp-item">
+<div class="exp-date">2024 - PRESENT</div>
+<div class="exp-role">Makerspace Lab Assistant</div>
+<div class="exp-company">RIT SHED</div>
+<div class="exp-tag">[ TEACHING ]</div>
+</div>
+<div class="exp-item">
+<div class="exp-date">2023 - 2026</div>
+<div class="exp-role">Math &amp; Physics Tutor</div>
+<div class="exp-company">RIT Academic Success Center</div>
+<div class="exp-tag">[ TEACHING ]</div>
+</div>
+</div>
+</section><section class="about" id="about">
+<p class="section-label">ABOUT </p>
+<div class="about-grid">
+<div class="about-left">
+<h3 class="about-headline">Mechatronics from the <em>start</em>. </h3>
+<div class="about-body">
+<p>I'm a 5th-year engineering student at RIT, with a dual major B.S. in Mechatronics/Electrical Engineering Technology. I'm finished with the Mechatronics curriculum and wanted to learn more, so I pursued a second major in Electrical Engineering Technology.
             It's a very apt fit for me because I love to work with microcontrollers and I've kinda always been into Mechatronics from the start. I was a Mechatronics &amp; Robotics major in Brooklyn Tech with my very first exposure being the Arduino Uno, and I've stuck with it ever since.
           </p>
-        </div>
-      </div>
-    </div>
-  </section>
+</div>
+</div>
+</div>
+</section><footer class="footer" id="contact">
+<div class="footer-contact">
+<a aria-label="GitHub" href="https://github.com/goombad" rel="noopener" target="_blank">
+<svg aria-hidden="true" fill="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"></path>
+</svg>
+</a>
+<a aria-label="LinkedIn" href="https://www.linkedin.com/in/vincentlin365" rel="noopener" target="_blank">
+<svg aria-hidden="true" fill="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.063 2.063 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"></path>
+</svg>
+</a>
+</div>
+</footer><div aria-hidden="true" class="modal-backdrop" id="project-modal">
+<div aria-modal="true" class="modal-panel" role="dialog">
+<button aria-label="Close" class="modal-close">×</button>
+<div class="modal-content"></div>
+</div>
+</div><script>
+(function () {
+  const modal = document.getElementById('project-modal');
+  const modalContent = modal && modal.querySelector('.modal-content');
+  const closeBtn = modal && modal.querySelector('.modal-close');
 
+  function closeModal() {
+    if (!modal) return;
+    modal.classList.remove('open');
+    document.body.classList.remove('modal-open');
+    if (modalContent) modalContent.innerHTML = '';
+  }
 
-  <!-- FOOTER - bottom-left contact, edit URLs to your real profiles -->
-  <footer class="footer" id="contact">
-    <div class="footer-contact">
-      <a href="https://github.com/goombad" target="_blank" rel="noopener" aria-label="GitHub">
-        <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
-        </svg>
-      </a>
-      <a href="https://www.linkedin.com/in/vincentlin365" target="_blank" rel="noopener" aria-label="LinkedIn">
-        <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.063 2.063 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-        </svg>
-      </a>
-    </div>
-  </footer>
-
-  <!-- PROJECT MODAL -->
-  <div class="modal-backdrop" id="project-modal" aria-hidden="true">
-    <div class="modal-panel" role="dialog" aria-modal="true">
-      <button class="modal-close" aria-label="Close">×</button>
-      <div class="modal-content"></div>
-    </div>
-  </div>
-
-  <script>
-  (function () {
-    const modal = document.getElementById('project-modal');
-    const modalContent = modal.querySelector('.modal-content');
-    const closeBtn = modal.querySelector('.modal-close');
-
-    // Tracks whether animations are enabled. Initial value comes from the
-    // data-motion attribute set pre-paint in <head>. Referenced by the hero
-    // cursor handler below and flipped by the motion toggle.
-    let animationsEnabled = document.documentElement.getAttribute('data-motion') !== 'off';
-
-    function openModal(extendedEl) {
-      modalContent.innerHTML = extendedEl.innerHTML;
+  document.querySelectorAll('.project-expand').forEach(button => {
+    button.addEventListener('click', () => {
+      const card = button.closest('.project-card');
+      const extended = card && card.querySelector('.project-extended');
+      if (!modal || !modalContent || !extended) return;
+      modalContent.innerHTML = extended.innerHTML;
       modal.classList.add('open');
-      modal.setAttribute('aria-hidden', 'false');
       document.body.classList.add('modal-open');
-      modal.scrollTop = 0;
-      // Freeze any SMIL animations inside freshly-cloned modal SVGs if motion is off
-      if (!animationsEnabled) setSvgAnimations(false);
-      // If the cloned modal contains a 3D viewer, gate its auto-rotate on the motion toggle
-      const mv = modalContent.querySelector('model-viewer');
-      if (mv) mv.toggleAttribute('auto-rotate', animationsEnabled);
-    }
-
-    function closeModal() {
-      modal.classList.remove('open');
-      modal.setAttribute('aria-hidden', 'true');
-      document.body.classList.remove('modal-open');
-      setTimeout(() => {
-        modalContent.innerHTML = '';
-      }, 350);
-    }
-
-    document.querySelectorAll('.project-expand').forEach(btn => {
-      btn.addEventListener('click', e => {
-        e.preventDefault();
-        const card = btn.closest('.project-card');
-        const extended = card && card.querySelector('.project-extended');
-
-        if (extended) {
-          openModal(extended);
-        }
-      });
     });
+  });
 
-    closeBtn.addEventListener('click', closeModal);
+  if (closeBtn) closeBtn.addEventListener('click', closeModal);
+  if (modal) modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
-    modal.addEventListener('click', e => {
-      if (e.target === modal) {
-        closeModal();
-      }
-    });
+  const mediaItems = [
+    { type: 'model', src: 'models/Workstation-Assembly.glb', title: 'LoomLogic Camera Workstation', tool: 'SOLIDWORKS', alt: 'Interactive 3D model of the LoomLogic Camera Workstation' },
+    { type: 'model', src: 'models/blast-gate-assembly.glb', title: 'Automated Blast Gate', tool: 'SOLIDWORKS', alt: 'Interactive 3D model of the Automated Blast Gate assembly' },
+    { type: 'image', src: 'images/imagine rit.jpg', title: 'Automated Blast Gate', tool: 'PHOTO', alt: 'Team presenting the Automated Blast Gate Network at Imagine RIT' },
+    { type: 'image', src: 'images/PXL_20260310_021118050.MP.jpg', title: 'Automated Blast Gate Prototype', tool: 'PHOTO', alt: 'Breadboard prototype with Arduino Nano, L298N driver, and linear actuator' },
+    { type: 'model', src: 'models/v6-twin-turbo.glb', title: 'V6 Twin Turbo Engine', tool: 'INVENTOR', alt: 'Interactive 3D model of the V6 twin turbo engine assembly' },
+    { type: 'model', src: 'models/drone-model.glb', title: 'Drone Assembly', tool: 'INVENTOR', alt: 'Interactive 3D model of the drone assembly' }
+  ];
+  const viewer = document.getElementById('hero-cad-model');
+  const imageViewer = document.getElementById('hero-cad-image');
+  const title = document.getElementById('hero-cad-title');
+  const tool = document.getElementById('hero-cad-tool');
+  const hint = document.getElementById('hero-cad-hint');
+  const prev = document.querySelector('.hero-cad-prev');
+  const next = document.querySelector('.hero-cad-next');
+  let index = 0;
 
-    document.addEventListener('keydown', e => {
-      if (e.key === 'Escape' && modal.classList.contains('open')) {
-        closeModal();
-      }
-    });
+  function showMedia(nextIndex) {
+    if (!viewer || !imageViewer) return;
+    index = (nextIndex + mediaItems.length) % mediaItems.length;
+    const item = mediaItems[index];
 
-    // LOGO TOGGLE
-    // Click V. LIN → scroll to About.
-    // Click V. LIN again (when already at/past About) → scroll back to top.
-    const logo = document.querySelector('.logo');
-    const aboutSection = document.getElementById('about');
-
-    if (logo && aboutSection) {
-      logo.addEventListener('click', e => {
-        e.preventDefault();
-        const aboutTop = aboutSection.getBoundingClientRect().top + window.scrollY;
-        const tolerance = 120; // px - counts as "at About" once the section is within this distance of the top of the viewport
-
-        if (window.scrollY >= aboutTop - tolerance) {
-          // We're at or past the About section - go back to the landing
-          window.scrollTo({ top: 0, behavior: animationsEnabled ? 'smooth' : 'auto' });
-        } else {
-          // Anywhere above About - scroll down to it
-          aboutSection.scrollIntoView({ behavior: animationsEnabled ? 'smooth' : 'auto' });
-        }
-      });
+    if (item.type === 'model') {
+      viewer.hidden = false;
+      imageViewer.hidden = true;
+      viewer.setAttribute('src', item.src);
+      viewer.setAttribute('alt', item.alt);
+      if (hint) hint.textContent = 'DRAG TO ORBIT';
+    } else {
+      viewer.hidden = true;
+      imageViewer.hidden = false;
+      imageViewer.setAttribute('src', item.src);
+      imageViewer.setAttribute('alt', item.alt);
+      if (hint) hint.textContent = 'IMAGE PREVIEW';
     }
 
-    // MOBILE MENU - hamburger opens/closes the nav-links dropdown on phones
-    const navEl = document.querySelector('nav');
-    const navToggle = document.querySelector('.nav-toggle');
-    if (navEl && navToggle) {
-      const setMenu = open => {
-        navEl.classList.toggle('menu-open', open);
-        navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-        navToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
-      };
-      navToggle.addEventListener('click', () => setMenu(!navEl.classList.contains('menu-open')));
+    if (title) title.textContent = item.title;
+    if (tool) tool.textContent = item.tool;
+  }
 
-      // tapping a link navigates, then closes the menu
-      navEl.querySelectorAll('.nav-links a').forEach(a => a.addEventListener('click', () => setMenu(false)));
-
-      // close on Escape or a tap outside the nav
-      document.addEventListener('keydown', e => { if (e.key === 'Escape') setMenu(false); });
-      document.addEventListener('click', e => {
-        if (navEl.classList.contains('menu-open') && !navEl.contains(e.target)) setMenu(false);
-      });
-    }
-
-    // THEME TOGGLE
-    const themeToggle = document.querySelector('.theme-toggle');
-    if (themeToggle) {
-      themeToggle.addEventListener('click', () => {
-        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-        if (isDark) {
-          document.documentElement.removeAttribute('data-theme');
-          try { localStorage.setItem('theme', 'light'); } catch (e) {}
-        } else {
-          document.documentElement.setAttribute('data-theme', 'dark');
-          try { localStorage.setItem('theme', 'dark'); } catch (e) {}
-        }
-      });
-    }
-
-    // NAV HEX-BUFFER HOVER - on hover/focus each letter flickers through hex
-    // glyphs (0-9 A-F) and resolves left-to-right back into the label.
-    const HEX = '0123456789ABCDEF';
-    document.querySelectorAll('.nav-links a').forEach(link => {
-      const label = link.textContent.trim();
-      link.dataset.label = label;
-      link.setAttribute('aria-label', label); // stable accessible name while the text scrambles
-      let frame = null;
-
-      function reset() {
-        cancelAnimationFrame(frame);
-        frame = null;
-        link.textContent = label;
-      }
-
-      function scramble() {
-        // Honor the motion toggle / reduced-motion preference: no flicker, just the label.
-        if (!animationsEnabled) { reset(); return; }
-        cancelAnimationFrame(frame);
-
-        const start = performance.now();
-        const step = 38;                          // ms before each next char locks in
-        const settle = label.length * step + 90;  // hard stop
-
-        function render(now) {
-          // If motion gets toggled off mid-flicker, bail to clean text immediately.
-          if (!animationsEnabled) { link.textContent = label; frame = null; return; }
-
-          const t = now - start;
-          let html = '';
-          let done = true;
-          for (let i = 0; i < label.length; i++) {
-            const ch = label[i];
-            if (ch === ' ') { html += ' '; continue; }
-            if (t >= (i + 1) * step) {
-              html += '<span class="lk">' + ch + '</span>';                          // locked
-            } else {
-              html += '<span class="hx">' + HEX[(Math.random() * 16) | 0] + '</span>'; // raw buffer
-              done = false;
-            }
-          }
-          link.innerHTML = html;
-
-          if (!done && t < settle) {
-            frame = requestAnimationFrame(render);
-          } else {
-            link.textContent = label;            // revert to clean text
-            frame = null;
-          }
-        }
-
-        frame = requestAnimationFrame(render);
-      }
-
-      link.addEventListener('mouseenter', scramble);
-      link.addEventListener('focus', scramble);
-      link.addEventListener('mouseleave', reset);
-      link.addEventListener('blur', reset);
-    });
-
-    // SMIL SVG animation control. CSS can't pause/resume <animate> elements
-    // (e.g. the rotating Sisyphus trace), so we drive the SVG timelines directly.
-    function setSvgAnimations(play) {
-      document.querySelectorAll('svg').forEach(svg => {
-        try {
-          if (play) {
-            if (typeof svg.unpauseAnimations === 'function') svg.unpauseAnimations();
-          } else {
-            if (typeof svg.pauseAnimations === 'function') svg.pauseAnimations();
-          }
-        } catch (e) {}
-      });
-    }
-
-    // HERO IMU + TITLE TILT - cursor offset drives an MPU6050-style tilt readout
-    const hero = document.querySelector('.hero');
-    const titleInner = document.querySelector('.title-inner');
-    const fillTX = document.querySelector('.imu-fill[data-axis="x"]');     // TILT_X
-    const fillTY = document.querySelector('.imu-fill[data-axis="y"]');     // TILT_Y
-
-    let targetTX = 0, targetTY = 0;
-    let currentTX = 0, currentTY = 0;
-    let lastT = performance.now();
-    let rafId = null;
-
-    function setBar(el, value) {
-      // Bipolar fill from center toward one side
-      const widthPct = Math.min(1, Math.abs(value)) * 50;
-      el.style.width = widthPct + '%';
-      if (value >= 0) {
-        el.style.left = '50%';
-        el.style.right = 'auto';
-      } else {
-        el.style.left = 'auto';
-        el.style.right = '50%';
-      }
-    }
-
-    function tick() {
-      const now = performance.now();
-      const dt = Math.min(0.1, (now - lastT) / 1000);
-      lastT = now;
-
-      // TILT: heavy smoothing (80ms half-life) - like a low-pass-filtered angle
-      const kTilt = 1 - Math.pow(0.5, dt / 0.08);
-      currentTX += (targetTX - currentTX) * kTilt;
-      currentTY += (targetTY - currentTY) * kTilt;
-
-      // Title uses TILT - tilt is the geometric angle that physically rotates an object
-      if (titleInner) {
-        titleInner.style.transform = `rotateX(${-currentTY * 3}deg) rotateY(${currentTX * 3}deg)`;
-      }
-      if (fillTX) setBar(fillTX, currentTX);
-      if (fillTY) setBar(fillTY, currentTY);
-
-      const stillMoving =
-        Math.abs(targetTX - currentTX) > 0.001 ||
-        Math.abs(targetTY - currentTY) > 0.001;
-
-      if (stillMoving) {
-        rafId = requestAnimationFrame(tick);
-      } else {
-        currentTX = targetTX; currentTY = targetTY;
-        if (titleInner) titleInner.style.transform = `rotateX(${-currentTY * 3}deg) rotateY(${currentTX * 3}deg)`;
-        if (fillTX) setBar(fillTX, currentTX);
-        if (fillTY) setBar(fillTY, currentTY);
-        rafId = null;
-      }
-    }
-
-    function ensureTick() {
-      if (rafId === null) {
-        lastT = performance.now();
-        rafId = requestAnimationFrame(tick);
-      }
-    }
-
-    function resetHero() {
-      targetTX = 0; targetTY = 0;
-      ensureTick();
-    }
-
-    if (hero && titleInner) {
-      hero.addEventListener('mousemove', (e) => {
-        // When animations are off, leave the title flat and the IMU bars centered
-        if (!animationsEnabled) return;
-
-        const rect = hero.getBoundingClientRect();
-        const cx = rect.left + rect.width / 2;
-        const cy = rect.top + rect.height / 2;
-        const nx = Math.max(-1, Math.min(1, (e.clientX - cx) / (rect.width / 2)));
-        const ny = Math.max(-1, Math.min(1, (e.clientY - cy) / (rect.height / 2)));
-
-        // TILT = cubic curve (heavily damped - small motions barely register)
-        targetTX = nx * nx * nx;
-        targetTY = ny * ny * ny;
-
-        ensureTick();
-      });
-
-      hero.addEventListener('mouseleave', resetHero);
-    }
-
-    // ANIMATION / MOTION TOGGLE
-    // Flips data-motion on <html> (CSS handles fades/transitions), pauses or resumes
-    // SMIL SVG loops, and snaps the cursor-driven hero back to neutral when off.
-    const motionToggle = document.querySelector('.motion-toggle');
-
-    function snapHeroNeutral() {
-      targetTX = targetTY = 0;
-      currentTX = currentTY = 0;
-      if (titleInner) titleInner.style.transform = '';
-      if (fillTX) setBar(fillTX, 0);
-      if (fillTY) setBar(fillTY, 0);
-    }
-
-    function applyMotion(enabled) {
-      animationsEnabled = enabled;
-      if (enabled) {
-        document.documentElement.removeAttribute('data-motion');
-      } else {
-        document.documentElement.setAttribute('data-motion', 'off');
-      }
-      try { localStorage.setItem('motion', enabled ? 'on' : 'off'); } catch (e) {}
-      setSvgAnimations(enabled);
-      setModelRotation(enabled);
-      if (!enabled) snapHeroNeutral();
-      if (motionToggle) motionToggle.setAttribute('aria-pressed', String(!enabled));
-    }
-
-    // Gate any inline 3D viewers' auto-rotate on the motion toggle (the modal
-    // viewer is handled separately in openModal since it's cloned on open).
-    function setModelRotation(enabled) {
-      document.querySelectorAll('.cad-viewer model-viewer, .hero-cad-viewer').forEach(mv => {
-        mv.toggleAttribute('auto-rotate', enabled);
-      });
-    }
-
-    // Reflect the pre-paint state on load: pause SMIL loops if motion starts off,
-    // and sync the toggle's pressed state for screen readers.
-    setSvgAnimations(animationsEnabled);
-    setModelRotation(animationsEnabled);
-    if (motionToggle) {
-      motionToggle.setAttribute('aria-pressed', String(!animationsEnabled));
-      motionToggle.addEventListener('click', () => applyMotion(!animationsEnabled));
-    }
-
-
-    // HERO CAD PORTFOLIO - one large interactive model, switched without cards.
-    (function () {
-      const models = [
-        {
-          src: 'models/Workstation-Assembly.glb',
-          title: 'LoomLogic Camera Workstation',
-          tool: 'SOLIDWORKS',
-          alt: 'Interactive 3D model of the LoomLogic Camera Workstation'
-        },
-        {
-          src: 'models/blast-gate-assembly.glb',
-          title: 'Automated Blast Gate',
-          tool: 'SOLIDWORKS',
-          alt: 'Interactive 3D model of the Automated Blast Gate assembly'
-        },
-        {
-          src: 'models/v6-twin-turbo.glb',
-          title: 'V6 Twin Turbo Engine',
-          tool: 'INVENTOR',
-          alt: 'Interactive 3D model of the V6 twin turbo engine assembly'
-        },
-        {
-          src: 'models/drone-model.glb',
-          title: 'Drone Assembly',
-          tool: 'INVENTOR',
-          alt: 'Interactive 3D model of the drone assembly'
-        }
-      ];
-
-      const viewer = document.getElementById('hero-cad-model');
-      const title = document.getElementById('hero-cad-title');
-      const number = document.getElementById('hero-cad-number');
-      const tool = document.getElementById('hero-cad-tool');
-      const prev = document.querySelector('.hero-cad-prev');
-      const next = document.querySelector('.hero-cad-next');
-      const indexButtons = Array.from(document.querySelectorAll('.hero-cad-index-btn'));
-
-      if (!viewer || !title || !number || !tool || !prev || !next) return;
-
-      // The CAD viewer never uses the mouse wheel.
-      // Wheel input is left entirely to the browser so the page scrolls normally
-      // even while the cursor is directly over the GLB model.
-      viewer.addEventListener('wheel', (event) => {
-        event.stopImmediatePropagation();
-      }, { passive: true, capture: true });
-
-      let index = 0;
-
-      function showModel(nextIndex) {
-        index = (nextIndex + models.length) % models.length;
-        const model = models[index];
-
-        viewer.setAttribute('src', model.src);
-        viewer.setAttribute('alt', model.alt);
-        viewer.toggleAttribute('auto-rotate', animationsEnabled);
-
-        title.textContent = model.title;
-        number.textContent = `CAD ${String(index + 1).padStart(2, '0')}`;
-        tool.textContent = model.tool;
-
-        indexButtons.forEach((button, i) => {
-          const active = i === index;
-          button.classList.toggle('active', active);
-          button.setAttribute('aria-current', active ? 'true' : 'false');
-        });
-      }
-
-      prev.addEventListener('click', () => showModel(index - 1));
-      next.addEventListener('click', () => showModel(index + 1));
-
-      indexButtons.forEach((button, i) => {
-        button.addEventListener('click', () => showModel(i));
-      });
-
-      showModel(0);
-    })();
-
-        // CAD PORTFOLIO - horizontal card scroller with prev/next arrows.
-    // Dragging on a card orbits its model, so the arrows (and native
-    // trackpad/scrollbar) are how you move between cards.
-    (function () {
-      const scroller = document.querySelector('.cad-scroller');
-      const track = scroller && scroller.querySelector('.cad-track');
-      const arrowsWrap = document.querySelector('.cad-arrows');
-      const arrows = document.querySelectorAll('.cad-arrow');
-      if (!scroller || !track || !arrows.length) return;
-
-      function step() {
-        const card = track.querySelector('.cad-card');
-        const styles = getComputedStyle(track);
-        const gap = parseInt(styles.columnGap || styles.gap || '24', 10) || 24;
-        return card ? card.getBoundingClientRect().width + gap : scroller.clientWidth * 0.9;
-      }
-
-      function update() {
-        const overflow = scroller.scrollWidth - scroller.clientWidth > 1;
-        if (arrowsWrap) arrowsWrap.style.display = overflow ? '' : 'none';
-        const x = scroller.scrollLeft;
-        const max = scroller.scrollWidth - scroller.clientWidth - 1;
-        arrows.forEach(a => {
-          const dir = Number(a.getAttribute('data-dir'));
-          a.disabled = dir < 0 ? x <= 0 : x >= max;
-        });
-      }
-
-      arrows.forEach(a => {
-        a.addEventListener('click', () => {
-          const dir = Number(a.getAttribute('data-dir'));
-          scroller.scrollBy({ left: dir * step(), behavior: animationsEnabled ? 'smooth' : 'auto' });
-        });
-      });
-
-      let raf = null;
-      scroller.addEventListener('scroll', () => {
-        if (raf) return;
-        raf = requestAnimationFrame(() => { update(); raf = null; });
-      }, { passive: true });
-      window.addEventListener('resize', update);
-      window.addEventListener('load', update);
-      update();
-    })();
-
-  })();
-  </script>
-
-</body>
-  </html> 
+  if (prev) prev.addEventListener('click', () => showMedia(index - 1));
+  if (next) next.addEventListener('click', () => showMedia(index + 1));
+  showMedia(0);
+})();
+</script></body></html>
