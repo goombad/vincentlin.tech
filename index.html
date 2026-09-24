@@ -462,7 +462,7 @@ section {
   .modal-title { font-size: 28px; }
   .modal-figure-row { grid-template-columns: 1fr; }
 }
-</style><script src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.3.1/model-viewer.min.js" type="module"></script></head><body id="top"><nav><a class="logo" href="#top">V. LIN</a><div class="nav-links"><a href="#projects">PROJECTS</a><a href="#experience">EXPERIENCE</a></div></nav><main class="hero-home"><div class="landing-intro">
+</style><script src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.3.1/model-viewer.min.js" type="module"></script></head><body id="top"><nav><a class="logo" href="/">V. LIN</a><div class="nav-links"><a href="#projects">PROJECTS</a><a href="#experience">EXPERIENCE</a></div></nav><main class="hero-home"><div class="landing-intro">
 <h1 class="landing-name">Vincent Lin</h1>
 <p class="landing-intro-copy">
 <strong>Mechatronics &amp; Electrical Engineer</strong> based in Brooklyn, NY.<br/>
@@ -656,5 +656,36 @@ section {
   if (prev) prev.addEventListener('click', () => showMedia(index - 1));
   if (next) next.addEventListener('click', () => showMedia(index + 1));
   showMedia(0);
+})();
+</script><script>
+(function () {
+  if (!['/', '/index.html'].includes(window.location.pathname)) return;
+
+  function scrollToSection(id, behavior) {
+    const section = document.getElementById(id);
+    if (!section) return false;
+    section.scrollIntoView({ behavior: behavior, block: 'start' });
+    return true;
+  }
+
+  // Keep existing inbound section links working without leaving a fragment.
+  const initialSection = window.location.hash.slice(1);
+  if (window.location.pathname === '/index.html' || initialSection) {
+    if (initialSection) scrollToSection(initialSection, 'instant');
+    window.history.replaceState(window.history.state, '', '/' + window.location.search);
+  }
+
+  document.addEventListener('click', function (event) {
+    if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    const link = event.target.closest('a');
+    if (!link || link.hasAttribute('download') || (link.target && link.target !== '_self')) return;
+    const url = new URL(link.href, window.location.href);
+    if (url.origin !== window.location.origin || !['/', '/index.html'].includes(url.pathname) || url.search) return;
+    const id = url.hash.slice(1) || 'top';
+    if (!document.getElementById(id)) return;
+    event.preventDefault();
+    const behavior = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth';
+    scrollToSection(id, behavior);
+  });
 })();
 </script></body></html>
