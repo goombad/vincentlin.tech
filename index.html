@@ -20,6 +20,7 @@ img, svg, video, model-viewer { max-width: 100%; }
 
 /* Header: simple, static, and text-led like a classic portfolio site. */
 nav {
+  line-height: 1.6;
   width: min(1120px, calc(100% - 48px));
   margin: 0 auto;
   min-height: 76px;
@@ -30,10 +31,15 @@ nav {
   border-bottom: 1px solid #cfcfcf;
 }
 .logo {
+  color: #111;
   text-decoration: none;
+  font-family: "Manrope", Arial, sans-serif;
   font-size: 18px;
+  line-height: 1.6;
   font-weight: 700;
   letter-spacing: -0.02em;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 .nav-links { display: flex; flex-wrap: wrap; gap: 24px; }
 .nav-links a {
@@ -240,11 +246,14 @@ section {
   background: #e9e7e3;
 }
 
-.project-cover.project-open {
+.project-cover-link {
+  display: block;
+  color: inherit;
+  text-decoration: none;
   cursor: pointer;
 }
 
-.project-cover.project-open:focus-visible {
+.project-cover-link:focus-visible {
   outline: 2px solid #111;
   outline-offset: -4px;
 }
@@ -325,10 +334,6 @@ section {
 }
 .project-title-link {
   display: inline;
-  margin: 0;
-  padding: 0;
-  border: 0;
-  background: transparent;
   color: #111;
   font: inherit;
   font-weight: inherit;
@@ -427,60 +432,6 @@ section {
   display: block;
 }
 
-/* Project details remain available, but the modal is visually plain. */
-.modal-backdrop {
-  position: fixed;
-  inset: 0;
-  z-index: 100;
-  padding: 32px 20px;
-  overflow-y: auto;
-  background: rgba(0,0,0,.48);
-  display: none;
-}
-.modal-backdrop.open { display: block; }
-.modal-panel {
-  position: relative;
-  width: min(900px, 100%);
-  margin: 0 auto;
-  background: #fff;
-  border: 1px solid #bbb;
-}
-.modal-close {
-  position: sticky;
-  top: 10px;
-  float: right;
-  z-index: 3;
-  margin: 12px 12px 0 0;
-  width: 36px;
-  height: 36px;
-  border: 1px solid #aaa;
-  background: #fff;
-  cursor: pointer;
-  font-size: 20px;
-}
-.modal-content { clear: both; }
-.modal-hero-img { width: 100%; background: #f4f4f2; overflow: hidden; }
-.modal-hero-img img, .modal-hero-img video, .modal-hero-img model-viewer {
-  width: 100%; height: auto; display: block; object-fit: contain;
-}
-.modal-hero-img model-viewer { min-height: 460px; }
-.modal-body { padding: 40px 48px 52px; }
-.modal-num { margin: 0 0 8px; font-size: 11px; color: #777; }
-.modal-title { margin: 0 0 10px; font-size: 34px; line-height: 1.1; letter-spacing: -0.03em; }
-.modal-tagline { margin: 0 0 38px; color: #555; }
-.modal-section { margin: 34px 0 0; }
-.modal-section h4 { margin: 0 0 12px; font-size: 13px; }
-.modal-section p { margin: 0; color: #333; }
-.modal-section ul { margin: 0; padding-left: 20px; }
-.modal-section li { margin: 7px 0; }
-.modal-figure { margin-top: 14px; }
-.modal-figure img, .modal-figure video { width: 100%; height: auto; display: block; }
-.modal-figure-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-.modal-figure figcaption { margin-top: 8px; font-size: 12px; color: #777; }
-.modal-actions { margin-top: 30px; }
-.modal-action { text-decoration: underline; text-underline-offset: 4px; }
-body.modal-open { overflow: hidden; }
-
 @media (max-width: 880px) {
   .hero-home { grid-template-columns: 1fr; gap: 30px; padding: 38px 0 40px; }
   .hero-cad-stage { height: 320px; }
@@ -532,7 +483,7 @@ body.modal-open { overflow: hidden; }
 <polyline points="15 18 9 12 15 6"></polyline>
 </svg>
 </button>
-<div class="hero-cad-media">
+<div class="hero-cad-me2dia">
 <model-viewer alt="Interactive 3D model of the LoomLogic Camera Workstation" auto-rotate="" auto-rotate-delay="500" camera-controls="" class="hero-cad-viewer" disable-zoom="" environment-image="neutral" exposure="1" id="hero-cad-model" interaction-prompt="none" rotation-per-second="18deg" shadow-intensity="0.8" src="models/Workstation-Assembly.glb" touch-action="pan-y">
 </model-viewer>
 <img alt="" class="hero-cad-image" hidden="" id="hero-cad-image" src=""/>
@@ -554,322 +505,45 @@ body.modal-open { overflow: hidden; }
 <p class="hero-cad-hint" id="hero-cad-hint">DRAG TO ORBIT</p>
 </div>
 </div>
-</div></main><section id="projects" class="projects-section">
+</div></main><section class="projects-section" id="projects">
 <p class="section-label">PROJECTS</p>
 <div class="projects-grid">
 <!-- 01 (NEW) -->
 <div class="project-card full-width" data-project="01">
-
-<div class="project-cover project-open" role="button" tabindex="0" aria-label="Open project"><img src="images/uncommonhacks_image.jpg" alt="LifeStory team at Uncommon Hacks 2026 Closing Ceremony"/></div>
-<h3 class="project-title"><button class="project-title-link project-open" type="button">LifeStory - Memory Record Player</button></h3>
+<a aria-label="Open LifeStory - Memory Record Player" class="project-cover project-cover-link" href="project.html?project=lifestory"><img alt="LifeStory team at Uncommon Hacks 2026 Closing Ceremony" src="images/uncommonhacks_image.jpg"/></a>
+<h3 class="project-title"><a class="project-title-link" href="project.html?project=lifestory">LifeStory - Memory Record Player</a></h3>
 <p class="project-desc">UncommonHacks '26 1st Place Winner using both Meta's DINOv2 embedding model and ORB feature matching algorithm.</p>
-<div class="project-extended">
-<div class="modal-hero-img fit">
-<img alt="ORB feature matches between physical and digital photo" src="images/matches_photo7.jpg"/>
-</div>
-<div class="modal-body">
-<p class="modal-num">MAY 2026</p>
-<h2 class="modal-title">Physical to Digital Photo Match</h2>
-<p class="modal-tagline">A physical feature that allows Alzheimers patients to identify and interact with digital images of their memories.</p>
-<div class="modal-section">
-<h4>OVERVIEW</h4>
-<p>LifeStory is a web-app diary that allows Alzheimer's patients to remember their past experiences through interactive voice-narrated digital memories.
-                But a caretaker needs to upload, select, and replay those memories for them. What if patients could directly interact with it? With no technical literacy needed?
-                What if we took something they're used to, like a physical photo album and made it a portal to their digital memories.<br/>
-<br/>
-                Take a photo from your album, slide it underneathe a camera, and memories start flooding back. Like a record player, but for your life story.
-              </p>
-</div>
-<div class="modal-section">
-<h4>SYSTEM ARCHITECTURE</h4>
-<ul>
-<li>Family members upload digital photos and biographies through the LifeStory web app</li>
-<li>Each memory is stored in a chapter with context and voice narration</li>
-<li>A caretaker manages the digital memories and selects appropriate ones for the patient</li>
-<li>An ESP32-S3 CAM microcontroller acts as the physical album scanner, providing a direct interface</li>
-<li>Patient takes a picture from an old album, and slides it under the camera</li>
-<li>System runs through the uploaded digital memories to find the best match using DINOv2 and ORB</li>
-<li>Once a match is found, the corresponding chapter with voice narration is played back to the patient</li>
-</ul>
-</div>
-<div class="modal-section">
-<h4>IMAGE MATCHING PIPELINE</h4>
-<ul>
-<li>ESP32-S3 hosts a live camera web server at full 2MP resolution to capture images</li>
-<li>Python script continuously pulls jpeg frames from web server</li>
-<li>Generate DINOv2 embeddings to rank visually similar digital images to physical photo</li>
-<li>Shortlists candidates above </li>
-<li>Detect ORB keypoints and compute binary descriptors for physical image and each digital candidate</li>
-<li>Calculate brute-force hamming distance between descriptors to find top feature matches</li>
-<li>Use Lowe’s ratio of 0.80 and RANSAC homography for outlier rejection</li>
-<li>Return highest ORB/RANSAC match, then output keypoint matches, inlier counts, and DINOv2 similarity</li>
-</ul>
-</div>
-<div class="modal-section">
-<h4>TOOLCHAIN</h4>
-<ul>
-<li>Python for image processing pipeline</li>
-<li>Arduino IDE for ESP32-S3 development</li>
-</ul>
-</div>
-<div class="modal-section">
-<h4>TECH STACK</h4>
-<ul>
-<li>ESP32-S3 CAM · DINOv2 · ORB · OpenCV · PyTorch · NumPy · Wi-Fi </li>
-</ul>
-</div>
-<div class="modal-section">
-<h4>DEVPOST</h4>
-<ul>
-<li>Full Devpost can be found here: <a href="https://devpost.com/software/lifestory" target="_blank">https://devpost.com/software/lifestory</a></li>
-</ul>
-</div>
-<div class="modal-actions">
-<a class="modal-action" href="https://github.com/JzJoker/uncommonhacks-life-story/tree/main/memory%20record%20player" target="_blank">GitHub <span>→</span></a>
-</div>
-</div>
-</div>
+
 </div>
 <!-- 02 -->
 <div class="project-card" data-project="02">
-<div class="project-cover art-imu project-open" role="button" tabindex="0" aria-label="Open project"></div>
-<h3 class="project-title"><button class="project-title-link project-open" type="button">MPU6050 Motion Controller → ROS2</button></h3><p class="project-desc">[placeholder]</p>
-<div class="project-extended">
-<div class="modal-body">
-<p class="modal-num">2026</p>
-<h2 class="modal-title">MPU6050 Motion Controller → ROS2</h2>
-<p class="modal-tagline">Tilt a physical IMU in your hand and a virtual robot mirrors it live in RViz2 - a complete hardware-to-middleware loop, from raw I²C samples to ROS2 topics.</p>
-<div class="modal-section">
-<h4>OVERVIEW</h4>
-<p>This project turns a $3 MPU6050 into a motion controller for a robot that only exists in simulation. An ESP32 samples the IMU over I²C, runs a complementary filter to recover stable roll/pitch/yaw from noisy accelerometer and gyro data, and maps that orientation onto velocity commands. Those commands enter the ROS2 graph through micro-ROS, drive a robot model published by robot_state_publisher, and the whole thing is visualized live in RViz2. Tilt the board forward and the robot drives forward; roll it and the robot turns.</p>
-</div>
-<div class="modal-section">
-<h4>SYSTEM ARCHITECTURE</h4>
-<ul>
-<li>ESP32 reads the MPU6050's 6-axis data (accel + gyro) over I²C at address 0x68</li>
-<li>A complementary filter fuses accelerometer tilt with gyro rate into drift-resistant orientation</li>
-<li>Tilt angles map to a geometry_msgs/Twist - pitch → linear.x, roll → angular.z</li>
-<li>micro-ROS runs on the ESP32 and publishes over Wi-Fi (UDP) to the micro-ROS Agent on the host</li>
-<li>On the host, robot_state_publisher broadcasts TF from a URDF as the commands arrive</li>
-<li>RViz2 renders the robot model and updates it in real time as the board moves</li>
-</ul>
-</div>
-<div class="modal-section">
-<h4>MOTION PIPELINE</h4>
-<ul>
-<li>Sample accel/gyro, then calibrate and subtract per-axis bias</li>
-<li>Complementary filter (α ≈ 0.98) blends gyro integration with the accelerometer reference</li>
-<li>Deadband + scaling so a level board commands zero velocity</li>
-<li>Publish sensor_msgs/Imu for visualization and geometry_msgs/Twist for control</li>
-<li>The micro-ROS Agent bridges the ESP32's XRCE-DDS traffic into the full ROS2 graph</li>
-</ul>
-</div>
-<div class="modal-section">
-<h4>STACK</h4>
-<ul>
-<li>ESP32 · MPU6050 (I²C) · complementary filter</li>
-<li>micro-ROS · ROS2 (Humble / Jazzy) · rclpy</li>
-<li>robot_state_publisher · URDF · RViz2</li>
-</ul>
-</div>
-<div class="modal-section">
-<h4>TOOLCHAIN</h4>
-<ul>
-<li>PlatformIO / Arduino IDE with micro_ros_arduino</li>
-<li>ROS2 + micro_ros_agent</li>
-<li>RViz2 for live visualization</li>
-</ul>
-</div>
-<div class="modal-section">
-<h4>DEMO</h4>
-<div class="modal-figure video-small">
-<video controls="" loop="" muted="" playsinline="" preload="metadata">
-<source src="MPU6050ROS.mp4" type="video/mp4"/>
-</video>
-</div>
-</div>
-<div class="modal-actions">
-<a class="modal-action" href="https://github.com/goombad/imu-ros2-controller" target="_blank">GitHub <span>→</span></a>
-</div>
-</div>
-</div>
+<a aria-label="Open MPU6050 Motion Controller → ROS2" class="project-cover art-imu project-cover-link" href="project.html?project=mpu6050-ros2"></a>
+<h3 class="project-title"><a class="project-title-link" href="project.html?project=mpu6050-ros2">MPU6050 Motion Controller → ROS2</a></h3><p class="project-desc">[placeholder]</p>
+
 </div>
 <!-- 03 -->
 <div class="project-card" data-project="03">
-<div class="project-cover cover-contain project-open" role="button" tabindex="0" aria-label="Open project"><img src="images/sisyphus-schematic.png" alt="Sisyphus table electrical schematic"/></div>
-<h3 class="project-title"><button class="project-title-link project-open" type="button">Automated SVG Sisyphus Table</button></h3><p class="project-desc">[placeholder]</p>
-<div class="project-extended">
-<div class="modal-body">
-<p class="modal-num">MAR 2026 - PRESENT</p>
-<h2 class="modal-title">Automated SVG Sisyphus Table</h2>
-<p class="modal-tagline">A polar coordinate CNC machine that draws patterns in sand using a magnetically-coupled steel ball - driven by a fully custom toolchain from SVG to motor torque.</p>
-<div class="modal-section">
-<h4>OVERVIEW</h4>
-<p>The Sisyphus table converts vector artwork into mesmerizing sand patterns. I designed the entire system end-to-end: the math that maps an SVG into polar coordinates, the firmware that drives the steppers, and the Python bridge that streams live commands over serial.</p>
-</div>
-<div class="modal-section">
-<h4>HIGHLIGHTS</h4>
-<ul>
-<li>Built a custom SVG-to-polar coordinate converter using NumPy and coordinate geometry</li>
-<li>Developed C++ firmware on Arduino Nano to drive NEMA17 steppers</li>
-<li>Designed and verified the full motor control schematic in CirkitDesigner</li>
-<li>Python serial bridge streams motor commands live from a terminal</li>
-<li>NEMA17 steppers move the steel ball to trace out the SVG patterns</li>
-</ul>
-</div>
-<div class="modal-section">
-<h4>STACK</h4>
-<ul>
-<li>Arduino Nano · NEMA17 stepper motors</li>
-<li>C++ firmware · Python serial bridge</li>
-<li>CirkitDesigner IDE for schematic verification</li>
-</ul>
-</div>
-<div class="modal-section">
-<h4>ELECTRICAL SCHEMATIC</h4>
-<p>Two NEMA17 steppers run the polar axes - one slides the radial rail, the other rotates theta - each driven by its own A4988 driver off a shared 12V supply, with all step/direction lines fanned out from an Arduino Mega.</p>
-<figure class="modal-figure contain">
-<img alt="CirkitDesigner schematic of the Sisyphus table: two NEMA17 steppers, A4988 drivers, Arduino Mega, and 12V supply" src="images/sisyphus-schematic.png"/>
-<figcaption>CIRKITDESIGNER · RAIL + THETA STEPPERS · ARDUINO MEGA · 12V</figcaption>
-</figure>
-</div>
-<div class="modal-actions">
-<a class="modal-action" href="https://github.com/goombad/Sisyphus-Table" target="_blank">GitHub <span>→</span></a>
-</div>
-</div>
-</div>
+<a aria-label="Open Automated SVG Sisyphus Table" class="project-cover cover-contain project-cover-link" href="project.html?project=sisyphus-table"><img alt="Sisyphus table electrical schematic" src="images/sisyphus-schematic.png"/></a>
+<h3 class="project-title"><a class="project-title-link" href="project.html?project=sisyphus-table">Automated SVG Sisyphus Table</a></h3><p class="project-desc">[placeholder]</p>
+
 </div>
 <!-- 04 -->
 <div class="project-card" data-project="04">
-<div class="project-cover art-packe project-open" role="button" tabindex="0" aria-label="Open project"></div>
-<h3 class="project-title"><button class="project-title-link project-open" type="button">PACK-E</button></h3><p class="project-desc">[placeholder]</p>
-<div class="project-extended">
-<div class="modal-body">
-<p class="modal-num">MAR 2026 - PAUSED</p>
-<h2 class="modal-title">PACK-E</h2>
-<p class="modal-tagline">Package Acquisition &amp; Collection Kernel Earth-Class. Autonomous object detection and retrieval by squeezing a TinyML pipeline onto a $15 microcontroller.</p>
-<div class="modal-section">
-<h4>OVERVIEW</h4>
-<p>PACK-E identifies small target packages from a camera feed, navigates to them, and retrieves them - all without any external processing. The full vision and control loop runs on an ESP32-S3 CAM, while the MSP432 robot chassis handles the motor controls.</p>
-</div>
-<div class="modal-section">
-<h4>ARCHITECTURE</h4>
-<ul>
-<li>Fine-tuned FOMO model using an optimized TensorFlow Lite Micro inference engine on ESP32-S3 CAM</li>
-<li>Bare-metal C firmware on MSP432 for motor control, ultrasonic sensing, and UART feedback</li>
-<li>ESP32 computes error from centroid location to frame center, then sends a navigation command to MSP432 via UART</li>
-<li>HC-SR04 gauges distance to target and MSP432 adjusts forward velocity accordingly</li>
-<li>Status: paused - physical chassis is at school</li>
-</ul>
-</div>
-<div class="modal-section">
-<h4>TOOLCHAIN</h4>
-<ul>
-<li>Arduino IDE</li>
-<li>Code Composer Studio</li>
-<li>Edge Impulse</li>
-</ul>
-</div>
-<div class="modal-actions">
-<a class="modal-action" href="https://github.com/goombad/PACK-E" target="_blank">GitHub <span>→</span></a>
-</div>
-</div>
-</div>
+<a aria-label="Open PACK-E" class="project-cover art-packe project-cover-link" href="project.html?project=pack-e"></a>
+<h3 class="project-title"><a class="project-title-link" href="project.html?project=pack-e">PACK-E</a></h3><p class="project-desc">[placeholder]</p>
+
 </div>
 <!-- 05 -->
 <div class="project-card" data-project="05">
-<div class="project-cover project-open" role="button" tabindex="0" aria-label="Open project"><img src="images/imagine rit.jpg" alt="Team presenting the Automated Blast Gate Network at Imagine RIT"/></div>
-<h3 class="project-title"><button class="project-title-link project-open" type="button">Automated Blast Gate Network</button></h3><p class="project-desc">[placeholder]</p>
-<div class="project-extended">
-<div class="modal-hero-img">
-<model-viewer alt="Interactive 3D model of the Automated Blast Gate Network assembly" auto-rotate="" auto-rotate-delay="500" camera-controls="" environment-image="neutral" exposure="1" interaction-prompt="none" loading="eager" rotation-per-second="18deg" shadow-intensity="0.8" src="models/blast-gate-assembly.glb" touch-action="pan-y">
-</model-viewer>
-</div>
-<div class="modal-body">
-<p class="modal-num">JAN - MAY 2026</p>
-<h2 class="modal-title">Automated Blast Gate Network</h2>
-<p class="modal-tagline">A fleet of "smart" blast gates for the RIT SHED Wood Shop - gates that talk to each other and balance vacuum flow with no central controller in the loop.</p>
-<div class="modal-section">
-<h4>OVERVIEW</h4>
-<p>I led the electrical and embedded side of this build, designing the closed-loop positioning system, the UART communication protocol between nodes, and the flow-balancing equation that runs locally on each gate. The result: a network where each gate makes its own decisions based on broadcast state.</p>
-</div>
-<div class="modal-section">
-<h4>HIGHLIGHTS</h4>
-<ul>
-<li>Designed and manufactured smart blast gates to optimize vacuum flow and UX in the Wood Shop</li>
-<li>Built a closed-loop positioning system using L298N drivers and linear actuator feedback</li>
-<li>Established Nano-ESP32 communication via 8N1 UART broadcast</li>
-<li>Devised a single-byte broadcast architecture for distributed flow balancing</li>
-</ul>
-</div>
-<div class="modal-section">
-<h4>STACK</h4>
-<ul>
-<li>Arduino Nano · ESP32 · L298N motor drivers</li>
-<li>Linear actuators with position feedback</li>
-<li>Custom 8N1 UART broadcast protocol</li>
-</ul>
-</div>
-<div class="modal-section">
-<h4>PRESENTED AT IMAGINE RIT</h4>
-<p>Our team showcased the Automated Blast Gate Network at Imagine RIT, RIT's annual creativity and innovation festival, demoing the live system to visitors right in the SHED Wood Shop where it runs.</p>
-<figure class="modal-figure">
-<div class="modal-figure-row">
-<img alt="Team presenting the Automated Blast Gate Network at Imagine RIT" src="images/imagine rit.jpg"/>
-<img alt="Automated Blast Gate poster and live demo setup at Imagine RIT" src="images/imagine-rit-poster.jpg"/>
-</div>
-<figcaption>IMAGINE RIT · TEAM &amp; POSTER AT THE SHED WOOD SHOP</figcaption>
-</figure>
-</div>
-<div class="modal-section">
-<h4>INITIAL PROTOTYPES</h4>
-<p>Before any of the gates were manufactured, I bench-tested a single node end to end: an Arduino Nano driving a linear actuator through an L298N H-bridge, with position feedback closing the loop. This breadboard rig was where the closed-loop positioning and UART messaging were first proven out.</p>
-<figure class="modal-figure">
-<img alt="Breadboard prototype with Arduino Nano, L298N driver, and linear actuator" src="images/PXL_20260310_021118050.MP.jpg"/>
-<figcaption>BENCH PROTOTYPE · NANO + L298N + LINEAR ACTUATOR</figcaption>
-</figure>
-</div>
-<div class="modal-actions">
-<a class="modal-action" href="https://github.com/goombad/Blast-Gate-Repo" target="_blank">GitHub <span>→</span></a>
-</div>
-</div>
-</div>
+<a aria-label="Open Automated Blast Gate Network" class="project-cover project-cover-link" href="project.html?project=blast-gate-network"><img alt="Team presenting the Automated Blast Gate Network at Imagine RIT" src="images/imagine rit.jpg"/></a>
+<h3 class="project-title"><a class="project-title-link" href="project.html?project=blast-gate-network">Automated Blast Gate Network</a></h3><p class="project-desc">[placeholder]</p>
+
 </div>
 <!-- 06 -->
 <div class="project-card" data-project="06">
-<div class="project-cover project-open" role="button" tabindex="0" aria-label="Open project"><img src="images/PXL_20220126_164438253.jpg" alt="RC tank chassis with Arduino Mega and breadboard mounted on tracked base"/></div>
-<h3 class="project-title"><button class="project-title-link project-open" type="button">RC Tank &amp; Bluetooth Bridge</button></h3><p class="project-desc">[placeholder]</p>
-<div class="project-extended">
-<div class="modal-hero-img">
-<img alt="RC tank chassis with Arduino Mega and breadboard mounted on tracked base" src="images/PXL_20220126_164438253.jpg"/>
-</div>
-<div class="modal-body">
-<p class="modal-num">AUG 2021 - MAY 2022</p>
-<h2 class="modal-title">RC Tank &amp; Bluetooth Bridge</h2>
-<p class="modal-tagline">My first real mechatronics build. Custom-designed chassis, custom H-bridge driver from discrete MOSFETs, custom controller - every layer from mechanical to firmware was hand-rolled.</p>
-<div class="modal-section">
-<h4>OVERVIEW</h4>
-<p>I CADed and 3D-printed the analog joystick controller and the tank chassis, then designed a discrete H-bridge from P-MOS and N-MOS transistors for all four motion states. The two halves talk over HC-05 Bluetooth, and I added I²C telemetry to monitor the tank's state.</p>
-</div>
-<div class="modal-section">
-<h4>HIGHLIGHTS</h4>
-<ul>
-<li>Designed a custom H-bridge motor driver using P-MOS and N-MOS for coasting, steering, braking, and reversing</li>
-<li>Modeled and 3D-printed the joystick controller and tank chassis from scratch</li>
-<li>Programmed the tank in Arduino C, with I²C protocol for sensor data and HC-05 for wireless command</li>
-<li>First project that mixed mechanical, electrical, and firmware in one system</li>
-</ul>
-</div>
-<div class="modal-section">
-<h4>STACK</h4>
-<ul>
-<li>Arduino Mega · Arduino Uno, controller / chassis</li>
-<li>Discrete P-MOS / N-MOS H-bridge</li>
-<li>HC-05 Bluetooth module · I²C telemetry</li>
-</ul>
-</div>
-</div>
-</div>
+<a aria-label="Open RC Tank &amp; Bluetooth Bridge" class="project-cover project-cover-link" href="project.html?project=rc-tank-bluetooth"><img alt="RC tank chassis with Arduino Mega and breadboard mounted on tracked base" src="images/PXL_20220126_164438253.jpg"/></a>
+<h3 class="project-title"><a class="project-title-link" href="project.html?project=rc-tank-bluetooth">RC Tank &amp; Bluetooth Bridge</a></h3><p class="project-desc">[placeholder]</p>
+
 </div>
 </div>
 </section><section class="experience" id="experience">
@@ -926,59 +600,11 @@ body.modal-open { overflow: hidden; }
 </svg>
 </a>
 </div>
-</footer><div aria-hidden="true" class="modal-backdrop" id="project-modal">
-<div aria-modal="true" class="modal-panel" role="dialog">
-<button aria-label="Close" class="modal-close">×</button>
-<div class="modal-content"></div>
-</div>
-</div><script>
+</footer><script>
 (function () {
-  const modal = document.getElementById('project-modal');
-  const modalContent = modal && modal.querySelector('.modal-content');
-  const closeBtn = modal && modal.querySelector('.modal-close');
-
-  function closeModal() {
-    if (!modal) return;
-    modal.classList.remove('open');
-    document.body.classList.remove('modal-open');
-    if (modalContent) modalContent.innerHTML = '';
-  }
-
-  function openProject(trigger) {
-    const card = trigger.closest('.project-card');
-    const extended = card && card.querySelector('.project-extended');
-    if (!modal || !modalContent || !extended) return;
-
-    modalContent.innerHTML = extended.innerHTML;
-    modal.classList.add('open');
-    document.body.classList.add('modal-open');
-
-    // Mouse clicks should not leave a persistent focused hover-like state.
-    if (trigger.matches(':focus') && !trigger.matches(':focus-visible')) {
-      trigger.blur();
-    }
-  }
-
-  document.querySelectorAll('.project-open').forEach(trigger => {
-    trigger.addEventListener('click', () => openProject(trigger));
-
-    // The project artwork is a div, so give it native-button-like keyboard behavior.
-    if (trigger.classList.contains('project-cover')) {
-      trigger.addEventListener('keydown', event => {
-        if (event.key === 'Enter' || event.key === ' ') {
-          event.preventDefault();
-          openProject(trigger);
-        }
-      });
-    }
-  });
-
-  if (closeBtn) closeBtn.addEventListener('click', closeModal);
-  if (modal) modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
-
   const mediaItems = [
     { type: 'model', src: 'models/Workstation-Assembly.glb', title: 'LoomLogic Camera Workstation', tool: 'SOLIDWORKS', alt: 'Interactive 3D model of the LoomLogic Camera Workstation' },
+    { type: 'image', src: 'images/LoomLogic%20workstation.jpg', title: 'LoomLogic Camera Workstation', tool: 'PHOTO', alt: 'Assembled LoomLogic workstation with aluminum frame, camera, and light bar' },
     { type: 'image', src: 'images/uncommonhacks_image.jpg', title: 'LifeStory - Memory Record Player', tool: 'PHOTO', alt: 'LifeStory team at Uncommon Hacks 2026' },
     { type: 'model', src: 'models/blast-gate-assembly.glb', title: 'Automated Blast Gate', tool: 'SOLIDWORKS', alt: 'Interactive 3D model of the Automated Blast Gate assembly' },
     { type: 'image', src: 'images/imagine%20rit.jpg', title: 'Automated Blast Gate', tool: 'PHOTO', alt: 'Team presenting the Automated Blast Gate Network at Imagine RIT' },

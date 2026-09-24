@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Project — Vincent Lin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<script src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.3.1/model-viewer.min.js" type="module"></script>
+<style>
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: #fff;
+  color: #111;
+  font-family: "Manrope", Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; }
+img, video, model-viewer { max-width: 100%; }
+
+nav {
+  line-height: 1.6;
+  width: min(1120px, calc(100% - 48px));
+  min-height: 76px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+  border-bottom: 1px solid #cfcfcf;
+}
+.logo {
+  color: #111;
+  text-decoration: none;
+  font-family: "Manrope", Arial, sans-serif;
+  font-size: 18px;
+  line-height: 1.6;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.nav-links { display: flex; flex-wrap: wrap; gap: 24px; }
+.nav-links a {
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+}
+.nav-links a:hover { text-decoration: underline; text-underline-offset: 4px; }
+
+.project-page {
+  width: min(1120px, calc(100% - 48px));
+  margin: 0 auto;
+  padding: 42px 0 80px;
+}
+
+.project-header {
+  max-width: 900px;
+  padding-bottom: 38px;
+}
+.project-date {
+  margin: 0 0 10px;
+  color: #888;
+  font-size: 12px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+.project-title {
+  margin: 0;
+  font-size: clamp(40px, 5vw, 64px);
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+  font-weight: 700;
+}
+.project-description {
+  margin: 18px 0 0;
+  max-width: 800px;
+  color: #555;
+  font-size: clamp(18px, 2vw, 24px);
+  line-height: 1.5;
+}
+
+.project-meta {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 30px;
+  padding: 30px 0;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+}
+.meta-label {
+  margin: 0 0 7px;
+  color: #999;
+  font-size: 11px;
+  letter-spacing: .12em;
+}
+.meta-value {
+  margin: 0;
+  font-size: 15px;
+}
+
+.project-cover {
+  margin: 52px 0 0;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: 20px;
+  background: #f2f0ed;
+}
+.project-cover img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+.project-cover.cover-contain img {
+  object-fit: contain;
+  padding: 38px;
+  background: #f8f7f4;
+}
+
+.project-cover.art-imu {
+  position: relative;
+  background:
+    radial-gradient(circle at 52% 52%, rgba(255,255,255,.94) 0 6%, transparent 6.5%),
+    radial-gradient(ellipse at 50% 50%, transparent 0 16%, rgba(255,255,255,.54) 16.5% 28%, transparent 28.5%),
+    radial-gradient(ellipse at 50% 50%, transparent 0 40%, rgba(255,255,255,.30) 40.5% 52%, transparent 52.5%),
+    linear-gradient(135deg, #0a50dd 0%, #1f73ee 48%, #65b7ff 100%);
+}
+.project-cover.art-imu::after {
+  content: '';
+  position: absolute;
+  width: 110px;
+  height: 110px;
+  left: calc(50% - 55px);
+  top: calc(50% - 55px);
+  border-radius: 24px;
+  background: #101010;
+  transform: rotate(-13deg);
+  box-shadow: 0 18px 40px rgba(0,0,0,.20);
+}
+.project-cover.art-packe {
+  position: relative;
+  background:
+    radial-gradient(circle at 72% 25%, #111 0 5%, transparent 5.5%),
+    linear-gradient(145deg, transparent 0 43%, rgba(255,255,255,.55) 43.5% 55%, transparent 55.5%),
+    linear-gradient(15deg, #ff4d3d 0 28%, #ff92bd 28% 53%, #ff9d00 53% 100%);
+}
+
+.project-content {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 56px 0 0;
+}
+.project-content .modal-section {
+  margin: 0 0 42px;
+}
+.project-content .modal-section h4 {
+  margin: 0 0 14px;
+  font-size: 14px;
+}
+.project-content .modal-section p {
+  margin: 0 0 18px;
+  color: #292929;
+}
+.project-content .modal-section ul {
+  margin: 0;
+  padding-left: 22px;
+}
+.project-content .modal-section li { margin: 8px 0; }
+.project-content a {
+  color: #0057d9;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.project-content .modal-action {
+  display: inline-block;
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: #111;
+  color: #fff;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+}
+.detail-feature {
+  margin: 0 auto 48px;
+  max-width: 920px;
+  overflow: hidden;
+  border-radius: 18px;
+  background: #f4f4f2;
+}
+.detail-feature img,
+.detail-feature video,
+.detail-feature model-viewer {
+  width: 100%;
+  display: block;
+}
+.detail-feature model-viewer { min-height: 520px; }
+.modal-figure { margin-top: 18px; }
+.modal-figure img, .modal-figure video { width: 100%; height: auto; display: block; }
+.modal-figure-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.modal-figure figcaption { margin-top: 8px; color: #777; font-size: 12px; }
+
+@media (max-width: 760px) {
+  .project-page { width: min(100% - 32px, 1120px); }
+  .project-page { padding-top: 30px; }
+  .project-meta { grid-template-columns: 1fr; gap: 18px; }
+  .project-cover { aspect-ratio: 4 / 3; margin-top: 36px; }
+  .project-content { padding-top: 38px; }
+  .modal-figure-row { grid-template-columns: 1fr; }
+  .detail-feature model-viewer { min-height: 360px; }
+}
+@media (max-width: 620px) {
+  nav { width: min(100% - 32px, 1120px); min-height: 68px; align-items: flex-start; padding: 18px 0; flex-direction: column; gap: 12px; }
+  .nav-links { gap: 14px 18px; }
+}
+</style>
+</head>
+<body>
+<nav>
+  <a class="logo" href="index.html">V. LIN</a>
+  <div class="nav-links">
+    <a href="index.html#projects">PROJECTS</a>
+    <a href="index.html#experience">EXPERIENCE</a>
+  </div>
+</nav>
+
+<main class="project-page">
+  <header class="project-header">
+    <p class="project-date" id="project-date"></p>
+    <h1 class="project-title" id="project-title"></h1>
+    <p class="project-description" id="project-description"></p>
+  </header>
+
+  <section class="project-meta">
+    <div>
+      <p class="meta-label">PROJECT</p>
+      <p class="meta-value" id="meta-project"></p>
+    </div>
+    <div>
+      <p class="meta-label">DATE</p>
+      <p class="meta-value" id="meta-date"></p>
+    </div>
+    <div>
+      <p class="meta-label">TYPE</p>
+      <p class="meta-value">PERSONAL / ENGINEERING</p>
+    </div>
+  </section>
+
+  <div class="project-cover" id="project-cover"></div>
+
+  <article class="project-content">
+    <div id="project-feature"></div>
+    <div id="project-body"></div>
+  </article>
+</main>
+
+<script src="projects.js"></script>
+<script>
+(function () {
+  const params = new URLSearchParams(window.location.search);
+  const slug = params.get('project');
+  const project = window.PROJECTS && window.PROJECTS[slug];
+
+  if (!project) {
+    document.title = 'Project not found — Vincent Lin';
+    document.getElementById('project-title').textContent = 'Project not found';
+    document.getElementById('project-description').textContent =
+      'Return to the projects page and choose a project.';
+    document.querySelector('.project-meta').style.display = 'none';
+    document.getElementById('project-cover').style.display = 'none';
+    return;
+  }
+
+  document.title = project.title + ' — Vincent Lin';
+  document.getElementById('project-title').textContent = project.title;
+  document.getElementById('project-description').textContent = project.description;
+  document.getElementById('project-date').textContent = project.date;
+  document.getElementById('meta-project').textContent = project.title;
+  document.getElementById('meta-date').textContent = project.date || '—';
+
+  const cover = document.getElementById('project-cover');
+
+  if (project.cover.type === 'image') {
+    if (project.cover.contain) cover.classList.add('cover-contain');
+    const img = document.createElement('img');
+    img.src = project.cover.src;
+    img.alt = project.cover.alt || project.title;
+    cover.appendChild(img);
+  } else if (project.cover.type === 'css') {
+    cover.classList.add(project.cover.class);
+  } else {
+    cover.style.display = 'none';
+  }
+
+  if (project.featureHtml) {
+    document.getElementById('project-feature').innerHTML =
+      '<div class="detail-feature">' + project.featureHtml + '</div>';
+  }
+
+  document.getElementById('project-body').innerHTML = project.bodyHtml || '';
+})();
+</script>
+</body>
+</html>
