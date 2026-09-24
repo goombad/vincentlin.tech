@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<base href="/"/>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Project — Vincent Lin</title>
@@ -234,6 +235,7 @@ nav {
 <main class="project-page">
   <header class="project-header">
     <p class="project-date" id="project-date"></p>
+    <p class="project-date" id="project-archive-status" hidden>ARCHIVED PROJECT</p>
     <h1 class="project-title" id="project-title"></h1>
     <p class="project-description" id="project-description"></p>
   </header>
@@ -265,8 +267,10 @@ nav {
 <script>
 (function () {
   const params = new URLSearchParams(window.location.search);
-  const slug = params.get('project');
-  const project = window.PROJECTS && window.PROJECTS[slug];
+  const route = window.location.pathname.match(/^\/projects\/([a-z0-9-]+)\/?$/);
+  const slug = route ? route[1] : params.get('project');
+  const project = window.PROJECTS && Object.prototype.hasOwnProperty.call(window.PROJECTS, slug)
+    ? window.PROJECTS[slug] : null;
 
   if (!project) {
     document.title = 'Project not found — Vincent Lin';
@@ -278,6 +282,15 @@ nav {
     return;
   }
 
+  // Keep bookmarks using the old query-string URL working.
+  if (!route && /^https?:$/.test(window.location.protocol)) {
+    params.delete('project');
+    const query = params.toString();
+    window.history.replaceState(window.history.state, '',
+      '/projects/' + encodeURIComponent(slug) + (query ? '?' + query : '') + window.location.hash);
+  }
+
+  document.getElementById('project-archive-status').hidden = project.archived !== true;
   document.title = project.title + ' — Vincent Lin';
   document.getElementById('project-title').textContent = project.title;
   document.getElementById('project-description').textContent = project.description;
