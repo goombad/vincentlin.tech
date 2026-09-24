@@ -117,7 +117,8 @@ nav {
 }
 
 .hero-cad-viewer,
-.hero-cad-image {
+.hero-cad-image,
+.hero-cad-video {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -131,9 +132,14 @@ nav {
   --progress-bar-height: 0px;
 }
 
-.hero-cad-image {
+.hero-cad-image,
+.hero-cad-video {
   display: none;
   object-fit: contain;
+}
+
+.hero-cad-video {
+  background: #000;
 }
 
 .hero-cad-viewer::part(default-progress-bar) { display: none; }
@@ -483,10 +489,11 @@ section {
 <polyline points="15 18 9 12 15 6"></polyline>
 </svg>
 </button>
-<div class="hero-cad-me2dia">
+<div class="hero-cad-media">
 <model-viewer alt="Interactive 3D model of the LoomLogic Camera Workstation" auto-rotate="" auto-rotate-delay="500" camera-controls="" class="hero-cad-viewer" disable-zoom="" environment-image="neutral" exposure="1" id="hero-cad-model" interaction-prompt="none" rotation-per-second="18deg" shadow-intensity="0.8" src="models/Workstation-Assembly.glb" touch-action="pan-y">
 </model-viewer>
-<img alt="" class="hero-cad-image" hidden="" id="hero-cad-image" src=""/>
+<img alt="" class="hero-cad-image" id="hero-cad-image" src=""/>
+<video class="hero-cad-video" controls="" id="hero-cad-video" playsinline="" preload="metadata"></video>
 </div>
 <button aria-label="Next CAD model" class="hero-cad-arrow hero-cad-next" type="button">
 <svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewbox="0 0 24 24">
@@ -603,18 +610,45 @@ section {
 </footer><script>
 (function () {
   const mediaItems = [
+    { type: 'image', src: 'images/sisyphus%20table%20mechanical.png', title: 'Sisyphus Table Mechanical Design', tool: 'MECHANICAL', alt: 'Mechanical design of the Sisyphus table' },
     { type: 'model', src: 'models/Workstation-Assembly.glb', title: 'LoomLogic Camera Workstation', tool: 'SOLIDWORKS', alt: 'Interactive 3D model of the LoomLogic Camera Workstation' },
     { type: 'image', src: 'images/LoomLogic%20workstation.jpg', title: 'LoomLogic Camera Workstation', tool: 'PHOTO', alt: 'Assembled LoomLogic workstation with aluminum frame, camera, and light bar' },
+
     { type: 'image', src: 'images/uncommonhacks_image.jpg', title: 'LifeStory - Memory Record Player', tool: 'PHOTO', alt: 'LifeStory team at Uncommon Hacks 2026' },
+    { type: 'image', src: 'images/imagematchertest.jpg', title: 'LifeStory Image Matching Test', tool: 'COMPUTER VISION', alt: 'LifeStory image matching test result' },
+    { type: 'image', src: 'images/matches_photo7.jpg', title: 'LifeStory Feature Matching', tool: 'COMPUTER VISION', alt: 'Feature matches generated for the LifeStory project' },
+
     { type: 'model', src: 'models/blast-gate-assembly.glb', title: 'Automated Blast Gate', tool: 'SOLIDWORKS', alt: 'Interactive 3D model of the Automated Blast Gate assembly' },
+    { type: 'image', src: 'images/automatedblastgate-schematic.png', title: 'Automated Blast Gate Schematic', tool: 'SCHEMATIC', alt: 'Electrical schematic for the Automated Blast Gate Network' },
     { type: 'image', src: 'images/imagine%20rit.jpg', title: 'Automated Blast Gate', tool: 'PHOTO', alt: 'Team presenting the Automated Blast Gate Network at Imagine RIT' },
+    { type: 'image', src: 'images/imagine-rit-poster.jpg', title: 'Imagine RIT Project Poster', tool: 'POSTER', alt: 'Imagine RIT poster for the Automated Blast Gate Network' },
     { type: 'image', src: 'images/PXL_20260310_021118050.MP.jpg', title: 'Automated Blast Gate Prototype', tool: 'PHOTO', alt: 'Breadboard prototype with Arduino Nano, L298N driver, and linear actuator' },
+    { type: 'video', src: 'videos/Blast%20Gate%20Prototype.mp4', title: 'Automated Blast Gate Prototype', tool: 'VIDEO', alt: 'Video of the automated blast gate prototype' },
+    { type: 'video', src: 'videos/Imagine%20RIT%20demo.mp4', title: 'Imagine RIT Demo', tool: 'VIDEO', alt: 'Automated Blast Gate Network demonstration at Imagine RIT' },
+
+    { type: 'image', src: 'images/Dc%20Linear%20Actuator%20Breakdown.jpg', title: 'DC Linear Actuator Breakdown', tool: 'MECHANICAL', alt: 'DC linear actuator breakdown' },
+    { type: 'video', src: 'videos/DC%20Linear%20Actuator%20Control.mp4', title: 'DC Linear Actuator Control', tool: 'VIDEO', alt: 'Video demonstrating DC linear actuator control' },
+
+    { type: 'image', src: 'images/sisyphus-schematic.png', title: 'Automated SVG Sisyphus Table', tool: 'SCHEMATIC', alt: 'Electrical schematic for the automated Sisyphus table' },
+    { type: 'video', src: 'videos/Sisyphus%20Table%20CNC%20mechanism.mp4', title: 'Sisyphus Table CNC Mechanism', tool: 'VIDEO', alt: 'Video of the Sisyphus table CNC mechanism' },
+
+    { type: 'video', src: 'videos/MPU6050ROS.mp4', title: 'MPU6050 Motion Controller → ROS2', tool: 'VIDEO', alt: 'MPU6050 motion controller communicating with ROS2' },
+
+    { type: 'image', src: 'images/pcb%20design.png', title: 'PCB Design', tool: 'ALTIUM', alt: 'PCB design view' },
+    { type: 'image', src: 'images/pcbdesign2.png', title: 'PCB Design', tool: 'ALTIUM', alt: 'Additional PCB design view' },
+    { type: 'image', src: 'images/pcbdesign3.png', title: 'PCB Design', tool: 'ALTIUM', alt: 'Additional PCB design view' },
+
+    { type: 'image', src: 'images/robotstudio.png', title: 'ABB RobotStudio', tool: 'ROBOTSTUDIO', alt: 'ABB RobotStudio station logic and signal connections' },
+    { type: 'video', src: 'videos/Robotstudio.mp4', title: 'ABB RobotStudio Simulation', tool: 'VIDEO', alt: 'ABB RobotStudio automation simulation' },
+    { type: 'video', src: 'videos/msp432.mp4', title: 'MSP432 Embedded Systems', tool: 'VIDEO', alt: 'MSP432 embedded systems demonstration' },
+
     { type: 'model', src: 'models/v6-twin-turbo.glb', title: 'V6 Twin Turbo Engine', tool: 'INVENTOR', alt: 'Interactive 3D model of the V6 twin turbo engine assembly' },
     { type: 'model', src: 'models/drone-model.glb', title: 'Drone Assembly', tool: 'INVENTOR', alt: 'Interactive 3D model of the drone assembly' },
     { type: 'image', src: 'images/PXL_20220126_164438253.jpg', title: 'RC Tank & Bluetooth Bridge', tool: 'PHOTO', alt: 'RC tank chassis with Arduino Mega and breadboard' }
   ];
   const viewer = document.getElementById('hero-cad-model');
   const imageViewer = document.getElementById('hero-cad-image');
+  const videoViewer = document.getElementById('hero-cad-video');
   const title = document.getElementById('hero-cad-title');
   const tool = document.getElementById('hero-cad-tool');
   const hint = document.getElementById('hero-cad-hint');
@@ -626,27 +660,40 @@ section {
     console.error('Hero image failed to load:', imageViewer.getAttribute('src'));
   });
 
+  videoViewer.addEventListener('error', () => {
+    console.error('Hero video failed to load:', videoViewer.getAttribute('src'));
+  });
+
   function showMedia(nextIndex) {
-    if (!viewer || !imageViewer) return;
+    if (!viewer || !imageViewer || !videoViewer) return;
+
     index = (nextIndex + mediaItems.length) % mediaItems.length;
     const item = mediaItems[index];
 
+    viewer.style.display = 'none';
+    imageViewer.style.display = 'none';
+    videoViewer.style.display = 'none';
+
+    if (!videoViewer.paused) videoViewer.pause();
+
     if (item.type === 'model') {
       viewer.style.display = 'block';
-      imageViewer.style.display = 'none';1
-
       viewer.setAttribute('src', item.src);
       viewer.setAttribute('alt', item.alt);
-
       if (hint) hint.textContent = 'DRAG TO ORBIT';
-    } else {
-      viewer.style.display = 'none';
+    } else if (item.type === 'image') {
       imageViewer.style.display = 'block';
-
       imageViewer.setAttribute('src', item.src);
       imageViewer.setAttribute('alt', item.alt);
-
       if (hint) hint.textContent = 'IMAGE PREVIEW';
+    } else if (item.type === 'video') {
+      videoViewer.style.display = 'block';
+      if (videoViewer.getAttribute('src') !== item.src) {
+        videoViewer.setAttribute('src', item.src);
+        videoViewer.load();
+      }
+      videoViewer.setAttribute('aria-label', item.alt);
+      if (hint) hint.textContent = 'VIDEO';
     }
 
     if (title) title.textContent = item.title;
