@@ -52,7 +52,6 @@ nav {
   grid-template-columns: minmax(0, 1fr) minmax(340px, .82fr);
   gap: 48px;
   align-items: center;
-  border-bottom: 1px solid #cfcfcf;
 }
 .landing-intro {
   padding: 0;
@@ -64,7 +63,7 @@ nav {
   margin: 0 0 18px;
   font-size: clamp(46px, 5.4vw, 68px);
   line-height: .96;
-  letter-spacing: -0.055em;
+  letter-spacing: -0.015em;
   font-weight: 700;
   white-space: normal;
 }
@@ -110,20 +109,27 @@ nav {
   height: 100%;
   position: relative;
 }
+
 .hero-cad-viewer,
 .hero-cad-image {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
-  display: block;
   background: transparent;
 }
+
 .hero-cad-viewer {
+  display: block;
   --poster-color: transparent;
   --progress-bar-height: 0px;
 }
+
 .hero-cad-image {
+  display: none;
   object-fit: contain;
 }
+
 .hero-cad-viewer::part(default-progress-bar) { display: none; }
 .hero-cad-arrow {
   position: absolute;
@@ -183,8 +189,13 @@ section {
   padding: 64px 0 72px;
   border-bottom: 1px solid #cfcfcf;
 }
+
+.projects-section {
+  padding-top: 46px;
+  border-bottom: 0;
+}
 .section-label {
-  margin: 0;
+  margin: 0 0 14px;
   font-size: 28px;
   line-height: 1.15;
   font-weight: 600;
@@ -201,6 +212,8 @@ section {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 28px;
+  border-top: 1px solid #bdbdbd;
+  padding-top: 28px;
 }
 .project-card,
 .project-card.full-width {
@@ -225,6 +238,15 @@ section {
   aspect-ratio: 4 / 3;
   overflow: hidden;
   background: #e9e7e3;
+}
+
+.project-cover.project-open {
+  cursor: pointer;
+}
+
+.project-cover.project-open:focus-visible {
+  outline: 2px solid #111;
+  outline-offset: -4px;
 }
 .project-cover img {
   width: 100%;
@@ -333,34 +355,6 @@ section {
   outline-offset: 4px;
 }
 
-.project-learn {
-  width: 100%;
-  margin-top: auto;
-  padding: 18px 26px 20px;
-  border: 0;
-  border-top: 1px solid #dedbd7;
-  background: transparent;
-  color: #111;
-  font: inherit;
-  font-size: 15px;
-  font-weight: 700;
-  text-align: left;
-  cursor: pointer;
-  transition: color .16s ease, background .16s ease;
-}
-
-.project-learn:hover {
-  color: #0057d9;
-  text-decoration: underline;
-  text-decoration-thickness: 1.5px;
-  text-underline-offset: 4px;
-  background: rgba(255,255,255,.58);
-}
-
-.project-learn:focus-visible {
-  outline: 1px solid #111;
-  outline-offset: -5px;
-}
 .project-extended { display: none; }
 
 @media (max-width: 1100px) {
@@ -371,11 +365,13 @@ section {
   .project-card, .project-card.full-width { min-height: 0; }
   .project-title { padding: 22px 22px 0; }
   .project-desc { padding: 15px 22px 24px; }
-  .project-learn { padding: 17px 22px 19px; }
 }
 
 /* Experience: plain work-history rows. */
-.exp-list { border-top: 1px solid #bdbdbd; }
+.exp-list {
+  border-top: 1px solid #bdbdbd;
+  padding-top: 14px;
+}
 .exp-item {
   display: grid;
   grid-template-columns: 150px 1.2fr 1fr 110px;
@@ -504,6 +500,9 @@ body.modal-open { overflow: hidden; }
   .hero-cad-footer { align-items: flex-start; flex-direction: column; }
   .hero-cad-controls { align-items: flex-start; }
   section { padding: 48px 0 56px; }
+  .projects-section { padding-top: 36px; }
+  .projects-grid { padding-top: 22px; }
+  .exp-list { padding-top: 10px; }
   .section-eyebrow { margin-bottom: 28px; }
   .project-image { aspect-ratio: 4 / 3; }
   .exp-item { grid-template-columns: 1fr; gap: 4px; }
@@ -555,16 +554,15 @@ body.modal-open { overflow: hidden; }
 <p class="hero-cad-hint" id="hero-cad-hint">DRAG TO ORBIT</p>
 </div>
 </div>
-</div></main><section id="projects">
+</div></main><section id="projects" class="projects-section">
 <p class="section-label">PROJECTS</p>
 <div class="projects-grid">
 <!-- 01 (NEW) -->
 <div class="project-card full-width" data-project="01">
 
-<div class="project-cover"><img src="images/uncommonhacks_image.jpg" alt="LifeStory team at Uncommon Hacks 2026 Closing Ceremony"/></div>
-<h3 class="project-title"><button class="project-title-link" type="button">LifeStory - Memory Record Player</button></h3>
+<div class="project-cover project-open" role="button" tabindex="0" aria-label="Open project"><img src="images/uncommonhacks_image.jpg" alt="LifeStory team at Uncommon Hacks 2026 Closing Ceremony"/></div>
+<h3 class="project-title"><button class="project-title-link project-open" type="button">LifeStory - Memory Record Player</button></h3>
 <p class="project-desc">UncommonHacks '26 1st Place Winner using both Meta's DINOv2 embedding model and ORB feature matching algorithm.</p>
-<button class="project-learn" type="button">Learn</button>
 <div class="project-extended">
 <div class="modal-hero-img fit">
 <img alt="ORB feature matches between physical and digital photo" src="images/matches_photo7.jpg"/>
@@ -634,9 +632,8 @@ body.modal-open { overflow: hidden; }
 </div>
 <!-- 02 -->
 <div class="project-card" data-project="02">
-<div class="project-cover art-imu" aria-hidden="true"></div>
-<h3 class="project-title"><button class="project-title-link" type="button">MPU6050 Motion Controller → ROS2</button></h3><p class="project-desc">Tilt a physical IMU in your hand and a virtual robot mirrors it live in RViz2 - a complete hardware-to-middleware loop, from raw I²C samples to ROS2 topics.</p>
-<button class="project-learn" type="button">Learn</button>
+<div class="project-cover art-imu project-open" role="button" tabindex="0" aria-label="Open project"></div>
+<h3 class="project-title"><button class="project-title-link project-open" type="button">MPU6050 Motion Controller → ROS2</button></h3><p class="project-desc">[placeholder]</p>
 <div class="project-extended">
 <div class="modal-body">
 <p class="modal-num">2026</p>
@@ -699,9 +696,8 @@ body.modal-open { overflow: hidden; }
 </div>
 <!-- 03 -->
 <div class="project-card" data-project="03">
-<div class="project-cover cover-contain"><img src="images/sisyphus-schematic.png" alt="Sisyphus table electrical schematic"/></div>
-<h3 class="project-title"><button class="project-title-link" type="button">Automated SVG Sisyphus Table</button></h3><p class="project-desc">A polar coordinate CNC machine that draws patterns in sand using a magnetically-coupled steel ball - driven by a fully custom toolchain from SVG to motor torque.</p>
-<button class="project-learn" type="button">Learn</button>
+<div class="project-cover cover-contain project-open" role="button" tabindex="0" aria-label="Open project"><img src="images/sisyphus-schematic.png" alt="Sisyphus table electrical schematic"/></div>
+<h3 class="project-title"><button class="project-title-link project-open" type="button">Automated SVG Sisyphus Table</button></h3><p class="project-desc">[placeholder]</p>
 <div class="project-extended">
 <div class="modal-body">
 <p class="modal-num">MAR 2026 - PRESENT</p>
@@ -745,9 +741,8 @@ body.modal-open { overflow: hidden; }
 </div>
 <!-- 04 -->
 <div class="project-card" data-project="04">
-<div class="project-cover art-packe" aria-hidden="true"></div>
-<h3 class="project-title"><button class="project-title-link" type="button">PACK-E</button></h3><p class="project-desc">Package Acquisition &amp; Collection Kernel Earth-Class. Autonomous object detection and retrieval by squeezing a TinyML pipeline onto a $15 microcontroller.</p>
-<button class="project-learn" type="button">Learn</button>
+<div class="project-cover art-packe project-open" role="button" tabindex="0" aria-label="Open project"></div>
+<h3 class="project-title"><button class="project-title-link project-open" type="button">PACK-E</button></h3><p class="project-desc">[placeholder]</p>
 <div class="project-extended">
 <div class="modal-body">
 <p class="modal-num">MAR 2026 - PAUSED</p>
@@ -783,9 +778,8 @@ body.modal-open { overflow: hidden; }
 </div>
 <!-- 05 -->
 <div class="project-card" data-project="05">
-<div class="project-cover"><img src="images/imagine rit.jpg" alt="Team presenting the Automated Blast Gate Network at Imagine RIT"/></div>
-<h3 class="project-title"><button class="project-title-link" type="button">Automated Blast Gate Network</button></h3><p class="project-desc">A fleet of "smart" blast gates for the RIT SHED Wood Shop - gates that talk to each other and balance vacuum flow with no central controller in the loop.</p>
-<button class="project-learn" type="button">Learn</button>
+<div class="project-cover project-open" role="button" tabindex="0" aria-label="Open project"><img src="images/imagine rit.jpg" alt="Team presenting the Automated Blast Gate Network at Imagine RIT"/></div>
+<h3 class="project-title"><button class="project-title-link project-open" type="button">Automated Blast Gate Network</button></h3><p class="project-desc">[placeholder]</p>
 <div class="project-extended">
 <div class="modal-hero-img">
 <model-viewer alt="Interactive 3D model of the Automated Blast Gate Network assembly" auto-rotate="" auto-rotate-delay="500" camera-controls="" environment-image="neutral" exposure="1" interaction-prompt="none" loading="eager" rotation-per-second="18deg" shadow-intensity="0.8" src="models/blast-gate-assembly.glb" touch-action="pan-y">
@@ -843,9 +837,8 @@ body.modal-open { overflow: hidden; }
 </div>
 <!-- 06 -->
 <div class="project-card" data-project="06">
-<div class="project-cover"><img src="images/PXL_20220126_164438253.jpg" alt="RC tank chassis with Arduino Mega and breadboard mounted on tracked base"/></div>
-<h3 class="project-title"><button class="project-title-link" type="button">RC Tank &amp; Bluetooth Bridge</button></h3><p class="project-desc">My first real mechatronics build. Custom-designed chassis, custom H-bridge driver from discrete MOSFETs, custom controller - every layer from mechanical to firmware was hand-rolled.</p>
-<button class="project-learn" type="button">Learn</button>
+<div class="project-cover project-open" role="button" tabindex="0" aria-label="Open project"><img src="images/PXL_20220126_164438253.jpg" alt="RC tank chassis with Arduino Mega and breadboard mounted on tracked base"/></div>
+<h3 class="project-title"><button class="project-title-link project-open" type="button">RC Tank &amp; Bluetooth Bridge</button></h3><p class="project-desc">[placeholder]</p>
 <div class="project-extended">
 <div class="modal-hero-img">
 <img alt="RC tank chassis with Arduino Mega and breadboard mounted on tracked base" src="images/PXL_20220126_164438253.jpg"/>
@@ -951,19 +944,33 @@ body.modal-open { overflow: hidden; }
     if (modalContent) modalContent.innerHTML = '';
   }
 
-  document.querySelectorAll('.project-title-link, .project-learn').forEach(button => {
-    button.addEventListener('click', () => {
-      const card = button.closest('.project-card');
-      const extended = card && card.querySelector('.project-extended');
-      if (!modal || !modalContent || !extended) return;
-      modalContent.innerHTML = extended.innerHTML;
-      modal.classList.add('open');
-      document.body.classList.add('modal-open');
+  function openProject(trigger) {
+    const card = trigger.closest('.project-card');
+    const extended = card && card.querySelector('.project-extended');
+    if (!modal || !modalContent || !extended) return;
 
-      // Prevent mouse clicks from leaving the project title in a focused,
-      // blue/underlined state after the modal closes.
-      if (button.matches(':focus')) button.blur();
-    });
+    modalContent.innerHTML = extended.innerHTML;
+    modal.classList.add('open');
+    document.body.classList.add('modal-open');
+
+    // Mouse clicks should not leave a persistent focused hover-like state.
+    if (trigger.matches(':focus') && !trigger.matches(':focus-visible')) {
+      trigger.blur();
+    }
+  }
+
+  document.querySelectorAll('.project-open').forEach(trigger => {
+    trigger.addEventListener('click', () => openProject(trigger));
+
+    // The project artwork is a div, so give it native-button-like keyboard behavior.
+    if (trigger.classList.contains('project-cover')) {
+      trigger.addEventListener('keydown', event => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          openProject(trigger);
+        }
+      });
+    }
   });
 
   if (closeBtn) closeBtn.addEventListener('click', closeModal);
@@ -972,11 +979,13 @@ body.modal-open { overflow: hidden; }
 
   const mediaItems = [
     { type: 'model', src: 'models/Workstation-Assembly.glb', title: 'LoomLogic Camera Workstation', tool: 'SOLIDWORKS', alt: 'Interactive 3D model of the LoomLogic Camera Workstation' },
+    { type: 'image', src: 'images/uncommonhacks_image.jpg', title: 'LifeStory - Memory Record Player', tool: 'PHOTO', alt: 'LifeStory team at Uncommon Hacks 2026' },
     { type: 'model', src: 'models/blast-gate-assembly.glb', title: 'Automated Blast Gate', tool: 'SOLIDWORKS', alt: 'Interactive 3D model of the Automated Blast Gate assembly' },
-    { type: 'image', src: 'images/imagine rit.jpg', title: 'Automated Blast Gate', tool: 'PHOTO', alt: 'Team presenting the Automated Blast Gate Network at Imagine RIT' },
+    { type: 'image', src: 'images/imagine%20rit.jpg', title: 'Automated Blast Gate', tool: 'PHOTO', alt: 'Team presenting the Automated Blast Gate Network at Imagine RIT' },
     { type: 'image', src: 'images/PXL_20260310_021118050.MP.jpg', title: 'Automated Blast Gate Prototype', tool: 'PHOTO', alt: 'Breadboard prototype with Arduino Nano, L298N driver, and linear actuator' },
     { type: 'model', src: 'models/v6-twin-turbo.glb', title: 'V6 Twin Turbo Engine', tool: 'INVENTOR', alt: 'Interactive 3D model of the V6 twin turbo engine assembly' },
-    { type: 'model', src: 'models/drone-model.glb', title: 'Drone Assembly', tool: 'INVENTOR', alt: 'Interactive 3D model of the drone assembly' }
+    { type: 'model', src: 'models/drone-model.glb', title: 'Drone Assembly', tool: 'INVENTOR', alt: 'Interactive 3D model of the drone assembly' },
+    { type: 'image', src: 'images/PXL_20220126_164438253.jpg', title: 'RC Tank & Bluetooth Bridge', tool: 'PHOTO', alt: 'RC tank chassis with Arduino Mega and breadboard' }
   ];
   const viewer = document.getElementById('hero-cad-model');
   const imageViewer = document.getElementById('hero-cad-image');
@@ -987,22 +996,30 @@ body.modal-open { overflow: hidden; }
   const next = document.querySelector('.hero-cad-next');
   let index = 0;
 
+  imageViewer.addEventListener('error', () => {
+    console.error('Hero image failed to load:', imageViewer.getAttribute('src'));
+  });
+
   function showMedia(nextIndex) {
     if (!viewer || !imageViewer) return;
     index = (nextIndex + mediaItems.length) % mediaItems.length;
     const item = mediaItems[index];
 
     if (item.type === 'model') {
-      viewer.hidden = false;
-      imageViewer.hidden = true;
+      viewer.style.display = 'block';
+      imageViewer.style.display = 'none';
+
       viewer.setAttribute('src', item.src);
       viewer.setAttribute('alt', item.alt);
+
       if (hint) hint.textContent = 'DRAG TO ORBIT';
     } else {
-      viewer.hidden = true;
-      imageViewer.hidden = false;
+      viewer.style.display = 'none';
+      imageViewer.style.display = 'block';
+
       imageViewer.setAttribute('src', item.src);
       imageViewer.setAttribute('alt', item.alt);
+
       if (hint) hint.textContent = 'IMAGE PREVIEW';
     }
 
