@@ -277,7 +277,6 @@ a:focus-visible, button:focus-visible { outline: 2px solid #0057d9; outline-offs
 <main class="project-page">
   <header class="project-header">
     <p class="project-date" id="project-date"></p>
-    <p class="project-date" id="project-archive-status" hidden>ARCHIVED PROJECT</p>
     <h1 class="project-title" id="project-title"></h1>
     <p class="project-description" id="project-description"></p>
   </header>
@@ -369,7 +368,6 @@ a:focus-visible, button:focus-visible { outline: 2px solid #0057d9; outline-offs
       '/projects/' + encodeURIComponent(slug) + (query ? '?' + query : '') + window.location.hash);
   }
 
-  document.getElementById('project-archive-status').hidden = project.archived !== true;
   document.title = project.title + ' — Vincent Lin';
   document.getElementById('project-title').textContent = project.title;
   document.getElementById('project-description').textContent = project.description;

@@ -2,7 +2,7 @@ window.PROJECTS = {
   "lifestory": {
     "archived": false,
     "title": "LifeStory - Memory Record Player",
-    "description": "UncommonHacks '26 1st Place Winner using both Meta's DINOv2 embedding model and ORB feature matching algorithm.",
+    "description": "UncommonHacks \u002726 1st Place Winner using both Meta\u0027s DINOv2 embedding model and ORB feature matching algorithm.",
     "date": "MAY 2026",
     "cover": {
       "type": "image",
@@ -15,8 +15,8 @@ window.PROJECTS = {
   },
   "mpu6050-ros2": {
     "archived": false,
-    "title": "MPU6050 Motion Controller → ROS2",
-    "description": "[placeholder]",
+    "title": "MPU6050 Gyroscopic Controller",
+    "description": "Translating MPU6050 sensor data from ESP32 into quaternions for motion control using ROS2 middleware and Rviz",
     "date": "2026",
     "cover": {
       "type": "css",
@@ -27,8 +27,8 @@ window.PROJECTS = {
   },
   "sisyphus-table": {
     "archived": false,
-    "title": "Automated SVG Sisyphus Table",
-    "description": "[placeholder]",
+    "title": "Polar CNC Sisyphus Table",
+    "description": "Self-drawing sand table with custom SVG slicer and 2-axis Polar CNC built using 27:1 NEMA17\u0027s, GT2 carriage system, and programmed with Python and C++",
     "date": "MAR 2026 - PRESENT",
     "cover": {
       "type": "image",
@@ -54,7 +54,7 @@ window.PROJECTS = {
   "blast-gate-network": {
     "archived": false,
     "title": "Automated Blast Gate Network",
-    "description": "[placeholder]",
+    "description": "Smart vacuum control system integrated with ID access using IoT sensors, DC actuators, and Nano-Raspberry Pi chain",
     "date": "JAN - MAY 2026",
     "cover": {
       "type": "image",
@@ -82,7 +82,7 @@ window.PROJECTS = {
   "conveyor-system": {
     "archived": false,
     "title": "Conveyor System",
-    "description": "An undisclosed company needs an automatic conveyor system and sorter as they do not have enough workers to have all day coverage of the system.",
+    "description": "Fully defined automatic conveyor PLC project using Studio 5000 and CompactLogix 5380",
     "date": "",
     "type": "RMET-340",
     "cover": {
@@ -96,8 +96,8 @@ window.PROJECTS = {
   },
   "lathe1": {
   "archived": false,
-  "title": "Lathe1",
-  "description": "[placeholder]",
+  "title": "Lathe Automation",
+  "description": "Pick-and-place machining sequence for lathe operation using ABB IRB4600 robotic arm programmed and simulated in RobotStudio",
   "date": "[placeholder]",
   "cover": {
     "type": "image",
