@@ -107,6 +107,6 @@ window.PROJECTS = {
   },
   "hideCover": true,
   "featureHtml": "<video controls playsinline preload=\"metadata\" poster=\"images/latheproject.png\" aria-label=\"Lathe1 RobotStudio demonstration\"><source src=\"videos/Robotstudio.mp4\" type=\"video/mp4\"/><a href=\"videos/Robotstudio.mp4\">Download video</a></video>",
-  "bodyHtml": "<div class=\"modal-section\"><h4>OVERVIEW</h4><p>[placeholder]</p></div>"
+  "bodyHtml": "<div class=\"modal-section\"><h4>OVERVIEW</h4><p>[placeholder]</p></div>\n<div class=\"modal-section\"><h4>LATHE MODULES</h4><figure class=\"modal-figure\"><img src=\"images/lathemodules.png\" alt=\"RobotStudio RAPID modules showing getPart, loadLathe, Main, Path_10, placePallet, and unloadLathe\" loading=\"lazy\" decoding=\"async\" style=\"width: auto; max-width: 100%;\"/></figure></div>"
 }
 };

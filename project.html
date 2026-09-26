@@ -284,16 +284,16 @@ a:focus-visible, button:focus-visible { outline: 2px solid #0057d9; outline-offs
 
   <section class="project-meta">
     <div>
-      <p class="meta-label">PROJECT</p>
-      <p class="meta-value" id="meta-project"></p>
+      <p class="meta-label">SYSTEM</p>
+      <p class="meta-value" id="meta-system">[placeholder]</p>
     </div>
     <div>
-      <p class="meta-label">DATE</p>
-      <p class="meta-value" id="meta-date"></p>
+      <p class="meta-label">TOOLCHAIN</p>
+      <p class="meta-value" id="meta-toolchain">[placeholder]</p>
     </div>
     <div>
-      <p class="meta-label">TYPE</p>
-      <p class="meta-value" id="meta-type">PERSONAL / ENGINEERING</p>
+      <p class="meta-label">ROLE</p>
+      <p class="meta-value" id="meta-role">[placeholder]</p>
     </div>
   </section>
 
@@ -374,9 +374,6 @@ a:focus-visible, button:focus-visible { outline: 2px solid #0057d9; outline-offs
   document.getElementById('project-title').textContent = project.title;
   document.getElementById('project-description').textContent = project.description;
   document.getElementById('project-date').textContent = project.date;
-  document.getElementById('meta-project').textContent = project.title;
-  document.getElementById('meta-type').textContent = project.type || 'PERSONAL / ENGINEERING';
-  document.getElementById('meta-date').textContent = project.date || '—';
 
   const cover = document.getElementById('project-cover');
 
