@@ -245,6 +245,21 @@ a:focus-visible, button:focus-visible { outline: 2px solid #0057d9; outline-offs
   html { scroll-behavior: auto; }
   *, *::before, *::after { transition: none !important; }
 }
+.archive-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; border-top: 1px solid #bdbdbd; padding-top: 28px; }
+.archive-heading { margin: 0 0 14px; font-size: 28px; line-height: 1.15; font-weight: 600; letter-spacing: -.03em; }
+.archive-intro { margin: 0 0 28px; color: #777; }
+.archive-card { min-width: 0; min-height: 560px; overflow: hidden; border: 1px solid #e7e4e0; border-radius: 26px; background: #f2f0ed; }
+.archive-card .project-cover { display: block; margin: 0; aspect-ratio: 4 / 3; border-radius: 0; }
+.archive-card h2 { margin: 0; padding: 26px 26px 0; font-size: clamp(23px, 2vw, 30px); line-height: 1.12; letter-spacing: -.035em; }
+.archive-card h2 a { text-decoration: none; }
+.archive-card h2 a:hover { color: #0057d9; text-decoration: underline; text-underline-offset: 4px; }
+.archive-card p { margin: 0; padding: 18px 26px 28px; color: #242424; }
+.archive-card .project-cover:focus-visible { outline-offset: -4px; }
+.archive-card .art-packe::before, .archive-card .art-packe::after { content: ''; position: absolute; border: 3px solid #111; background: rgba(255,255,255,.12); }
+.archive-card .art-packe::before { width: 86px; height: 64px; left: 18%; bottom: 20%; border-radius: 12px; }
+.archive-card .art-packe::after { width: 58px; height: 58px; right: 16%; top: 18%; border-radius: 50%; }
+@media (max-width: 1100px) { .archive-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 700px) { .archive-grid { grid-template-columns: 1fr; } .archive-card { min-height: 0; } }
 </style>
 </head>
 <body>
@@ -291,6 +306,42 @@ a:focus-visible, button:focus-visible { outline: 2px solid #0057d9; outline-offs
 <script>
 (function () {
   const params = new URLSearchParams(window.location.search);
+  if (/^\/archive\/?$/.test(window.location.pathname) || params.get('view') === 'archive') {
+    document.title = 'Archive — Vincent Lin';
+    const page = document.querySelector('.project-page');
+    page.innerHTML = '<h1 class="archive-heading">ARCHIVE</h1><p class="archive-intro">Past and paused projects.</p><div class="archive-grid"></div>';
+    const grid = page.querySelector('.archive-grid');
+    Object.entries(window.PROJECTS || {}).forEach(([slug, project]) => {
+      if (project.archived !== true) return;
+      const card = document.createElement('article');
+      card.className = 'archive-card';
+      const url = '/projects/' + encodeURIComponent(slug);
+      const cover = document.createElement('a');
+      cover.className = 'project-cover';
+      cover.href = url;
+      cover.setAttribute('aria-label', 'Open ' + project.title);
+      if (project.cover && project.cover.type === 'image') {
+        if (project.cover.contain) cover.classList.add('cover-contain');
+        const img = document.createElement('img');
+        img.src = project.cover.src;
+        img.alt = project.cover.alt || project.title;
+        cover.appendChild(img);
+      } else if (project.cover && project.cover.type === 'css') {
+        cover.classList.add(project.cover.class);
+      }
+      const heading = document.createElement('h2');
+      const link = document.createElement('a');
+      link.href = url;
+      link.textContent = project.title;
+      heading.appendChild(link);
+      const description = document.createElement('p');
+      description.textContent = project.description || '';
+      card.append(cover, heading, description);
+      grid.appendChild(card);
+    });
+    if (!grid.children.length) grid.textContent = 'No archived projects yet.';
+    return;
+  }
   const route = window.location.pathname.match(/^\/projects\/([a-z0-9-]+)\/?$/);
   const slug = route ? route[1] : params.get('project');
   const project = window.PROJECTS && Object.prototype.hasOwnProperty.call(window.PROJECTS, slug)

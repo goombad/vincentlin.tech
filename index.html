@@ -228,6 +228,21 @@ section {
   color: #777;
 }
 
+.archive-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 28px;
+  min-height: 44px;
+  color: #111;
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: none;
+}
+.archive-link svg { width: 22px; height: 22px; flex-shrink: 0; }
+.archive-link:hover { text-decoration: underline; text-underline-offset: 4px; }
+.project-placeholder .project-cover { background: #f4f3f1; }
+.project-placeholder .project-title { color: #777; }
 /* Projects: editorial cards inspired by Radiolab's playful image-led layout. */
 .projects-grid {
   display: grid;
@@ -608,11 +623,10 @@ a:focus-visible, button:focus-visible { outline: 2px solid #0057d9; outline-offs
 <h3 class="project-title"><a class="project-title-link" href="/projects/sisyphus-table">Polar CNC Sisyphus Table</a></h3><p class="project-desc">[placeholder]</p>
 
 </div>
-<!-- 04 -->
-<div class="project-card" data-project="04">
-<a aria-label="Open PACK-E" class="project-cover art-packe project-cover-link" href="/projects/pack-e"></a>
-<h3 class="project-title"><a class="project-title-link" href="/projects/pack-e">PACK-E</a></h3><p class="project-desc">[placeholder]</p>
-
+<!-- 04: Reserved for a new project -->
+<div class="project-card project-placeholder" data-project="04" aria-label="New project coming soon">
+<div class="project-cover" aria-hidden="true"></div>
+<h3 class="project-title">Coming soon</h3>
 </div>
 <!-- 05 -->
 <div class="project-card" data-project="05">
@@ -627,6 +641,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid #0057d9; outline-offs
 
 </div>
 </div>
+<a class="archive-link" href="/archive.html"><svg aria-hidden="true" viewBox="0 0 30 30"><circle cx="15" cy="15" r="15" fill="currentColor"/><path d="M12 8.5 22 15 12 21.5Z" fill="#fff"/></svg>Archive</a>
 </section><section class="experience" id="experience">
 <p class="section-label">EXPERIENCE</p>
 <div class="exp-list">
