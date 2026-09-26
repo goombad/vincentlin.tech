@@ -229,17 +229,16 @@ section {
 }
 
 .archive-link {
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  gap: 8px;
-  margin-top: 28px;
+  width: fit-content;
+  margin: 28px 0 0 auto;
   min-height: 44px;
   color: #111;
   font-size: 16px;
   font-weight: 600;
   text-decoration: none;
 }
-.archive-link svg { width: 22px; height: 22px; flex-shrink: 0; }
 .archive-link:hover { text-decoration: underline; text-underline-offset: 4px; }
 .project-placeholder .project-cover { background: #f4f3f1; }
 .project-placeholder .project-title { color: #777; }
@@ -556,6 +555,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid #0057d9; outline-offs
   .project-card:hover { transform: none; box-shadow: none; }
   .footer-contact a:hover { transform: none; }
 }
+
 </style><script src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.3.1/model-viewer.min.js" type="module"></script></head><body id="top"><header class="nav-backdrop"><nav aria-label="Main navigation"><a class="logo" href="/">V. LIN</a><div class="nav-links"><a href="#projects">PROJECTS</a><a href="#experience">EXPERIENCE</a></div></nav></header><main class="hero-home"><div class="landing-intro">
 <h1 class="landing-name">Vincent Lin</h1>
 <p class="landing-intro-copy">
@@ -614,35 +614,34 @@ a:focus-visible, button:focus-visible { outline: 2px solid #0057d9; outline-offs
 <!-- 02 -->
 <div class="project-card" data-project="02">
 <a aria-label="Open MPU6050 Motion Controller → ROS2" class="project-cover art-imu project-cover-link" href="/projects/mpu6050-ros2"></a>
-<h3 class="project-title"><a class="project-title-link" href="/projects/mpu6050-ros2">MPU6050 Gyroscopic Controller</a></h3><p class="project-desc">[placeholder]</p>
+<h3 class="project-title"><a class="project-title-link" href="/projects/mpu6050-ros2">MPU6050 Gyroscopic Controller</a></h3><p class="project-desc">Translating MPU6050 sensor data from ESP32 into quaternions for motion control using ROS2 middleware and Rviz</p>
 
 </div>
 <!-- 03 -->
 <div class="project-card" data-project="03">
 <a aria-label="Open Automated SVG Sisyphus Table" class="project-cover cover-contain project-cover-link" href="/projects/sisyphus-table"><img alt="Sisyphus table electrical schematic" src="images/sisyphus-schematic.png"/></a>
-<h3 class="project-title"><a class="project-title-link" href="/projects/sisyphus-table">Polar CNC Sisyphus Table</a></h3><p class="project-desc">[placeholder]</p>
+<h3 class="project-title"><a class="project-title-link" href="/projects/sisyphus-table">Polar CNC Sisyphus Table</a></h3><p class="project-desc">Self-drawing sand table with custom SVG slicer and 2-axis Polar CNC built using 27:1 NEMA17's, GT2 carriage system, and programmed with Python and C++</p>
 
 </div>
 <!-- 04 -->
 <div class="project-card" data-project="04">
-<a class="project-cover cover-contain project-cover-link" href="/projects/conveyor-system"><img alt="Figure 1 - Graphic of Conveyor System and Control Panel" src="images/conveyor-system.png"/></a>
+<a class="project-cover project-cover-link" href="/projects/conveyor-system"><img alt="Figure 1 - Graphic of Conveyor System and Control Panel" src="images/conveyor-system.png"/></a>
 <h3 class="project-title"><a class="project-title-link" href="/projects/conveyor-system">Conveyor System</a></h3>
 <p class="project-desc">Fully defined automatic conveyor PLC project using Studio 5000 and CompactLogix 5380</p>
 </div>
 <!-- 05 -->
 <div class="project-card" data-project="05">
 <a aria-label="Open Automated Blast Gate Network" class="project-cover project-cover-link" href="/projects/blast-gate-network"><img alt="Team presenting the Automated Blast Gate Network at Imagine RIT" src="images/imagine rit.jpg"/></a>
-<h3 class="project-title"><a class="project-title-link" href="/projects/blast-gate-network">Automated Blast Gate Network</a></h3><p class="project-desc">[placeholder]</p>
+<h3 class="project-title"><a class="project-title-link" href="/projects/blast-gate-network">Automated Blast Gate Network</a></h3><p class="project-desc">Smart vacuum control system integrated with ID access using IoT sensors, DC actuators, and Nano-Raspberry Pi chain</p>
 
 </div>
 <!-- 06 -->
 <div class="project-card" data-project="06">
-<a aria-label="Open RC Tank &amp; Bluetooth Bridge" class="project-cover project-cover-link" href="/projects/rc-tank-bluetooth"><img alt="RC tank chassis with Arduino Mega and breadboard mounted on tracked base" src="images/PXL_20220126_164438253.jpg"/></a>
-<h3 class="project-title"><a class="project-title-link" href="/projects/rc-tank-bluetooth">RC Tank &amp; Bluetooth Bridge</a></h3><p class="project-desc">[placeholder]</p>
-
+<a aria-label="Open Lathe1" class="project-cover project-cover-link" href="/projects/lathe1"><img alt="Lathe1 robot and lathe simulation" src="images/latheproject.png"/></a>
+<h3 class="project-title"><a class="project-title-link" href="/projects/lathe1">Lathe Automation</a></h3><p class="project-desc">Pick-and-place machining sequence for lathe operation using ABB IRB4600 robotic arm programmed and simulated in RobotStudio</p>
 </div>
 </div>
-<a class="archive-link" href="/project.html?view=archive"><svg aria-hidden="true" viewBox="0 0 30 30"><circle cx="15" cy="15" r="15" fill="currentColor"/><path d="M12 8.5 22 15 12 21.5Z" fill="#fff"/></svg>Archive</a>
+<a class="archive-link" href="/project.html?view=archive">Archive</a>
 </section><section class="experience" id="experience">
 <p class="section-label">EXPERIENCE</p>
 <div class="exp-list">

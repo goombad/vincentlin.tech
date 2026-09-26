@@ -260,6 +260,9 @@ a:focus-visible, button:focus-visible { outline: 2px solid #0057d9; outline-offs
 .archive-card .art-packe::after { width: 58px; height: 58px; right: 16%; top: 18%; border-radius: 50%; }
 @media (max-width: 1100px) { .archive-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 700px) { .archive-grid { grid-template-columns: 1fr; } .archive-card { min-height: 0; } }
+
+.project-cover.cover-full { aspect-ratio: auto; }
+.project-cover.cover-full img { height: auto; padding: 0; object-fit: contain; }
 </style>
 </head>
 <body>
@@ -309,7 +312,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid #0057d9; outline-offs
   if (/^\/archive\/?$/.test(window.location.pathname) || params.get('view') === 'archive') {
     document.title = 'Archive — Vincent Lin';
     const page = document.querySelector('.project-page');
-    page.innerHTML = '<h1 class="archive-heading">ARCHIVE</h1><p class="archive-intro">Past and paused projects.</p><div class="archive-grid"></div>';
+    page.innerHTML = '<h1 class="archive-heading">ARCHIVE</h1><div class="archive-grid"></div>';
     const grid = page.querySelector('.archive-grid');
     Object.entries(window.PROJECTS || {}).forEach(([slug, project]) => {
       if (project.archived !== true) return;
@@ -322,6 +325,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid #0057d9; outline-offs
       cover.setAttribute('aria-label', 'Open ' + project.title);
       if (project.cover && project.cover.type === 'image') {
         if (project.cover.contain) cover.classList.add('cover-contain');
+    if (project.cover.full) cover.classList.add('cover-full');
         const img = document.createElement('img');
         img.src = project.cover.src;
         img.alt = project.cover.alt || project.title;
@@ -376,8 +380,11 @@ a:focus-visible, button:focus-visible { outline: 2px solid #0057d9; outline-offs
 
   const cover = document.getElementById('project-cover');
 
-  if (project.cover.type === 'image') {
+  if (project.hideCover) {
+    cover.style.display = 'none';
+  } else if (project.cover.type === 'image') {
     if (project.cover.contain) cover.classList.add('cover-contain');
+    if (project.cover.full) cover.classList.add('cover-full');
     const img = document.createElement('img');
     img.src = project.cover.src;
     img.alt = project.cover.alt || project.title;
