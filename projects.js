@@ -42,7 +42,7 @@ window.PROJECTS = {
   "pack-e": {
     "archived": true,
     "title": "MSP432 Object Detection Robot",
-    "description": "Computer vision robot running fine-tuned FOMO on ESP32-S3 CAM with TinyML and bare-metal Embedded C on MSP432 using custom peripheral drivers and direct register-level control",
+    "description": "Computer vision robot with local fine-tuned FOMO model built using ESP32-S3 CAM, MSP432 chassis, TFLite Micro, and programmed with bare-metal embedded C",
     "date": "MAR 2026 - PAUSED",
     "cover": {
       "type": "css",
