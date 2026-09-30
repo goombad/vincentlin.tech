@@ -67,8 +67,8 @@ window.PROJECTS = {
   },
   "rc-tank-bluetooth": {
     "archived": true,
-    "title": "RC Tank & Bluetooth Bridge",
-    "description": "[placeholder]",
+    "title": "RC Tank & Bluetooth Controller",
+    "description": "3D-printed RC tank and controller using Autodesk Inventor, Arduino Uno-Mega chain, L239D H-bridge, HC-05 bluetooth, and programmed with Arduino C",
     "date": "AUG 2021 - MAY 2022",
     "cover": {
       "type": "image",
