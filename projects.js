@@ -42,7 +42,7 @@ window.PROJECTS = {
   "pack-e": {
     "archived": true,
     "title": "MSP432 Object Detection Robot",
-    "description": "Computer vision robot with local fine-tuned FOMO model built using ESP32-S3 CAM, MSP432 chassis, TFLite Micro, and programmed with bare-metal embedded C",
+    "description": "Machine vision and navigation robot with fine-tuned FOMO model built using Edge Impulse, ESP32-S3 CAM, MSP432 TI-RSLK, ultrasonic sensors and servos, programmed with embedded C",
     "date": "MAR 2026 - PAUSED",
     "cover": {
       "type": "css",
