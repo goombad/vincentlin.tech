@@ -579,7 +579,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid #0057d9; outline-offs
 </svg>
 </button>
 <div class="hero-cad-media">
-<model-viewer alt="Interactive 3D model of the LoomLogic Camera Workstation" auto-rotate="" auto-rotate-delay="500" camera-controls="" class="hero-cad-viewer" disable-zoom="" environment-image="neutral" exposure="1" id="hero-cad-model" interaction-prompt="none" rotation-per-second="18deg" shadow-intensity="0.8" src="models/Workstation-Assembly.glb" touch-action="pan-y">
+<model-viewer alt="Interactive 3D model of the IoT Sensor PCB" auto-rotate="" auto-rotate-delay="500" camera-controls="" class="hero-cad-viewer" disable-zoom="" environment-image="neutral" exposure="1" id="hero-cad-model" interaction-prompt="none" rotation-per-second="18deg" shadow-intensity="0.8" src="models/iot-sensor-pcb.glb" touch-action="pan-y">
 </model-viewer>
 <img alt="" class="hero-cad-image" id="hero-cad-image" src=""/>
 <video class="hero-cad-video" controls="" id="hero-cad-video" playsinline="" preload="metadata"></video>
@@ -593,9 +593,9 @@ a:focus-visible, button:focus-visible { outline: 2px solid #0057d9; outline-offs
 <div class="hero-cad-footer">
 <div class="hero-cad-info">
 <p class="hero-cad-kicker">
-<span id="hero-cad-tool">SOLIDWORKS</span>
+<span id="hero-cad-tool">ALTIUM</span>
 </p>
-<h2 class="hero-cad-title" id="hero-cad-title">LoomLogic Camera Workstation</h2>
+<h2 class="hero-cad-title" id="hero-cad-title">IoT Sensor PCB</h2>
 </div>
 <div class="hero-cad-controls">
 <p class="hero-cad-hint" id="hero-cad-hint">DRAG TO ORBIT</p>
@@ -716,6 +716,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid #0057d9; outline-offs
 </footer><script>
 (function () {
   const mediaItems = [
+    { type: 'model', src: 'models/iot-sensor-pcb.glb', title: 'IoT Sensor PCB', tool: 'ALTIUM', alt: 'Interactive 3D model of the IoT Sensor PCB' },
     { type: 'image', src: 'images/sisyphus%20table%20mechanical.png', title: 'Sisyphus Table Mechanical Design', tool: 'MECHANICAL', alt: 'Mechanical design of the Sisyphus table' },
     { type: 'model', src: 'models/Workstation-Assembly.glb', title: 'LoomLogic Camera Workstation', tool: 'SOLIDWORKS', alt: 'Interactive 3D model of the LoomLogic Camera Workstation' },
     { type: 'image', src: 'images/LoomLogic%20workstation.jpg', title: 'LoomLogic Camera Workstation', tool: 'PHOTO', alt: 'Assembled LoomLogic workstation with aluminum frame, camera, and light bar' },
@@ -740,8 +741,6 @@ a:focus-visible, button:focus-visible { outline: 2px solid #0057d9; outline-offs
 
     { type: 'video', src: 'videos/MPU6050ROS.mp4', title: 'MPU6050 Motion Controller → ROS2', tool: 'VIDEO', alt: 'MPU6050 motion controller communicating with ROS2' },
 
-    { type: 'model', src: 'models/iot-sensor-pcb.glb', title: 'IoT Sensor PCB', tool: 'ALTIUM', alt: 'Interactive 3D model of the IoT Sensor PCB' },
-    { type: 'model', src: 'models/IoT_Sensor_PCB.glb', title: 'IoT Sensor PCB (SolidWorks Export)', tool: 'SOLIDWORKS', alt: 'Interactive 3D model of the IoT Sensor PCB exported by SolidWorks' },
     { type: 'image', src: 'images/pcb%20design.png', title: 'PCB Design', tool: 'ALTIUM', alt: 'PCB design view' },
     { type: 'image', src: 'images/pcbdesign2.png', title: 'PCB Design', tool: 'ALTIUM', alt: 'Additional PCB design view' },
     { type: 'image', src: 'images/pcbdesign3.png', title: 'PCB Design', tool: 'ALTIUM', alt: 'Additional PCB design view' },
